@@ -1,5 +1,8 @@
 import { useLocation } from "react-router";
+import { useState } from "react";
+
 import Logo from "./logo";
+import AdminButton from "./AdminButton";
 
 const headings = {
   dashboard: "Dashboard",
@@ -11,6 +14,7 @@ const headings = {
 function Header() {
   const heading =
     headings[useLocation().pathname.split("/")[1]] || "Halaman Tidak Dikenal";
+  const [isActive, setIsActive] = useState(false);
 
   return (
     <header className="border-netral-400 bg-netral-100 col-span-full grid grid-cols-[17rem_1fr] border-b-2">
@@ -18,10 +22,12 @@ function Header() {
         <Logo />
       </div>
 
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="relative flex items-center justify-between px-6 py-4">
         <p className="text-2xl font-semibold">{heading}</p>
-        <button className="border-netral-400 flex cursor-pointer items-center justify-between gap-4 rounded-lg border-2 px-4 py-2">
-          <div className="flex items-center gap-2">
+        <AdminButton
+          isActive={isActive}
+          setIsActive={setIsActive}
+          iconText={
             <svg
               width="16"
               height="16"
@@ -34,9 +40,22 @@ function Header() {
                 fill="currentColor"
               />
             </svg>
-            <p>Admin</p>
-          </div>
-          <div>
+          }
+          iconActive={
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.64622 9.64621L7.64622 4.64622C7.69265 4.59973 7.7478 4.56285 7.8085 4.53769C7.8692 4.51252 7.93426 4.49957 7.99997 4.49957C8.06567 4.49957 8.13074 4.51252 8.19144 4.53769C8.25214 4.56285 8.30728 4.59973 8.35372 4.64622L13.3537 9.64622C13.4475 9.74004 13.5002 9.86728 13.5002 9.99997C13.5002 10.1326 13.4475 10.2599 13.3537 10.3537C13.2599 10.4475 13.1326 10.5002 13 10.5002C12.8673 10.5002 12.74 10.4475 12.6462 10.3537L7.99997 5.70684L3.35372 10.3537C3.30726 10.4002 3.25211 10.437 3.19141 10.4622C3.13072 10.4873 3.06566 10.5002 2.99997 10.5002C2.93427 10.5002 2.86921 10.4873 2.80852 10.4622C2.74782 10.437 2.69267 10.4002 2.64622 10.3537C2.59976 10.3073 2.56291 10.2521 2.53777 10.1914C2.51263 10.1307 2.49969 10.0657 2.49969 9.99997C2.49969 9.93427 2.51263 9.86921 2.53777 9.80852C2.56291 9.74782 2.59976 9.69267 2.64622 9.64621Z"
+                fill="currentColor"
+              />
+            </svg>
+          }
+          iconPasif={
             <svg
               width="16"
               height="16"
@@ -49,9 +68,29 @@ function Header() {
                 fill="currentColor"
               />
             </svg>
-          </div>
-        </button>
+          }
+          text="Admin"
+        />
       </div>
+      {isActive && (
+        <button className="border-acent-red bg-acent-red/10 text-acent-red hover:bg-acent-red absolute top-18 right-6 flex cursor-pointer items-center justify-between gap-4 rounded-lg border-2 px-4 py-2 hover:border-white hover:text-white">
+          <span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.5 13.5C7.5 13.6326 7.44732 13.7598 7.35355 13.8536C7.25979 13.9473 7.13261 14 7 14H3C2.86739 14 2.74021 13.9473 2.64645 13.8536C2.55268 13.7598 2.5 13.6326 2.5 13.5V2.5C2.5 2.36739 2.55268 2.24021 2.64645 2.14645C2.74021 2.05268 2.86739 2 3 2H7C7.13261 2 7.25979 2.05268 7.35355 2.14645C7.44732 2.24021 7.5 2.36739 7.5 2.5C7.5 2.63261 7.44732 2.75979 7.35355 2.85355C7.25979 2.94732 7.13261 3 7 3H3.5V13H7C7.13261 13 7.25979 13.0527 7.35355 13.1464C7.44732 13.2402 7.5 13.3674 7.5 13.5ZM14.3538 7.64625L11.8538 5.14625C11.7599 5.05243 11.6327 4.99972 11.5 4.99972C11.3673 4.99972 11.2401 5.05243 11.1462 5.14625C11.0524 5.24007 10.9997 5.36732 10.9997 5.5C10.9997 5.63268 11.0524 5.75993 11.1462 5.85375L12.7931 7.5H7C6.86739 7.5 6.74021 7.55268 6.64645 7.64645C6.55268 7.74021 6.5 7.86739 6.5 8C6.5 8.13261 6.55268 8.25979 6.64645 8.35355C6.74021 8.44732 6.86739 8.5 7 8.5H12.7931L11.1462 10.1462C11.0524 10.2401 10.9997 10.3673 10.9997 10.5C10.9997 10.6327 11.0524 10.7599 11.1462 10.8538C11.2401 10.9476 11.3673 11.0003 11.5 11.0003C11.6327 11.0003 11.7599 10.9476 11.8538 10.8538L14.3538 8.35375C14.4002 8.30731 14.4371 8.25217 14.4623 8.19147C14.4874 8.13077 14.5004 8.06571 14.5004 8C14.5004 7.93429 14.4874 7.86923 14.4623 7.80853C14.4371 7.74783 14.4002 7.69269 14.3538 7.64625Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span className="font-semibold">Logout</span>
+        </button>
+      )}
     </header>
   );
 }
