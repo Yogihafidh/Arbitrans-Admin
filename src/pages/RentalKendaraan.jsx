@@ -1,5 +1,11 @@
+import KendaraanTableOperation from "../features/kendaraan/KendaraanTableOperation";
+
 function RentalKendaraan() {
-  return <div>Rental Kendaraan</div>;
+  return (
+    <div>
+      <KendaraanTableOperation />
+    </div>
+  );
 }
 
 export default RentalKendaraan;

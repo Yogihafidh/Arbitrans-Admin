@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useClickOutside } from "../hook/useClikOutside";
 
-function DropdownButton({
+function ButtonDropdown({
   iconText,
   iconActive,
   iconPasif,
@@ -38,4 +38,4 @@ function DropdownButton({
   );
 }
 
-export default DropdownButton;
+export default ButtonDropdown;
