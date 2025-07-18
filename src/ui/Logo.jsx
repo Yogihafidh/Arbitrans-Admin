@@ -1,9 +1,5 @@
 function Logo() {
-  return (
-    <div>
-      <img src="../../public/Logo-text.png" alt="Gorent Logo" />
-    </div>
-  );
+  return <img src="../../public/Logo-text.png" alt="Gorent Logo" />;
 }
 
 export default Logo;

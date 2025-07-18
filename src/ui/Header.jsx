@@ -14,7 +14,7 @@ function Header() {
 
   return (
     <header className="border-netral-400 bg-netral-100 col-span-full grid grid-cols-[17rem_1fr] border-b-2">
-      <div className="border-netral-400 border-r-2 px-6 py-4">
+      <div className="border-netral-400 flex items-center border-r-2 px-6 py-4">
         <Logo />
       </div>
 
