@@ -1,11 +1,11 @@
+import KendaraanCard from "../features/kendaraan/KendaraanCard";
 import KendaraanTableOperation from "../features/kendaraan/KendaraanTableOperation";
-import Modal from "../ui/Modal";
 
 function RentalKendaraan() {
   return (
-    <div>
+    <div className="flex flex-col gap-10">
       <KendaraanTableOperation />
-      
+      <KendaraanCard />
     </div>
   );
 }

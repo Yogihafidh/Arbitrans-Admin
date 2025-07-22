@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 
 function Sidebar() {
   return (
-    <nav className="border-netral-400 bg-netral-100 flex flex-col gap-2 border-r-2 px-4 py-4">
+    <nav className="border-netral-400 bg-netral-100 row-span-2 flex flex-col gap-2 border-r-2 px-4 py-4">
       <p className="text-netral-600 text-sm font-semibold">Menu</p>
       <ul className="flex flex-col gap-2">
         <NavList

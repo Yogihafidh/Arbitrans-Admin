@@ -32,7 +32,7 @@ function KendaraanTableOperation() {
           <Modal.Open opens="kendaraan-form">
             <Button
               text="Tambah Kendaraan"
-              className="bg-primary text-netral-100 border-primary hover:bg-primary/10 hover:text-primary"
+              type="primary"
               leftIcon={
                 <svg
                   width="24"
@@ -87,7 +87,7 @@ function KendaraanTableOperation() {
           text="Filter"
         >
           <Filter
-            className="absolute top-14 right-0.5"
+            className="absolute top-14 right-0.5 z-50 bg-white"
             type="list"
             options={[
               {

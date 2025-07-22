@@ -2,6 +2,7 @@ import { useLocation } from "react-router";
 
 import Logo from "./logo";
 import ButtonDropdown from "./ButtonDropdown";
+import Button from "./Button";
 
 const headings = {
   dashboard: "Dashboard",
@@ -69,8 +70,9 @@ function Header() {
           }
           text="Admin"
         >
-          <button className="border-acent-red bg-acent-red/20 text-acent-red hover:bg-acent-red absolute top-14 right-4 z-30 flex cursor-pointer items-center justify-between gap-4 rounded-lg border-2 px-4 py-2 hover:border-white hover:text-white">
-            <span>
+          <Button
+            text="Logout"
+            leftIcon={
               <svg
                 width="16"
                 height="16"
@@ -83,9 +85,10 @@ function Header() {
                   fill="currentColor"
                 />
               </svg>
-            </span>
-            <span className="font-semibold">Logout</span>
-          </button>
+            }
+            type="logout"
+            className="absolute top-14 right-4 z-30 cursor-pointer font-semibold"
+          />
         </ButtonDropdown>
       </div>
     </header>
