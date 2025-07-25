@@ -1,4 +1,15 @@
+import { memo } from "react";
+import { useSearchParams } from "react-router";
+
 function Filter({ options, type, className = "" }) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentStatus = searchParams.get("status") || options?.[0]?.value;
+
+  function handleFilterChange(value) {
+    searchParams.set("status", value);
+    setSearchParams(searchParams);
+  }
+
   if (type === "button-filter")
     return (
       <div
@@ -22,8 +33,11 @@ function Filter({ options, type, className = "" }) {
       >
         {options?.map((option) => (
           <li
-            className="hover:bg-netral-200 cursor-pointer rounded-md px-6 py-2"
+            className={`hover:bg-netral-200 cursor-pointer rounded-md px-6 py-2 ${
+              currentStatus === option.value ? "bg-gray-200 font-semibold" : ""
+            }`}
             key={option.value}
+            onClick={() => handleFilterChange(option.value)}
           >
             {option.label}
           </li>
@@ -32,4 +46,4 @@ function Filter({ options, type, className = "" }) {
     );
 }
 
-export default Filter;
+export default memo(Filter);

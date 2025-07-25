@@ -1,11 +1,13 @@
 import supabase from "./Supabase";
 
-export async function getRentalKendaraan() {
+export async function getRentalKendaraan(filter) {
   const query = supabase
     .from("booking")
     .select(
-      "nama_pelanggan, tanggal_mulai, tanggal_akhir, kendaraan(nama_kendaraan, status_kendaraan, harga_sewa, imageKendaraan(url_gambar))",
+      "id, nama_pelanggan, tanggal_mulai, tanggal_akhir, kendaraan!inner(id, nama_kendaraan, status_kendaraan, harga_sewa, imageKendaraan(url_gambar))",
     );
+
+  if (filter) query.eq(filter.field, filter.value);
 
   const { data, error } = await query;
   if (error) {

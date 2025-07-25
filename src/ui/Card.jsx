@@ -9,17 +9,14 @@ const status = {
 };
 
 function Card({ booking }) {
-  console.log(status[booking.kendaraan.status_kendaraan]);
-  console.log(booking);
-
+  const statusKendaraan = booking?.kendaraan?.status_kendaraan;
   const isBooking =
-    booking.kendaraan.status_kendaraan === "Pending" ||
-    booking.kendaraan.status_kendaraan === "Disewa";
+    statusKendaraan === "Pending" || statusKendaraan === "Disewa";
 
   const totalHarga = isBooking
-    ? booking.kendaraan.harga_sewa *
+    ? booking?.kendaraan?.harga_sewa *
       differenceInCalendarDays(booking.tanggal_akhir, booking.tanggal_mulai)
-    : booking.kendaraan.harga_sewa;
+    : booking?.kendaraan?.harga_sewa;
 
   return (
     <div className="border-netral-300 rounded-2xl border p-4">
@@ -32,13 +29,13 @@ function Card({ booking }) {
           }
         />
         <span
-          className={`absolute top-4 right-4 rounded-lg border-2 px-3 py-1 text-sm ${status[booking.kendaraan.status_kendaraan]}`}
+          className={`absolute top-4 right-4 rounded-lg border-2 px-3 py-1 text-sm ${status[statusKendaraan]}`}
         >
-          {booking.kendaraan.status_kendaraan}
+          {statusKendaraan}
         </span>
       </div>
       <div className="flex flex-col gap-3 pt-4">
-        <p className="font-semibold">{booking.kendaraan.nama_kendaraan}</p>
+        <p className="font-semibold">{booking?.kendaraan?.nama_kendaraan}</p>
         <p className="text-netral-700 text-sm">{booking.nama_pelanggan}</p>
         {!isBooking && (
           <p className="text-netral-700 text-sm">{convertRupiah(totalHarga)}</p>

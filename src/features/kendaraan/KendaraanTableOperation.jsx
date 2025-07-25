@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router";
 import Button from "../../ui/Button";
 import ButtonDropdown from "../../ui/ButtonDropdown";
 import Filter from "../../ui/Filter";
@@ -6,6 +7,9 @@ import Modal from "../../ui/Modal";
 import CreateKendaraanForm from "./CreateKendaraanForm";
 
 function KendaraanTableOperation() {
+  const [searchparams] = useSearchParams();
+  const status = searchparams.get("status") || "Tersedia";
+
   return (
     <div className="flex items-center justify-between">
       <div className="w-1/4">
@@ -55,6 +59,7 @@ function KendaraanTableOperation() {
         </Modal>
 
         <ButtonDropdown
+          text={status}
           buttonName="filter-status"
           iconActive={
             <svg
@@ -84,7 +89,6 @@ function KendaraanTableOperation() {
               />
             </svg>
           }
-          text="Filter"
         >
           <Filter
             className="absolute top-14 right-0.5 z-50 bg-white"
@@ -92,19 +96,15 @@ function KendaraanTableOperation() {
             options={[
               {
                 label: "Tersedia",
-                value: "tersedia",
+                value: "Tersedia",
               },
               {
                 label: "Disewa",
-                value: "disewa",
+                value: "Disewa",
               },
               {
-                label: "Panding",
-                value: "panding",
-              },
-              {
-                label: "Dalam Perawatan",
-                value: "perawatan",
+                label: "Pending",
+                value: "Pending",
               },
             ]}
           />

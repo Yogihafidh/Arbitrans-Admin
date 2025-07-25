@@ -5,7 +5,6 @@ import Overlay from "./Overlay";
 const ModalContext = createContext();
 function Modal({ children }) {
   const [openName, setOpenName] = useState("");
-  console.log(openName);
 
   const close = () => setOpenName("");
   const open = setOpenName;
@@ -19,7 +18,6 @@ function Modal({ children }) {
 
 function Open({ opens: opensWindowName, children }) {
   const { open } = useContext(ModalContext);
-  console.log(opensWindowName);
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
