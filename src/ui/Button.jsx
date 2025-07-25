@@ -16,12 +16,12 @@ function Button({
 }) {
   return (
     <button
-      className={`flex cursor-pointer items-center justify-between gap-2 rounded-lg border-2 px-4 py-2 ${buttonType[type] || buttonType["primary"]} ${className} `}
+      className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-4 py-2 ${buttonType[type] || buttonType["primary"]} ${className} `}
       {...props}
     >
-      <span>{leftIcon && leftIcon}</span>
-      <p>{text}</p>
-      <span>{rightIcon && rightIcon}</span>
+      {leftIcon && <span>{leftIcon}</span>}
+      {text && <p>{text}</p>}
+      {rightIcon && <span>{rightIcon && rightIcon}</span>}
     </button>
   );
 }

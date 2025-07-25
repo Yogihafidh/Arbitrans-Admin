@@ -5,3 +5,7 @@ export function convertRupiah(nominal) {
     minimumFractionDigits: 0,
   }).format(nominal);
 }
+
+export function convertDateFormat(date) {
+  return String(date).replaceAll("-", "/");
+}

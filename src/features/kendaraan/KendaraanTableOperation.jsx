@@ -99,6 +99,10 @@ function KendaraanTableOperation() {
                 value: "disewa",
               },
               {
+                label: "Panding",
+                value: "panding",
+              },
+              {
                 label: "Dalam Perawatan",
                 value: "perawatan",
               },
