@@ -1,5 +1,5 @@
-import { useMemo, useRef, useState } from "react";
-import { useClickOutside } from "../hook/useClikOutside";
+import { memo, useRef, useState } from "react";
+// import { useClickOutside } from "../hook/useClikOutside";
 
 function ButtonDropdown({
   iconText,
@@ -14,10 +14,8 @@ function ButtonDropdown({
 
   console.log(isOpen);
 
-  useClickOutside(containerRef, () => setIsOpen(false));
+  // useClickOutside(containerRef, () => setIsOpen(false));
   const handleClick = () => setIsOpen((prev) => !prev);
-  
-  const memoizedChildren = useMemo(() => children, [children]);
 
   return (
     <div ref={containerRef} className={`relative inline-block ${className}`}>
@@ -36,9 +34,9 @@ function ButtonDropdown({
         </div>
       </button>
 
-      {isOpen && memoizedChildren}
+      {isOpen && children}
     </div>
   );
 }
 
-export default ButtonDropdown;
+export default memo(ButtonDropdown);

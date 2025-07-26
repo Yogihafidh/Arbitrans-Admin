@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { useSearchParams } from "react-router";
 
 function Filter({ options, type, className = "" }) {
@@ -46,4 +45,4 @@ function Filter({ options, type, className = "" }) {
     );
 }
 
-export default memo(Filter);
+export default Filter;

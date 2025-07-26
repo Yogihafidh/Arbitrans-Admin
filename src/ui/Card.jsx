@@ -29,7 +29,7 @@ function Card({ booking }) {
           }
         />
         <span
-          className={`absolute top-4 right-4 rounded-lg border-2 px-3 py-1 text-sm ${status[statusKendaraan]}`}
+          className={`bl absolute top-4 right-4 rounded-lg border-2 px-3 py-1 text-sm backdrop-blur-sm ${status[statusKendaraan]}`}
         >
           {statusKendaraan}
         </span>
