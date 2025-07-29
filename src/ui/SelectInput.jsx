@@ -7,6 +7,7 @@ function SelectInput({
   value,
   onChange,
   placeholder,
+  ...props
 }) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -21,6 +22,7 @@ function SelectInput({
       {icon && <span>{icon}</span>}
 
       <select
+        {...props}
         value={value}
         onChange={onChange}
         onFocus={() => setIsFocused(true)}

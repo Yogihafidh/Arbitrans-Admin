@@ -1,4 +1,4 @@
-function TextArea({ icon, placeholder, inputType, rows = 4 }) {
+function TextArea({ icon, placeholder, inputType, rows = 4, ...props }) {
   return (
     <div
       className={`border-netral-400 flex w-full gap-2 rounded-lg border-2 px-4 py-2 ${
@@ -9,6 +9,7 @@ function TextArea({ icon, placeholder, inputType, rows = 4 }) {
     >
       {icon && <span>{icon}</span>}
       <textarea
+        {...props}
         placeholder={placeholder}
         rows={rows}
         className={`placeholder:text-netral-600 w-full resize-none border-none bg-transparent font-medium outline-none placeholder:text-sm ${

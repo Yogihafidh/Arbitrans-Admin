@@ -19,3 +19,21 @@ export async function getRentalKendaraan(filter) {
 
   return data;
 }
+
+export async function getKendaraan() {
+  const query = supabase
+    .from("kendaraan")
+    .select(
+      "id, nama_kendaraan, status_kendaraan, harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar)",
+    );
+
+  const { data, error } = await query;
+  if (error) {
+    console.error(error);
+    throw new Error(
+      "Data kendaraan tidak bisa diambil. Coba beberapa menit lagi!.",
+    );
+  }
+
+  return data;
+}

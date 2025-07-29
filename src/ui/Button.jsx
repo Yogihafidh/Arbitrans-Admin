@@ -7,6 +7,7 @@ const buttonType = {
 };
 
 function Button({
+  onClick,
   leftIcon,
   rightIcon,
   text,
@@ -16,6 +17,7 @@ function Button({
 }) {
   return (
     <button
+      onClick={onClick}
       className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-4 py-2 ${buttonType[type] || buttonType["primary"]} ${className} `}
       {...props}
     >

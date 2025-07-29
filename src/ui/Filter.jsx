@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router";
 
-function Filter({ options, type, className = "" }) {
+function Filter({ options, type, className = "", setIsOpen }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentStatus = searchParams.get("status") || options?.[0]?.value;
 
@@ -36,7 +36,10 @@ function Filter({ options, type, className = "" }) {
               currentStatus === option.value ? "bg-gray-200 font-semibold" : ""
             }`}
             key={option.value}
-            onClick={() => handleFilterChange(option.value)}
+            onClick={() => {
+              handleFilterChange(option.value);
+              setIsOpen(false);
+            }}
           >
             {option.label}
           </li>

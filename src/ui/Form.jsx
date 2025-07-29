@@ -1,15 +1,14 @@
-import { createContext } from "react";
 import ButtonIcon from "./ButtonIcon";
+import { useFormContext } from "react-hook-form";
 
-const FormContext = createContext();
-
-function Form({ children }) {
+function Form({ children, onSubmit }) {
   return (
-    <FormContext.Provider value={""}>
-      <form className="h-[90vh] max-h-[95vh] overflow-y-auto rounded-2xl bg-white py-6 shadow-md">
-        {children}
-      </form>
-    </FormContext.Provider>
+    <form
+      onSubmit={onSubmit}
+      className="h-[90vh] max-h-[95vh] overflow-y-auto rounded-2xl bg-white py-6 shadow-md"
+    >
+      {children}
+    </form>
   );
 }
 
@@ -38,18 +37,23 @@ function FormHeader({ formName, onClose }) {
   );
 }
 
-function FormRow({ label, error, children }) {
+function FormRow({ label, name, children }) {
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  const error = errors[name]?.message;
+
   return (
     <div className="mb-4 flex flex-col gap-1">
       {label && (
-        <label
-          className="text-netral-900 text-sm font-medium"
-          htmlFor={children.props.id}
-        >
+        <label className="text-netral-900 text-sm font-medium" htmlFor={name}>
           {label}
         </label>
       )}
+
       {children}
+
       {error && <span className="text-acent-red text-sm">{error}</span>}
     </div>
   );

@@ -1,5 +1,5 @@
-import { memo, useRef, useState } from "react";
-// import { useClickOutside } from "../hook/useClikOutside";
+import { cloneElement, memo, useRef, useState } from "react";
+import { useClickOutside } from "../hook/useClikOutside";
 
 function ButtonDropdown({
   iconText,
@@ -11,16 +11,14 @@ function ButtonDropdown({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef(null);
-
   console.log(isOpen);
 
-  // useClickOutside(containerRef, () => setIsOpen(false));
-  const handleClick = () => setIsOpen((prev) => !prev);
+  useClickOutside(containerRef, () => setIsOpen(false), isOpen);
 
   return (
     <div ref={containerRef} className={`relative inline-block ${className}`}>
       <button
-        onClick={handleClick}
+        onClick={() => setIsOpen((prev) => !prev)}
         className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border-2 px-4 py-2 ${
           isOpen ? "border-netral-600" : "border-netral-400"
         }`}
@@ -34,7 +32,7 @@ function ButtonDropdown({
         </div>
       </button>
 
-      {isOpen && children}
+      {isOpen && cloneElement(children, { setIsOpen })}
     </div>
   );
 }

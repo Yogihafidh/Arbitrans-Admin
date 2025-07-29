@@ -8,57 +8,64 @@ const status = {
   Pending: "bg-acent-orange/10 border-acent-orange text-acent-orange",
 };
 
-function Card({ booking }) {
-  const statusKendaraan = booking?.kendaraan?.status_kendaraan;
-  const isBooking =
-    statusKendaraan === "Pending" || statusKendaraan === "Disewa";
-
-  const totalHarga = isBooking
-    ? booking?.kendaraan?.harga_sewa *
-      differenceInCalendarDays(booking.tanggal_akhir, booking.tanggal_mulai)
-    : booking?.kendaraan?.harga_sewa;
+function Card({ data }) {
+  const isRental = data.statusKendaraan === "Tersedia";
+  console.log(isRental);
+  const totalHarga = isRental
+    ? data.hargaSewa
+    : data.hargaSewa *
+      differenceInCalendarDays(data?.tanggalAkhir, data?.tanggalMulai);
 
   return (
     <div className="border-netral-300 rounded-2xl border p-4">
       <div className="relative w-full">
         <img
-          className={`h-[240px] w-full ${booking?.kendaraan?.imageKendaraan?.[0]?.url_gambar ? "object-cover" : ""}`}
+          alt={data.namaKendaraan}
+          className={`h-[240px] w-full rounded-lg ${data.imageKendaraan?.[0]?.url_gambar ? "object-cover" : ""}`}
           src={
-            booking?.kendaraan?.imageKendaraan?.[0]?.url_gambar ||
+            data.imageKendaraan?.[0]?.url_gambar ||
             "../../public/defaultImage.jpg"
           }
         />
         <span
-          className={`bl absolute top-4 right-4 rounded-lg border-2 px-3 py-1 text-sm backdrop-blur-sm ${status[statusKendaraan]}`}
+          className={`bl absolute top-4 right-4 rounded-lg border-2 bg-white/30 px-3 py-1 text-sm backdrop-blur-sm ${status[data.statusKendaraan]}`}
         >
-          {statusKendaraan}
+          {data.statusKendaraan}
         </span>
       </div>
+
       <div className="flex flex-col gap-3 pt-4">
-        <p className="font-semibold">{booking?.kendaraan?.nama_kendaraan}</p>
-        <p className="text-netral-700 text-sm">{booking.nama_pelanggan}</p>
-        {!isBooking && (
-          <p className="text-netral-700 text-sm">{convertRupiah(totalHarga)}</p>
+        <p className="font-semibold">{data.namaKendaraan}</p>
+
+        {isRental && (
+          <>
+            <p className="text-netral-700 text-sm">{data.tipeKendaraan}</p>
+            <p className="text-netral-700 text-sm">
+              {convertRupiah(totalHarga)}
+            </p>
+          </>
         )}
 
-        {isBooking && (
-          <p className="text-netral-700 text-sm">
-            {convertDateFormat(booking.tanggal_mulai)} -{" "}
-            {convertDateFormat(booking.tanggal_mulai)}
-          </p>
+        {!isRental && (
+          <>
+            <p className="text-netral-700 text-sm">{data.namaPelanggan}</p>
+            <p className="text-netral-700 text-sm">
+              {convertDateFormat(data?.tanggalMulai)} -{" "}
+              {convertDateFormat(data?.tanggalAkhir)}
+            </p>
+          </>
         )}
+
         <div className="flex gap-2">
           <Button
             type="primary"
-            text={isBooking ? "Ubah Status" : "Ubah Detail"}
+            text={isRental ? "Ubah Detail" : "Ubah Status"}
             className="w-full"
           />
           <Button
             type="logout"
             leftIcon={
-              isBooking ? (
-                ""
-              ) : (
+              isRental ? (
                 <svg
                   width="18"
                   height="20"
@@ -71,9 +78,11 @@ function Card({ booking }) {
                     fill="currentColor"
                   />
                 </svg>
+              ) : (
+                ""
               )
             }
-            text={isBooking ? "Batal" : null}
+            text={isRental ? null : "Batal"}
             className="bg-acent-red/10 border-none"
           />
         </div>
