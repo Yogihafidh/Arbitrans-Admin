@@ -1,10 +1,11 @@
 const buttonType = {
   primary:
     "bg-primary text-netral-100 border-primary hover:bg-primary/10 hover:text-primary",
-  secondary: "bg-primary/10 text-primary hover:bg-primary/30",
+  secondary: "bg-primary/10 text-primary hover:bg-primary/30 border-none",
   logout:
     "border-acent-red bg-acent-red-100 text-acent-red hover:bg-acent-red hover:border-white hover:text-white border-2",
-  delete: "bg-acent-red-100 text-acent-red hover:bg-acent-red hover:text-white",
+  delete:
+    "bg-acent-red/10 text-acent-red hover:bg-acent-red hover:text-white border-none",
 };
 
 function Button({

@@ -1,7 +1,8 @@
 import { differenceInCalendarDays } from "date-fns";
-import Button from "./Button";
-import { convertDateFormat, convertRupiah } from "../utils/helper";
 import { useDeleteKendaraan } from "../features/kendaraan/useDeleteKendaraan";
+import { convertDateFormat, convertRupiah } from "../utils/helper";
+import KendaraanForm from "../features/kendaraan/KendaraanForm";
+import Button from "./Button";
 import Modal from "./Modal";
 import Message from "./Message";
 
@@ -69,7 +70,7 @@ function Card({ data }) {
               />
             </Modal.Open>
             <Modal.Window name="edit">
-              
+              <KendaraanForm />
             </Modal.Window>
 
             <Modal.Open opens="delete">

@@ -253,10 +253,10 @@ function KendaraanForm({ onCloseModal }) {
           <Button
             disabled={isCreating}
             type="secondary"
-            text="Riset"
+            text="Batal"
             onClick={() => reset()}
           />
-          <Button text="Masuk" disabled={isCreating} typeButton="submit" />
+          <Button text="Simpan" disabled={isCreating} typeButton="submit" />
         </Form.Footer>
       </Form>
     </FormProvider>
