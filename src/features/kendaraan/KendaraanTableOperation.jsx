@@ -6,10 +6,10 @@ import ButtonDropdown from "../../ui/ButtonDropdown";
 import Filter from "../../ui/Filter";
 import Modal from "../../ui/Modal";
 import InputSearch from "../../ui/InputSearch";
-import KendaraanForm from "./CreateKendaraanForm";
+import KendaraanForm from "./KendaraanForm";
 
 function KendaraanTableOperation() {
-  // Optimaziation: useMemo to avoid re-creating icons on every render
+  // useMemo to avoid re-creating icons on every render
   const iconActive = useMemo(
     () => (
       <svg

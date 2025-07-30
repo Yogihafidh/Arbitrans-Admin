@@ -35,7 +35,7 @@ function Input({
         value={isCurrency ? localValue : value}
         onChange={handleChange}
         placeholder={placeholder}
-        className={`placeholder:text-netral-600 w-60 border-none bg-transparent font-medium outline-none placeholder:text-sm ${inputClass}`}
+        className={`placeholder:text-netral-600 w-80 border-none bg-transparent font-medium outline-none placeholder:text-sm ${inputClass}`}
       />
     </div>
   );
