@@ -96,22 +96,29 @@ export async function deleteKendaraan(id) {
   );
 
   // 3. Delete file gamabr kendaraan dari bucket
-  const { error: storageError } = await supabase.storage
-    .from("kendaraan")
-    .remove(imageNames);
-  if (storageError) {
-    console.error("Gagal menghapus gambar dari storage: ", storageError);
-    throw new Error("Gagal menghapus gambar dari penyimpanan");
+  if (imageNames.length > 0) {
+    const { error: storageError } = await supabase.storage
+      .from("kendaraan")
+      .remove(imageNames);
+    if (storageError) {
+      console.error("Gagal menghapus gambar dari storage: ", storageError);
+      throw new Error("Gagal menghapus gambar dari penyimpanan");
+    }
   }
 
-  // 4. Delete Image Kendaraan data
-  const { error: imageDeleteError } = await supabase
-    .from("imageKendaraan")
-    .delete()
-    .eq("id_kendaraan", id);
-  if (imageDeleteError) {
-    console.error("Gagal menghapus data gambar kendaraan: ", imageDeleteError);
-    throw new Error("Gagal menghapus data gambar kendaraan");
+  // 4. Hapus darta dari tabel imageKendaraan
+  if (imageNames.length > 0) {
+    const { error: imageDeleteError } = await supabase
+      .from("imageKendaraan")
+      .delete()
+      .eq("id_kendaraan", id);
+    if (imageDeleteError) {
+      console.error(
+        "Gagal menghapus data gambar kendaraan: ",
+        imageDeleteError,
+      );
+      throw new Error("Gagal menghapus data gambar kendaraan");
+    }
   }
 
   // 5. Hapus data dari tabel kendaraan
