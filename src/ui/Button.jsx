@@ -14,11 +14,13 @@ function Button({
   rightIcon,
   text,
   type = "primary",
+  typeButton = "button",
   className,
   ...props
 }) {
   return (
     <button
+      type={typeButton}
       disabled={disabled}
       onClick={onClick}
       className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-4 py-2 ${buttonType[type] || buttonType["primary"]} ${className} `}

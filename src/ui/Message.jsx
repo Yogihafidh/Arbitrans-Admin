@@ -32,10 +32,15 @@ function Message({ heading, message, id, disabled, onDelete, onCloseModal }) {
           type="delete"
           onClick={() => {
             onDelete(id);
-            onCloseModal();
+            onCloseModal?.();
           }}
         />
-        <Button disabled={disabled} text="Tidak" type="primary" />
+        <Button
+          disabled={disabled}
+          text="Tidak"
+          type="primary"
+          onClick={() => onCloseModal?.()}
+        />
       </div>
     </div>
   );

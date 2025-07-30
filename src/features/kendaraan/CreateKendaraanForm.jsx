@@ -36,7 +36,10 @@ function CreateKendaraanForm({ onCloseModal }) {
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* HEADER FORM */}
-        <Form.Header formName="Detail Kendaraan" />
+        <Form.Header
+          formName="Detail Kendaraan"
+          onClose={() => onCloseModal?.()}
+        />
 
         {/* BODY FORM */}
         <section className="px-8 py-8">
@@ -256,8 +259,13 @@ function CreateKendaraanForm({ onCloseModal }) {
 
         {/* FOOTER FORM */}
         <Form.Footer>
-          <Button type="secondary" text="Riset" onClick={() => reset()} />
-          <Button text="Masuk" />
+          <Button
+            disabled={isCreating}
+            type="secondary"
+            text="Riset"
+            onClick={() => reset()}
+          />
+          <Button text="Masuk" disabled={isCreating} typeButton="submit" />
         </Form.Footer>
       </Form>
     </FormProvider>
