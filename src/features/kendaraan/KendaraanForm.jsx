@@ -8,34 +8,60 @@ import SelectInput from "../../ui/SelectInput";
 
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useCreateKendaraan } from "./useCreateKendaraan";
+import { useEditKendaraan } from "./useEditKendaraan";
 
 function KendaraanForm({ dataEdit = {}, onCloseModal }) {
   const { isCreating, createKendaraan } = useCreateKendaraan();
+  const { isEdit, editKendaraan } = useEditKendaraan();
+  const isLoading = isCreating || isEdit;
+
   const isEditSession = Boolean(dataEdit.id);
-  console.log(dataEdit);
 
   const methods = useForm({
-    defaultValues: isEditSession ? {} : {},
+    defaultValues: isEditSession
+      ? {
+          gambar: dataEdit.imageKendaraan,
+          nama_kendaraan: dataEdit.namaKendaraan,
+          jenis_kendaraan: dataEdit.jenisKendaraan,
+          harga_sewa: dataEdit.hargaSewa,
+          tipe_kendaraan: dataEdit.tipeKendaraan,
+          transmisi: dataEdit.transmisi,
+          kapasitas_penumpang: dataEdit.kapasitas,
+          bahan_bakar: dataEdit.bahanBakar,
+          luas_bagasi: dataEdit.luasBagasi,
+          tahun_produksi: dataEdit.tahunProduksi,
+          deskripsi_kendaraan: dataEdit.deskripsi,
+        }
+      : {},
   });
 
   const { register, handleSubmit, reset, control } = methods;
 
   function onSubmit(data) {
-    console.log("Data terkirim:", data);
-
-    createKendaraan(
-      {
-        ...data,
-        harga_sewa: Number(data.harga_sewa),
-        gambar: !data.gambar ? [] : data.gambar,
-      },
-      {
-        onSuccess: () => {
-          reset();
-          onCloseModal?.();
+    if (isEditSession)
+      editKendaraan(
+        { ...data, id: dataEdit.id },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         },
-      },
-    );
+      );
+    else
+      createKendaraan(
+        {
+          ...data,
+          harga_sewa: Number(data.harga_sewa),
+          gambar: !data.gambar ? [] : data.gambar,
+        },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        },
+      );
   }
 
   return (
@@ -43,7 +69,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         {/* HEADER FORM */}
         <Form.Header
-          formName="Detail Kendaraan"
+          formName={isEditSession ? "Detail Kendaraan" : "Tambah Kendaraan"}
           onClose={() => onCloseModal?.()}
         />
 
@@ -122,7 +148,6 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
                   inputType="currency"
                   placeholder="Masukan harga sewa"
                   inputClass="w-full"
-                  isCurrency={true}
                   minNumber={1000}
                   maxNumber={2000000}
                 />
@@ -257,12 +282,12 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
         {/* FOOTER FORM */}
         <Form.Footer>
           <Button
-            disabled={isCreating}
+            disabled={isLoading}
             type="secondary"
             text="Batal"
             onClick={() => reset()}
           />
-          <Button text="Simpan" disabled={isCreating} typeButton="submit" />
+          <Button text="Simpan" disabled={isLoading} typeButton="submit" />
         </Form.Footer>
       </Form>
     </FormProvider>

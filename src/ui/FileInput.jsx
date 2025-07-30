@@ -10,28 +10,26 @@ function FileInput(
   { label = "Upload file", onChange, name, accept, value = [] },
   ref,
 ) {
-  // Fungsi dijalankan saat file dipilih
   const handleChange = (e) => {
-    // Ubah dari FileList ke array biasa
+    // 1. Ubah dari FileList ke array biasa
     let selectedFiles = Array.from(e.target.files);
 
-    // Batasi jumlah maksimal file yang dipilih menjadi 5
+    // 2. Batasi jumlah maksimal file yang dipilih menjadi 5
     if (selectedFiles.length > 5) {
       // Ambil hanya 5 file pertama
       selectedFiles = selectedFiles.slice(0, 5);
       toast.error("Maksimal 5 file yang dapat dipilih.");
     }
 
-    // Kirim file ke parent component (React Hook Form)
+    // 3. Kirim file ke parent component (React Hook Form)
     onChange?.(selectedFiles);
   };
 
-  // Fungsi untuk menghapus file berdasarkan index
   const removeImage = (indexToRemove) => {
-    // Hapus file dari array
+    // 1. Hapus file dari array
     const updated = value.filter((_, index) => index !== indexToRemove);
 
-    // Kirim file yang sudah dihapus ke parent
+    // 2. Kirim file yang sudah dihapus ke parent
     onChange?.(updated);
   };
 
@@ -57,7 +55,8 @@ function FileInput(
       {/* Preview gambar */}
       <div className="mt-2 flex flex-wrap gap-2">
         {value.map((file, index) => {
-          const preview = URL.createObjectURL(file); // Buat URL untuk ditampilkan sebagai gambar
+          const preview =
+            file instanceof File ? URL.createObjectURL(file) : file.url_gambar; // Buat URL untuk ditampilkan sebagai gambar
 
           return (
             <div key={index} className="group relative">
