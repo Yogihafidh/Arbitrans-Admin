@@ -20,6 +20,13 @@ export function formatKendaraanData(data) {
     hargaSewa: item.harga_sewa,
     tipeKendaraan: item.tipe_kendaraan,
     imageKendaraan: item.imageKendaraan,
+    bahanBakar: item.bahan_bakar,
+    deskripsi: item.deskripsi_kendaraan,
+    jenisKendaraan: item.jenis_kendaraan,
+    kapasitas: item.kapasitas_penumpang,
+    luasBagasi: item.luas_bagasi,
+    tahunProduksi: item.tahun_produksi,
+    transmisi: item.transmisi,
   }));
 }
 

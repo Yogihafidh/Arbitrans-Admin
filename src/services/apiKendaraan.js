@@ -1,5 +1,22 @@
 import supabase, { supabaseUrl } from "./Supabase";
 
+export async function getKendaraan() {
+  const query = supabase
+    .from("kendaraan")
+    .select("*, imageKendaraan(url_gambar)")
+    .eq("status_kendaraan", "Tersedia");
+
+  const { data, error } = await query;
+  if (error) {
+    console.error(error);
+    throw new Error(
+      "Data kendaraan tidak bisa diambil. Coba beberapa menit lagi!.",
+    );
+  }
+
+  return data;
+}
+
 export async function createKendaraan(newKendaraan) {
   // Memisahkan data image dengan kendaraan
   const { gambar, ...kendaraanData } = newKendaraan;
@@ -134,3 +151,5 @@ export async function deleteKendaraan(id) {
 
   return data;
 }
+
+export async function editKendaraan(kendaraan) {}

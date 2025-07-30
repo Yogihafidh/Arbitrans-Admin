@@ -70,7 +70,7 @@ function Card({ data }) {
               />
             </Modal.Open>
             <Modal.Window name="edit">
-              <KendaraanForm />
+              <KendaraanForm dataEdit={data} />
             </Modal.Window>
 
             <Modal.Open opens="delete">

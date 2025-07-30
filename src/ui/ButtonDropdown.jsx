@@ -12,8 +12,6 @@ function ButtonDropdown({
   const [isOpen, setIsOpen] = useState(false);
   const close = useCallback(() => setIsOpen(false), []);
 
-  console.log(isOpen);
-
   const containerRef = useRef(null);
 
   useClickOutside(containerRef, () => setIsOpen(false), isOpen);

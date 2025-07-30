@@ -7,7 +7,7 @@ function Filter({ options, type, className = "", close }) {
 
   function handleFilterChange(value) {
     searchParams.set("status", value);
-    // setSearchParams(searchParams);
+    setSearchParams(searchParams);
   }
 
   if (type === "button-filter")

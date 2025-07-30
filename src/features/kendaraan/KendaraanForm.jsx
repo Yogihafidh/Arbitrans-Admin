@@ -9,9 +9,15 @@ import SelectInput from "../../ui/SelectInput";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useCreateKendaraan } from "./useCreateKendaraan";
 
-function KendaraanForm({ onCloseModal }) {
+function KendaraanForm({ dataEdit = {}, onCloseModal }) {
   const { isCreating, createKendaraan } = useCreateKendaraan();
-  const methods = useForm();
+  const isEditSession = Boolean(dataEdit.id);
+  console.log(dataEdit);
+
+  const methods = useForm({
+    defaultValues: isEditSession ? {} : {},
+  });
+
   const { register, handleSubmit, reset, control } = methods;
 
   function onSubmit(data) {

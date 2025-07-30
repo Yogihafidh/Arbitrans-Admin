@@ -14,6 +14,7 @@ function KendaraanCard() {
   const { rental = [] } = useRental();
   const { kendaraan = [] } = useKendaraan();
   const data = status === "Tersedia" ? kendaraan : rental;
+  // console.log(kendaraan);
 
   // Filter Data
   const filteredRental = querySearch
@@ -24,8 +25,6 @@ function KendaraanCard() {
         return nama.includes(querySearch) || tipe.includes(querySearch);
       })
     : data;
-
-  console.log(filteredRental);
 
   return (
     <div className="grid grid-cols-4 gap-4">

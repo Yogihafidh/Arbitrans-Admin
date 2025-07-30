@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getKendaraan } from "../../services/apiRental";
+import { getKendaraan } from "../../services/apiKendaraan";
 import { formatKendaraanData } from "../../utils/helper";
 
 export function useKendaraan() {
