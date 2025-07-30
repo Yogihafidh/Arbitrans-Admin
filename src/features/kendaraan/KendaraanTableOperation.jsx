@@ -4,7 +4,7 @@ import ButtonDropdown from "../../ui/ButtonDropdown";
 import Filter from "../../ui/Filter";
 import Modal from "../../ui/Modal";
 import CreateKendaraanForm from "./CreateKendaraanForm";
-import { useMemo} from "react";
+import { useMemo } from "react";
 import InputSearch from "../../ui/InputSearch";
 
 function KendaraanTableOperation() {
@@ -51,17 +51,6 @@ function KendaraanTableOperation() {
       { label: "Pending", value: "Pending" },
     ],
     [],
-  );
-
-  const filterComponent = useMemo(
-    () => (
-      <Filter
-        className="absolute top-14 right-0.5 z-50 bg-white"
-        type="list"
-        options={statusOptions}
-      />
-    ),
-    [statusOptions],
   );
 
   // Get the current status from URL search params
@@ -123,7 +112,11 @@ function KendaraanTableOperation() {
           iconActive={iconActive}
           iconPasif={iconPasif}
         >
-          {filterComponent}
+          <Filter
+            className="absolute top-14 right-0.5 z-50 bg-white"
+            type="list"
+            options={statusOptions}
+          />
         </ButtonDropdown>
       </div>
     </div>

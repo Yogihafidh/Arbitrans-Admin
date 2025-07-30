@@ -9,7 +9,7 @@ import SelectInput from "../../ui/SelectInput";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useCreateKendaraan } from "./useCreateKendaraan";
 
-function CreateKendaraanForm() {
+function CreateKendaraanForm({ onCloseModal }) {
   const { isCreating, createKendaraan } = useCreateKendaraan();
   const methods = useForm();
   const { register, handleSubmit, reset, control } = methods;
@@ -17,12 +17,19 @@ function CreateKendaraanForm() {
   function onSubmit(data) {
     console.log("Data terkirim:", data);
 
-    createKendaraan({
-      ...data,
-      harga_sewa: Number(data.harga_sewa),
-      gambar: !data.gambar ? [] : data.gambar,
-    });
-    reset();
+    createKendaraan(
+      {
+        ...data,
+        harga_sewa: Number(data.harga_sewa),
+        gambar: !data.gambar ? [] : data.gambar,
+      },
+      {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      },
+    );
   }
 
   return (

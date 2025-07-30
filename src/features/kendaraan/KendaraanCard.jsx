@@ -10,11 +10,12 @@ function KendaraanCard() {
   const querySearch = searchparams.get("search") || "";
   const status = searchparams.get("status") || "Tersedia";
 
+  // Get Data
   const { rental = [] } = useRental();
   const { kendaraan = [] } = useKendaraan();
-
   const data = status === "Tersedia" ? kendaraan : rental;
 
+  // Filter Data
   const filteredRental = querySearch
     ? data.filter((item) => {
         const nama = item?.namaKendaraan?.toLowerCase() || "";
@@ -23,6 +24,8 @@ function KendaraanCard() {
         return nama.includes(querySearch) || tipe.includes(querySearch);
       })
     : data;
+
+  console.log(filteredRental);
 
   return (
     <div className="grid grid-cols-4 gap-4">

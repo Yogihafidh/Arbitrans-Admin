@@ -8,7 +8,7 @@ export function useKendaraan() {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["rental"],
+    queryKey: ["kendaraan"],
     queryFn: () => getKendaraan(),
   });
 

@@ -1,12 +1,13 @@
+import { memo } from "react";
 import { useSearchParams } from "react-router";
 
-function Filter({ options, type, className = "", setIsOpen }) {
+function Filter({ options, type, className = "", close }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentStatus = searchParams.get("status") || options?.[0]?.value;
 
   function handleFilterChange(value) {
     searchParams.set("status", value);
-    setSearchParams(searchParams);
+    // setSearchParams(searchParams);
   }
 
   if (type === "button-filter")
@@ -38,7 +39,7 @@ function Filter({ options, type, className = "", setIsOpen }) {
             key={option.value}
             onClick={() => {
               handleFilterChange(option.value);
-              setIsOpen(false);
+              close(false);
             }}
           >
             {option.label}
@@ -48,4 +49,4 @@ function Filter({ options, type, className = "", setIsOpen }) {
     );
 }
 
-export default Filter;
+export default memo(Filter);

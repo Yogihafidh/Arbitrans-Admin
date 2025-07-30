@@ -4,9 +4,11 @@ const buttonType = {
   secondary: "bg-primary/10 text-primary hover:bg-primary/30",
   logout:
     "border-acent-red bg-acent-red-100 text-acent-red hover:bg-acent-red hover:border-white hover:text-white border-2",
+  delete: "bg-acent-red-100 text-acent-red hover:bg-acent-red hover:text-white",
 };
 
 function Button({
+  disabled,
   onClick,
   leftIcon,
   rightIcon,
@@ -17,6 +19,7 @@ function Button({
 }) {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border-2 px-4 py-2 ${buttonType[type] || buttonType["primary"]} ${className} `}
       {...props}
