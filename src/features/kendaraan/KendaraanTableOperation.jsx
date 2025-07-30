@@ -1,11 +1,12 @@
 import { useSearchParams } from "react-router";
+import { useMemo } from "react";
+
 import Button from "../../ui/Button";
 import ButtonDropdown from "../../ui/ButtonDropdown";
 import Filter from "../../ui/Filter";
 import Modal from "../../ui/Modal";
-import CreateKendaraanForm from "./CreateKendaraanForm";
-import { useMemo } from "react";
 import InputSearch from "../../ui/InputSearch";
+import KendaraanForm from "./CreateKendaraanForm";
 
 function KendaraanTableOperation() {
   // Optimaziation: useMemo to avoid re-creating icons on every render
@@ -102,7 +103,7 @@ function KendaraanTableOperation() {
             />
           </Modal.Open>
           <Modal.Window name="kendaraan-form">
-            <CreateKendaraanForm />
+            <KendaraanForm />
           </Modal.Window>
         </Modal>
 

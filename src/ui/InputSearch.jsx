@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
-function InputSearch({ icon, placeholder, inputType }) {
+function InputSearch({ icon, placeholder }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -25,14 +25,14 @@ function InputSearch({ icon, placeholder, inputType }) {
 
   return (
     <div
-      className={`border-netral-400 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${inputType === "inputForm" ? "focus-within:border-netral-800 border-2" : "focus-within:ring-netral-600 focus-within:ring-2"}`}
+      className={`border-netral-400 focus-within:border-netral-800 flex w-fit items-center gap-2 rounded-lg border-2 px-4 py-2`}
     >
       {icon && <span>{icon}</span>}
       <input
         onChange={(e) => setSearchQuery(e.target.value)}
         type="text"
         placeholder={placeholder}
-        className={`placeholder:text-netral-600 w-60 border-none bg-transparent font-medium outline-none placeholder:text-sm ${inputType === "inputForm" ? "w-80" : ""}`}
+        className={`placeholder:text-netral-600 w-60 border-none bg-transparent font-medium outline-none placeholder:text-sm`}
       />
     </div>
   );

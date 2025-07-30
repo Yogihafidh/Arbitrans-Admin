@@ -4,8 +4,7 @@ function Input({
   icon,
   placeholder,
   type,
-  isCurrency = false,
-  isInputForm,
+  inputType = "form",
   inputClass = "",
   onChange,
   value,
@@ -16,6 +15,7 @@ function Input({
   ...props
 }) {
   // Use custom hook to handle currency formatting
+  const isCurrency = inputType === "currency";
   const { localValue, handleChange } = useCurrencyFormatInput(
     isCurrency,
     value,
@@ -24,7 +24,7 @@ function Input({
 
   return (
     <div
-      className={`border-netral-400 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${isInputForm ? "focus-within:border-netral-800 w-80 border-2" : "focus-within:ring-netral-600 focus-within:ring-2"}`}
+      className={`border-netral-400 focus-within:border-netral-900 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2`}
     >
       {icon && <span>{icon}</span>}
       <input
@@ -35,7 +35,7 @@ function Input({
         value={isCurrency ? localValue : value}
         onChange={handleChange}
         placeholder={placeholder}
-        className={`placeholder:text-netral-600 w-60 border-none bg-transparent font-medium outline-none placeholder:text-sm ${isInputForm ? "w-80" : ""} ${inputClass}`}
+        className={`placeholder:text-netral-600 w-60 border-none bg-transparent font-medium outline-none placeholder:text-sm ${inputClass}`}
       />
     </div>
   );

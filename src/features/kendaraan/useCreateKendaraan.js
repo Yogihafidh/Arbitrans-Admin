@@ -9,7 +9,7 @@ export function useCreateKendaraan() {
     mutationFn: createKendaraanApi,
     onSuccess: () => {
       toast.success("Kendaraan berhasil dibuat!");
-      queryClient.invalidateQueries({ queryKey: ["rental"] });
+      queryClient.invalidateQueries({ queryKey: ["kendaraan"] });
     },
     onError: (error) => toast.error(error.message),
   });

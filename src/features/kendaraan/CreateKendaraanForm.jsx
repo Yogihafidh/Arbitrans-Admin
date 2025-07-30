@@ -9,7 +9,7 @@ import SelectInput from "../../ui/SelectInput";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { useCreateKendaraan } from "./useCreateKendaraan";
 
-function CreateKendaraanForm({ onCloseModal }) {
+function KendaraanForm({ onCloseModal }) {
   const { isCreating, createKendaraan } = useCreateKendaraan();
   const methods = useForm();
   const { register, handleSubmit, reset, control } = methods;
@@ -65,7 +65,6 @@ function CreateKendaraanForm({ onCloseModal }) {
           <Row>
             <Form.Row label="Name Kendaraan" name="nama_kendaraan" type="text">
               <Input
-                isInputForm={true}
                 placeholder="Masukan nama kendaraan"
                 {...register("nama_kendaraan", {
                   required: "Nama kendaraan wajib diisi!",
@@ -82,7 +81,6 @@ function CreateKendaraanForm({ onCloseModal }) {
             </Form.Row>
             <Form.Row label="Jenis" name="jenis_kendaraan">
               <SelectInput
-                isInputForm={true}
                 placeholder="Pilih jenis kendaraan"
                 options={[
                   { value: "mobil", label: "Mobil" },
@@ -115,7 +113,7 @@ function CreateKendaraanForm({ onCloseModal }) {
                 <Input
                   {...field}
                   type="number"
-                  isInputForm={true}
+                  inputType="currency"
                   placeholder="Masukan harga sewa"
                   inputClass="w-full"
                   isCurrency={true}
@@ -129,7 +127,6 @@ function CreateKendaraanForm({ onCloseModal }) {
           <Row>
             <Form.Row label="Tipe" name="tipe_kendaraan">
               <Input
-                isInputForm={true}
                 placeholder="Tipe kendaraan"
                 {...register("tipe_kendaraan", {
                   required: "Tipe kendaraan wajib diisi",
@@ -146,7 +143,6 @@ function CreateKendaraanForm({ onCloseModal }) {
             </Form.Row>
             <Form.Row label="Transmisi" name="transmisi">
               <SelectInput
-                isInputForm={true}
                 placeholder="Transmisi kendaraan"
                 options={[
                   { value: "matic", label: "Matic" },
@@ -163,7 +159,6 @@ function CreateKendaraanForm({ onCloseModal }) {
             <Form.Row label="Kapasitas Penumpang" name="kapasitas_penumpang">
               <Input
                 type="number"
-                isInputForm={true}
                 placeholder="Jumalah maks. penumpang"
                 minNumber={1}
                 maxNumber={8}
@@ -182,7 +177,6 @@ function CreateKendaraanForm({ onCloseModal }) {
             </Form.Row>
             <Form.Row label="Bahan Bakar" name="bahan_bakar">
               <Input
-                isInputForm={true}
                 placeholder="Masukan bahan bakar"
                 {...register("bahan_bakar", {
                   required: "Bahan bakar kendaraan wajib diisi",
@@ -202,7 +196,6 @@ function CreateKendaraanForm({ onCloseModal }) {
           <Row>
             <Form.Row label="Bagasi" name="luas_bagasi">
               <Input
-                isInputForm={true}
                 placeholder="Luas bagasi"
                 {...register("luas_bagasi", {
                   required: "Luas bagasi kendaraan wajib diisi",
@@ -220,7 +213,6 @@ function CreateKendaraanForm({ onCloseModal }) {
             <Form.Row label="Tahun" name="tahun_produksi">
               <Input
                 type="number"
-                isInputForm={true}
                 placeholder="Tahun produksi"
                 {...register("tahun_produksi", {
                   required: "Tahun produksi kendaraan wajib diisi",
@@ -239,7 +231,6 @@ function CreateKendaraanForm({ onCloseModal }) {
 
           <Form.Row label="Deskripsi Kendaraan" name="deskripsi_kendaraan">
             <TextArea
-              isInputForm={true}
               placeholder="Jelaskan kondisi kendaraan"
               rows={6}
               {...register("deskripsi_kendaraan", {
@@ -272,4 +263,4 @@ function CreateKendaraanForm({ onCloseModal }) {
   );
 }
 
-export default CreateKendaraanForm;
+export default KendaraanForm;

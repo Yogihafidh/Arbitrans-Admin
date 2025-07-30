@@ -2,7 +2,6 @@ import { useState } from "react";
 
 function SelectInput({
   icon,
-  inputType,
   options = [],
   value,
   onChange,
@@ -13,11 +12,7 @@ function SelectInput({
 
   return (
     <div
-      className={`border-netral-400 relative flex w-full items-center gap-2 rounded-lg border-2 ${
-        inputType === "inputForm"
-          ? "focus-within:border-netral-800 border-2"
-          : "focus-within:ring-netral-600 focus-within:ring-2"
-      }`}
+      className={`border-netral-400 focus-within:border-netral-900 relative flex w-full items-center gap-2 rounded-lg border-2`}
     >
       {icon && <span>{icon}</span>}
 
@@ -27,9 +22,7 @@ function SelectInput({
         onChange={onChange}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        className={`placeholder:text-netral-600 text-netral-600 hover:text-netral-900 w-full appearance-none rounded-lg border-none bg-transparent px-4 py-2.5 text-sm font-medium outline-none ${
-          inputType === "inputForm" ? "w-80" : ""
-        }`}
+        className={`placeholder:text-netral-600 text-netral-600 hover:text-netral-900 w-full appearance-none rounded-lg border-none bg-transparent px-4 py-2.5 text-sm font-medium outline-none`}
       >
         {placeholder && (
           <option value="" disabled>
