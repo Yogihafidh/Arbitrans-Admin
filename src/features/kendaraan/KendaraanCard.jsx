@@ -1,6 +1,7 @@
+import { memo } from "react";
 import { useSearchParams } from "react-router";
-import { useRental } from "./useRental";
-import { useKendaraan } from "./useKendaraan";
+import { useKendaraan } from "../../hooks/useKendaraan";
+import { useRental } from "../../hooks/useRental";
 
 import Card from "../../ui/Card";
 
@@ -13,8 +14,8 @@ function KendaraanCard() {
   // Get Data
   const { rental = [] } = useRental();
   const { kendaraan = [] } = useKendaraan();
+
   const data = status === "Tersedia" ? kendaraan : rental;
-  // console.log(kendaraan);
 
   // Filter Data
   const filteredRental = querySearch
@@ -35,4 +36,4 @@ function KendaraanCard() {
   );
 }
 
-export default KendaraanCard;
+export default memo(KendaraanCard);
