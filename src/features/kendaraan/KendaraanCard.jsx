@@ -13,7 +13,7 @@ function KendaraanCard() {
 
   // Get Data
   const { rental = [] } = useRental();
-  const { kendaraan = [] } = useKendaraan();
+  const { kendaraan = [] } = useKendaraan("Tersedia");
 
   const data = status === "Tersedia" ? kendaraan : rental;
 
