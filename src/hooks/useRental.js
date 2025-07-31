@@ -3,11 +3,12 @@ import { getRentalKendaraan } from "../services/apiRental";
 import { useSearchParams } from "react-router";
 import { formatRentalData } from "../utils/helper";
 
-export function useRental() {
+export function useRental(statusFilter) {
   const [searchParams] = useSearchParams();
+  const statusFromURL = searchParams.get("status");
+  const status = statusFilter || statusFromURL || "Pending";
 
   // Filtering logic can be added here if needed
-  const status = searchParams.get("status") || "Pending";
   const isFetchable = status === "Pending" || status === "Disewa";
   const filter = isFetchable
     ? { field: "kendaraan.status_kendaraan", value: status }
