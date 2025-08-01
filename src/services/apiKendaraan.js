@@ -1,10 +1,11 @@
 import supabase, { supabaseUrl } from "./Supabase";
 
-export async function getKendaraan() {
+export async function getKendaraan(filter) {
   const query = supabase
     .from("kendaraan")
-    .select("*, imageKendaraan(url_gambar)")
-    .eq("status_kendaraan", "Tersedia");
+    .select("*, imageKendaraan(url_gambar)");
+
+  if (filter) query.eq(filter.field, filter.value);
 
   const { data, error } = await query;
   if (error) {
