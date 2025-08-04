@@ -20,7 +20,7 @@ function ButtonDropdown({
     <div ref={containerRef} className={`relative inline-block ${className}`}>
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border-2 px-4 py-2 ${
+        className={`bg-netral-100 flex cursor-pointer items-center justify-between gap-4 rounded-lg border-2 px-4 py-2 ${
           isOpen ? "border-netral-600" : "border-netral-400"
         }`}
       >

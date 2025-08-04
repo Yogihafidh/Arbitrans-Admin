@@ -21,7 +21,7 @@ function Card({ data, isButtonShow = true }) {
       differenceInCalendarDays(data?.tanggalAkhir, data?.tanggalMulai);
 
   return (
-    <div className="border-netral-300 rounded-2xl border p-4">
+    <div className="border-netral-300 bg-netral-100 rounded-2xl border p-4">
       <div className="relative w-full">
         <img
           alt={data.namaKendaraan}

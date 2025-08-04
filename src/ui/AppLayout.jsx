@@ -4,7 +4,7 @@ import Sidebar from "./sidebar";
 
 function AppLayout() {
   return (
-    <div className="grid h-screen grid-cols-[17rem_1fr] grid-rows-[auto_1fr]">
+    <div className="bg-netral-200 grid h-screen grid-cols-[17rem_1fr] grid-rows-[auto_1fr]">
       <Header />
       <Sidebar />
       <div className="h-full overflow-y-auto pb-10">

@@ -16,6 +16,7 @@
     "@tanstack/react-query-devtools": "^5.83.0",
     "date-fns": "^4.1.0",
     "react": "^19.1.0",
+    "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
     "react-hot-toast": "^2.5.2",

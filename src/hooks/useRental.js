@@ -4,12 +4,21 @@ import { useSearchParams } from "react-router";
 import { formatRentalData } from "../utils/helper";
 
 export function useRental(statusFilter) {
+  // Get status from url if exist
   const [searchParams] = useSearchParams();
   const statusFromURL = searchParams.get("status");
-  const status = statusFilter || statusFromURL || "Pending";
 
-  // Filtering logic can be added here if needed
-  const isFetchable = status === "Pending" || status === "Disewa";
+  // Pakai filter dari argumen atau dari URL
+  const status = statusFilter || statusFromURL || null;
+
+  // Validation status
+  const isValidStatus = (value) =>
+    Array.isArray(value)
+      ? value.every((item) => ["Disewa", "Pending"].includes(item))
+      : ["Disewa", "Pending"].includes(value);
+  const isFetchable = isValidStatus(status);
+
+  // If valid re format
   const filter = isFetchable
     ? { field: "kendaraan.status_kendaraan", value: status }
     : null;
@@ -23,9 +32,10 @@ export function useRental(statusFilter) {
     queryKey: isFetchable ? ["rental", filter] : [],
     queryFn: () => getRentalKendaraan(filter),
     enabled: isFetchable,
-    staleTime: 1000 * 60 * 5, // cache selama 5 menit
+    staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
+
 
   // Formating Data
   const rental = formatRentalData(data);

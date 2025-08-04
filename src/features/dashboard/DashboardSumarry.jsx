@@ -11,8 +11,6 @@ function DashboardSumarry() {
     (kendaraan) => kendaraan.statusKendaraan === "Disewa",
   ).length;
 
-  console.log(kendaraan);
-
   return (
     <div className="flex items-center justify-between gap-4">
       <SummaryCaard

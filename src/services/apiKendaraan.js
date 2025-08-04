@@ -19,7 +19,6 @@ export async function getKendaraan(filter) {
 }
 
 export async function createKendaraan(newKendaraan) {
-  console.log(newKendaraan);
   // Memisahkan data image dengan kendaraan
   const { gambar, ...kendaraanData } = newKendaraan;
 
@@ -76,7 +75,6 @@ export async function createKendaraan(newKendaraan) {
   const { error: imageError } = await supabase
     .from("imageKendaraan")
     .insert(imageInsert)
-    .select();
 
   if (imageError) {
     // Rollback kendaraan

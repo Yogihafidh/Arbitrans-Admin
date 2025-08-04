@@ -33,6 +33,7 @@ export function formatKendaraanData(data) {
 export function formatRentalData(data) {
   return data.map((item) => ({
     id: item.id,
+    idKendaraan: item.kendaraan.id,
     namaKendaraan: item.kendaraan.nama_kendaraan,
     statusKendaraan: item.kendaraan.status_kendaraan,
     hargaSewa: item.kendaraan.harga_sewa,

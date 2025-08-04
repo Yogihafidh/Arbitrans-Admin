@@ -37,6 +37,10 @@ function FormHeader({ formName, onClose }) {
   );
 }
 
+function FormBody({ children }) {
+  return <section className="px-8 py-8">{children}</section>;
+}
+
 function FormRow({ label, name, children }) {
   const {
     formState: { errors },
@@ -68,6 +72,7 @@ function FormFooter({ children }) {
 }
 
 Form.Header = FormHeader;
+Form.Body = FormBody;
 Form.Row = FormRow;
 Form.Footer = FormFooter;
 
