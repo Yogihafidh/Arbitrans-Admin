@@ -5,6 +5,7 @@ import KendaraanForm from "../features/kendaraan/KendaraanForm";
 import Button from "./Button";
 import Modal from "./Modal";
 import Message from "./Message";
+import StatusKendaraanForm from "../features/kendaraan/StatusKendaraanForm";
 
 const status = {
   Tersedia: "bg-acent-green/10 border-acent-green text-acent-green",
@@ -71,7 +72,11 @@ function Card({ data, isButtonShow = true }) {
                 />
               </Modal.Open>
               <Modal.Window name="edit">
-                <KendaraanForm dataEdit={data} />
+                {isRental ? (
+                  <KendaraanForm dataEdit={data} />
+                ) : (
+                  <StatusKendaraanForm dataEdit={data} />
+                )}
               </Modal.Window>
 
               <Modal.Open opens="delete">

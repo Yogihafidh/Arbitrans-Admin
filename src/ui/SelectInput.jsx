@@ -6,6 +6,7 @@ function SelectInput({
   value,
   onChange,
   disabled = false,
+  disabledPlaceholder,
   placeholder,
   ...props
 }) {
@@ -26,7 +27,7 @@ function SelectInput({
         disabled={disabled}
         className={`placeholder:text-netral-600 text-netral-600 hover:text-netral-900 w-[90vh] appearance-none rounded-lg border-none bg-transparent px-4 py-2.5 text-sm font-medium outline-none`}
       >
-        {placeholder && <option value="">{placeholder}</option>}
+        {placeholder && <option value="" disabled={disabledPlaceholder}>{placeholder}</option>}
         {options.map((option) => (
           <option
             key={option.value}

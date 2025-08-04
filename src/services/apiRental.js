@@ -58,3 +58,23 @@ export async function createRental(newRental) {
     throw new Error("rental gagal diupdate, coba hubungi admin!");
   }
 }
+
+export async function editStatusKendaraan(kendaraan) {
+  const idKendaraan = Number(kendaraan.idKendaraan);
+  const { data: kendaraanResult, error: kendaraanUpdateError } = await supabase
+    .from("kendaraan")
+    .update({ status_kendaraan: kendaraan.status_kendaraan })
+    .eq("id", idKendaraan)
+    .select();
+
+  if (!kendaraanResult || kendaraanResult.length === 0) {
+    throw new Error(
+      "Data kendaraan tidak ditemukan atau tidak berhasil diupdate.",
+    );
+  }
+
+  if (kendaraanUpdateError) {
+    console.error("Update data rental gagal: ", kendaraanUpdateError);
+    throw new Error("Rental gagal diupdate, coba hubungi admin!");
+  }
+}
