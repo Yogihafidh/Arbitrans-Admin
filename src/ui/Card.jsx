@@ -6,6 +6,7 @@ import Button from "./Button";
 import Modal from "./Modal";
 import Message from "./Message";
 import StatusKendaraanForm from "../features/kendaraan/StatusKendaraanForm";
+import { useDeleteRental } from "../features/pelanggan/useDeleteRental";
 
 const status = {
   Tersedia: "bg-acent-green/10 border-acent-green text-acent-green",
@@ -14,7 +15,10 @@ const status = {
 };
 
 function Card({ data, isButtonShow = true }) {
-  const { isDeleting, deleteKendaraan } = useDeleteKendaraan();
+  const { isDeleting: isDeleteKendaraan, deleteKendaraan } =
+    useDeleteKendaraan();
+  const { isDelete: isDeleteRental, deleteRental } = useDeleteRental();
+
   const isRental = data.statusKendaraan === "Tersedia";
   const totalHarga = isRental
     ? data.hargaSewa
@@ -107,9 +111,13 @@ function Card({ data, isButtonShow = true }) {
 
               <Modal.Window name="delete">
                 <Message
-                  disabled={isDeleting}
-                  id={data.id}
-                  onDelete={deleteKendaraan}
+                  disabled={isDeleteKendaraan || isDeleteRental}
+                  id={
+                    isRental
+                      ? data.id
+                      : { idRental: data.id, idKendaraan: data.idKendaraan }
+                  }
+                  onDelete={isRental ? deleteKendaraan : deleteRental}
                   heading={isRental ? "Hapus kendaraan?" : "Batal Rental?"}
                   message={
                     isRental

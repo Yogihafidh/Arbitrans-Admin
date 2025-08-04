@@ -78,3 +78,33 @@ export async function editStatusKendaraan(kendaraan) {
     throw new Error("Rental gagal diupdate, coba hubungi admin!");
   }
 }
+
+export async function deleteRental(rental) {
+  // Delele kendaraan
+  const { error: bookingTabelError } = await supabase
+    .from("booking")
+    .delete()
+    .eq("id", rental.idRental);
+  if (bookingTabelError) {
+    console.error("Gagal menghapus data rental: ", bookingTabelError);
+    throw new Error("Gagal menghapus data rental");
+  }
+
+  // Set Status Kendaraan menjadi tersedia
+  const { data: kendaraanResult, error: kendaraanUpdateError } = await supabase
+    .from("kendaraan")
+    .update({ status_kendaraan: "Tersedia" })
+    .eq("id", rental.idKendaraan)
+    .select();
+
+  if (!kendaraanResult || kendaraanResult.length === 0) {
+    throw new Error(
+      "Data kendaraan tidak ditemukan atau tidak berhasil diupdate.",
+    );
+  }
+
+  if (kendaraanUpdateError) {
+    console.error("Update data rental gagal: ", kendaraanUpdateError);
+    throw new Error("Rental gagal diupdate, coba hubungi admin!");
+  }
+}

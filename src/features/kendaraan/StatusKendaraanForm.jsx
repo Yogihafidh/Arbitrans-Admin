@@ -3,7 +3,7 @@ import Form from "../../ui/Form";
 import SelectInput from "../../ui/SelectInput";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { useEditStatus } from "./useEditStatus";
+import { useEditStatus } from "../pelanggan/useEditStatus";
 
 function StatusKendaraanForm({ dataEdit, onCloseModal }) {
   const { isEdit, editStatusKendaraan } = useEditStatus();
