@@ -3,7 +3,8 @@ import supabase, { supabaseUrl } from "./Supabase";
 export async function getKendaraan(filter) {
   const query = supabase
     .from("kendaraan")
-    .select("*, imageKendaraan(url_gambar)");
+    .select("*, imageKendaraan(url_gambar)")
+    .order("nama_kendaraan");
 
   if (filter) query.eq(filter.field, filter.value);
 
@@ -74,7 +75,7 @@ export async function createKendaraan(newKendaraan) {
 
   const { error: imageError } = await supabase
     .from("imageKendaraan")
-    .insert(imageInsert)
+    .insert(imageInsert);
 
   if (imageError) {
     // Rollback kendaraan

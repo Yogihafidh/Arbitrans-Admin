@@ -4,6 +4,7 @@ import { convertDateFormat, convertRupiah } from "../../utils/helper";
 import Modal from "../../ui/Modal";
 import Message from "../../ui/Message";
 import Button from "../../ui/Button";
+import PelangganForm from "./PelangganForm";
 
 const status = {
   Disewa: "bg-acent-green/10 border-acent-green text-acent-green",
@@ -12,9 +13,8 @@ const status = {
 
 function RentalRow({ rental }) {
   const totalHargaSewa =
-    rental?.hargaSewa *
-    differenceInCalendarDays(rental?.tanggalAkhir, rental?.tanggalMulai);
-  console.log(rental);
+    differenceInCalendarDays(rental.tanggalAkhir, rental.tanggalMulai) *
+    Number(rental?.hargaSewa);
 
   return (
     <Table.Row>
@@ -86,12 +86,7 @@ function RentalRow({ rental }) {
           </div>
 
           <Modal.Window name="edit-rental">
-            <Message
-              disabled={false}
-              id={""}
-              heading={"Hapus kendaraan?"}
-              message={"Anda yakin untuk membatalkan rental kendaraan ini?"}
-            />
+            <PelangganForm dataEdit={rental} />
           </Modal.Window>
 
           <Modal.Window name="delete-rental">

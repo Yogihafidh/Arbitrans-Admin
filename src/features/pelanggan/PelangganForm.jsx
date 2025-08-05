@@ -11,18 +11,34 @@ import { convertRupiah } from "../../utils/helper";
 import TextArea from "../../ui/Textarea";
 import Button from "../../ui/Button";
 import { useCreateRental } from "./useCreatePelanggan";
+import { useEditRental } from "./useEditRental";
 
-function PelangganForm({ onCloseModal }) {
-  const methods = useForm();
+function PelangganForm({ dataEdit = {}, onCloseModal }) {
+  // Check if edit session
+  const isEditSession = Boolean(dataEdit.id);
+  const methods = useForm({
+    defaultValues: isEditSession
+      ? {
+          nama_pelanggan: dataEdit.namaPelanggan,
+          nik: dataEdit.nik,
+          no_telephone: dataEdit.noTelephone,
+          alamat: dataEdit.alamat,
+          id_kendaraan: dataEdit.idKendaraan,
+          tanggal_mulai: dataEdit.tanggalMulai,
+          tanggal_akhir: dataEdit.tanggalAkhir,
+        }
+      : {},
+  });
   const { register, handleSubmit, reset, control } = methods;
 
   const { isCreating, createRental } = useCreateRental();
+  const { isEdit, editRental } = useEditRental();
   const { kendaraan = [], isLoading: kendaraanLoading } = useKendaraan();
   const { rental = [], isLoading: rentalLoading } = useRental([
     "Disewa",
     "Pending",
   ]);
-  const isLoading = kendaraanLoading || rentalLoading || isCreating;
+  const isLoading = kendaraanLoading || rentalLoading || isCreating || isEdit;
 
   const kendaraanSelectValue = kendaraan.map((item) => ({
     value: item.id,
@@ -61,18 +77,32 @@ function PelangganForm({ onCloseModal }) {
 
   const price =
     convertRupiah(
-      (differenceInCalendarDays(tanggalAkhir, tanggalAwal) + 1) *
+      differenceInCalendarDays(tanggalAkhir, tanggalAwal) *
         Number(kendaraanSelect?.hargaSewa),
     ) || "Silahkan pilih Kendaraan dan Tanggal terlebih dahulu";
 
   function onSubmit(data) {
-    createRental(data, {
-      onSuccess: () => {
-        onCloseModal?.();
-        reset();
-      },
-    });
+    if (isEditSession)
+      editRental(
+        { id: dataEdit.id, ...data },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        },
+      );
+    else
+      createRental(data, {
+        onSuccess: () => {
+          onCloseModal?.();
+          reset();
+        },
+      });
   }
+
+  // TODO: KURANG LOADING
+  if (isEditSession && kendaraan.length === 0) return <p>LOADING...</p>;
 
   return (
     <FormProvider {...methods}>

@@ -8,7 +8,6 @@ function PelangganTable() {
     "Pending",
   ]);
 
-  console.log(rental);
   return (
     <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
       <Table columns="1fr 1fr 1fr 1fr 0.8fr 1fr 1fr 1fr 0.7fr">

@@ -5,7 +5,8 @@ export async function getRentalKendaraan(filter) {
     .from("booking")
     .select(
       "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, kendaraan!inner(id, nama_kendaraan, status_kendaraan, harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
-    );
+    )
+    .order("tanggal_akhir", { ascending: false });
 
   if (filter?.field && filter?.value) {
     if (Array.isArray(filter.value)) {
@@ -56,6 +57,26 @@ export async function createRental(newRental) {
   if (kendaraanUpdateError) {
     console.error("Update data rental gagal: ", kendaraanUpdateError);
     throw new Error("rental gagal diupdate, coba hubungi admin!");
+  }
+}
+
+export async function editRental(rental) {
+  console.log(rental);
+  const { data: rentalResult, error: errorRental } = await supabase
+    .from("booking")
+    .update(rental)
+    .eq("id", rental?.id)
+    .select();
+
+  if (!rentalResult || rentalResult.length === 0) {
+    throw new Error(
+      "Data rental tidak ditemukan atau tidak berhasil diupdate.",
+    );
+  }
+
+  if (errorRental) {
+    console.error("Update data rental gagal: ", errorRental);
+    throw new Error("Rental gagal diupdate, coba hubungi admin!");
   }
 }
 
