@@ -29,13 +29,12 @@ export function useRental(statusFilter) {
     error,
     isLoading,
   } = useQuery({
-    queryKey: isFetchable ? ["rental", filter] : [],
+    queryKey: isFetchable ? ["rental", "kendaraan", filter] : [],
     queryFn: () => getRentalKendaraan(filter),
     enabled: isFetchable,
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
-
 
   // Formating Data
   const rental = formatRentalData(data);

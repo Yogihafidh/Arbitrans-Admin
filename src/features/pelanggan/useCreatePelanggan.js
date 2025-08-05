@@ -10,6 +10,7 @@ export function useCreateRental() {
     onSuccess: () => {
       toast.success("Pelanggan berhasil ditambahkan!");
       queryClient.invalidateQueries({ queryKey: ["rental"] });
+      queryClient.invalidateQueries({ queryKey: ["kendaraan"] });
     },
     onError: (error) => toast.error(error.message),
   });

@@ -42,5 +42,8 @@ export function formatRentalData(data) {
     namaPelanggan: item.nama_pelanggan,
     tanggalMulai: item.tanggal_mulai,
     tanggalAkhir: item.tanggal_akhir,
+    noTelephone: item.no_telephone,
+    alamat: item.alamat,
+    nik: item.nik,
   }));
 }

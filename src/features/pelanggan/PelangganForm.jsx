@@ -66,7 +66,12 @@ function PelangganForm({ onCloseModal }) {
     ) || "Silahkan pilih Kendaraan dan Tanggal terlebih dahulu";
 
   function onSubmit(data) {
-    createRental(data);
+    createRental(data, {
+      onSuccess: () => {
+        onCloseModal?.();
+        reset();
+      },
+    });
   }
 
   return (

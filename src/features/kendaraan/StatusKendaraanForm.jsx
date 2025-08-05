@@ -81,7 +81,10 @@ function StatusKendaraanForm({ dataEdit, onCloseModal }) {
             // disabled={isLoading}
             type="secondary"
             text="Batal"
-            onClick={() => reset()}
+            onClick={() => {
+              reset();
+              onCloseModal?.();
+            }}
           />
           <Button text="Simpan" typeButton="submit" />
         </Form.Footer>
