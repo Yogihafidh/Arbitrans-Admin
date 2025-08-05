@@ -61,7 +61,6 @@ export async function createRental(newRental) {
 }
 
 export async function editRental(rental) {
-  console.log(rental);
   const { data: rentalResult, error: errorRental } = await supabase
     .from("booking")
     .update(rental)

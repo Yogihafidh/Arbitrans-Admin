@@ -27,6 +27,9 @@ function KendaraanCard() {
       })
     : data;
 
+  // TODO: Loading
+  if (filteredRental.length === 0) return <p>LOADING...</p>;
+
   return (
     <div className="grid grid-cols-4 gap-4">
       {filteredRental.map((rentalItem) => (

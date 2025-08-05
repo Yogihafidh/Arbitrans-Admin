@@ -5,6 +5,7 @@ import Modal from "../../ui/Modal";
 import Message from "../../ui/Message";
 import Button from "../../ui/Button";
 import PelangganForm from "./PelangganForm";
+import { useDeleteRental } from "./useDeleteRental";
 
 const status = {
   Disewa: "bg-acent-green/10 border-acent-green text-acent-green",
@@ -12,6 +13,7 @@ const status = {
 };
 
 function RentalRow({ rental }) {
+  const { isDelete: isDeleteRental, deleteRental } = useDeleteRental();
   const totalHargaSewa =
     differenceInCalendarDays(rental.tanggalAkhir, rental.tanggalMulai) *
     Number(rental?.hargaSewa);
@@ -91,10 +93,13 @@ function RentalRow({ rental }) {
 
           <Modal.Window name="delete-rental">
             <Message
-              disabled={false}
-              id={""}
-              heading={"Hapus kendaraan?"}
-              message={"Anda yakin untuk membatalkan rental kendaraan ini?"}
+              disabled={isDeleteRental}
+              id={{ idRental: rental.id, idKendaraan: rental.idKendaraan }}
+              onDelete={deleteRental}
+              heading={"Hapus Pelanggan?"}
+              message={
+                "Anda yakin untuk membatalkan penyewaan dan menghapus data pelanggan?"
+              }
             />
           </Modal.Window>
         </Modal>
