@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getRentalKendaraan } from "../services/apiRental";
 import { useSearchParams } from "react-router";
 import { formatRentalData } from "../utils/helper";
+import { ALLOWED_STATUSES } from "../utils/Config";
 
 export function useRental(statusFilter) {
   // Get status from url if exist
@@ -14,8 +15,8 @@ export function useRental(statusFilter) {
   // Validation status
   const isValidStatus = (value) =>
     Array.isArray(value)
-      ? value.every((item) => ["Disewa", "Pending"].includes(item))
-      : ["Disewa", "Pending"].includes(value);
+      ? value.every((item) => ALLOWED_STATUSES.includes(item))
+      : ALLOWED_STATUSES.includes(value);
   const isFetchable = isValidStatus(status);
 
   // If valid re format

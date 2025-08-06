@@ -2,6 +2,7 @@ const buttonType = {
   primary:
     "bg-primary text-netral-100 border-primary hover:bg-primary/10 hover:text-primary",
   secondary: "bg-primary/10 text-primary hover:bg-primary/30 border-none",
+  third: "bg-netral-100 border-netral-400 text-natural-900 hover:bg-netral-200",
   logout:
     "border-acent-red bg-acent-red-100 text-acent-red hover:bg-acent-red hover:border-white hover:text-white border-2",
   delete:

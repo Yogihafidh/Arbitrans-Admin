@@ -45,5 +45,6 @@ export function formatRentalData(data) {
     noTelephone: item.no_telephone,
     alamat: item.alamat,
     nik: item.nik,
+    statusBooking: item.status_booking,
   }));
 }

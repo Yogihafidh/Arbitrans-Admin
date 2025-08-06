@@ -4,7 +4,7 @@ export async function getRentalKendaraan(filter) {
   let query = supabase
     .from("booking")
     .select(
-      "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, kendaraan!inner(id, nama_kendaraan, status_kendaraan, harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
+      "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, status_booking, kendaraan!inner(id, nama_kendaraan, status_kendaraan, harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
     )
     .order("tanggal_akhir", { ascending: false });
 

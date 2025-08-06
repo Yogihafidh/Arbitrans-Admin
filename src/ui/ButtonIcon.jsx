@@ -1,6 +1,10 @@
-function ButtonIcon({ icon, typeButton = "button", onEvent }) {
+function ButtonIcon({ icon, typeButton = "button", onEvent, className }) {
   return (
-    <button type={typeButton} className="cursor-pointer" onClick={onEvent}>
+    <button
+      type={typeButton}
+      className={`cursor-pointer ${className}`}
+      onClick={onEvent}
+    >
       {icon}
     </button>
   );
