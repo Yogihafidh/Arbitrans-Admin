@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { editStatusKendaraan as editStatusKendaraanApi } from "../../services/apiRental";
+import { editStatusRental as editStatusRentalApi } from "../../services/apiRental";
 import toast from "react-hot-toast";
 
 export function useEditStatus() {
   const queryClient = useQueryClient();
-  const { isPending: isEdit, mutate: editStatusKendaraan } = useMutation({
-    mutationFn: editStatusKendaraanApi,
+  const { isPending: isEdit, mutate: editStatusRental } = useMutation({
+    mutationFn: editStatusRentalApi,
     onSuccess: () => {
-      toast.success("Status kendaraan berhasil diedit!");
+      toast.success("Status rental berhasil diedit!");
       queryClient.invalidateQueries({
         queryKey: ["rental"],
       });
@@ -16,5 +16,5 @@ export function useEditStatus() {
     onError: (error) => toast.error(error.message),
   });
 
-  return { isEdit, editStatusKendaraan };
+  return { isEdit, editStatusRental };
 }

@@ -6,20 +6,19 @@ import Button from "../../ui/Button";
 import { useEditStatus } from "../pelanggan/useEditStatus";
 
 function StatusKendaraanForm({ dataEdit, onCloseModal }) {
-  const { isEdit, editStatusKendaraan } = useEditStatus();
+  const { isEdit, editStatusRental } = useEditStatus();
   const methods = useForm({
     defaultValues: {
       nama_kendaraan: dataEdit.namaKendaraan,
       nama_pelanggan: dataEdit.namaPelanggan,
-      status_kendaraan: dataEdit.statusKendaraan,
     },
   });
   const { register, handleSubmit, reset } = methods;
 
   function onSubmit(data) {
-    editStatusKendaraan(
+    editStatusRental(
       {
-        idKendaraan: dataEdit.idKendaraan,
+        id: dataEdit.id,
         ...data,
       },
       {
@@ -38,6 +37,7 @@ function StatusKendaraanForm({ dataEdit, onCloseModal }) {
           formName={"Status Kendaraan"}
           onClose={() => onCloseModal?.()}
         />
+
         <Form.Body>
           <div className="border-netral-400 mb-4 rounded-xl border p-4">
             <Form.Row label="Name Kendaraan" name="nama_kendaraan">
@@ -65,20 +65,21 @@ function StatusKendaraanForm({ dataEdit, onCloseModal }) {
               disabled={isEdit}
               placeholder="Pilih nama kendaraan terlebih dahulu"
               options={[
-                { value: "Tersedia", label: "Tersedia" },
                 { value: "Pending", label: "Pending" },
                 { value: "Disewa", label: "Disewa" },
+                { value: "Selesai", label: "Selesai" },
               ]}
-              {...register("status_kendaraan", {
+              {...register("status", {
                 required: "Status Kendaraan wajib dipilih",
               })}
               disabledPlaceholder={true}
             />
           </Form.Row>
         </Form.Body>
+
         <Form.Footer>
           <Button
-            // disabled={isLoading}
+            disabled={isEdit}
             type="secondary"
             text="Batal"
             onClick={() => {

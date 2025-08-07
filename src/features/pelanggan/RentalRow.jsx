@@ -1,14 +1,16 @@
 import { differenceInCalendarDays } from "date-fns";
+import Button from "../../ui/Button";
+import Message from "../../ui/Message";
+import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
 import { convertDateFormat, convertRupiah } from "../../utils/helper";
-import Modal from "../../ui/Modal";
-import Message from "../../ui/Message";
-import Button from "../../ui/Button";
 import PelangganForm from "./PelangganForm";
 import { useDeleteRental } from "./useDeleteRental";
 
 const status = {
   Disewa: "bg-acent-green/10 border-acent-green text-acent-green",
+  Telat: "bg-acent-red/10 border-acent-red text-acent-red",
+  Selesai: "bg-acent-blue/10 border-acent-blue text-acent-blue",
   Pending: "bg-acent-orange/10 border-acent-yellow text-acent-yellow",
 };
 
@@ -31,24 +33,13 @@ function RentalRow({ rental, isRentalTable = true }) {
         {convertDateFormat(rental.tanggalAkhir)}
       </Table.Column>
       <Table.Column>
-        {isRentalTable ? (
-          <span
-            className={`w-3/4 rounded-full border-2 px-2 py-0.5 text-center text-sm ${status[rental.statusKendaraan]}`}
-          >
-            {rental.statusKendaraan === "Disewa"
-              ? "Aktif"
-              : rental.statusKendaraan}
-          </span>
-        ) : (
-          <span
-            className={`bg-acent-blue/10 border-acent-blue text-acent-blue w-3/4 rounded-full border-2 px-2 py-0.5 text-center text-sm`}
-          >
-            Selesai
-          </span>
-        )}
+        <span
+          className={`w-3/4 rounded-full border-2 px-2 py-0.5 text-center text-sm ${status[rental.status]}`}
+        >
+          {rental.status === "Disewa" ? "Aktif" : rental.status}
+        </span>
       </Table.Column>
 
-      
       {isRentalTable && (
         <Table.Column>
           <Modal>
@@ -103,7 +94,7 @@ function RentalRow({ rental, isRentalTable = true }) {
             <Modal.Window name="delete-rental">
               <Message
                 disabled={isDeleteRental}
-                id={{ idRental: rental.id, idKendaraan: rental.idKendaraan }}
+                id={rental.id}
                 onDelete={deleteRental}
                 heading={"Hapus Pelanggan?"}
                 message={

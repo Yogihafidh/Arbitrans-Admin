@@ -93,12 +93,15 @@ function PelangganForm({ dataEdit = {}, onCloseModal }) {
         },
       );
     else
-      createRental(data, {
-        onSuccess: () => {
-          onCloseModal?.();
-          reset();
+      createRental(
+        { status: "Pending", ...data },
+        {
+          onSuccess: () => {
+            onCloseModal?.();
+            reset();
+          },
         },
-      });
+      );
   }
 
   // TODO: KURANG LOADING

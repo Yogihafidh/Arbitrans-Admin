@@ -4,7 +4,7 @@ export async function getRentalKendaraan(filter) {
   let query = supabase
     .from("booking")
     .select(
-      "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, status_booking, kendaraan!inner(id, nama_kendaraan, status_kendaraan, harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
+      "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, status, kendaraan(id, nama_kendaraan,  harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
     )
     .order("tanggal_akhir", { ascending: false });
 
@@ -28,7 +28,6 @@ export async function getRentalKendaraan(filter) {
 }
 
 export async function createRental(newRental) {
-  console.log(newRental);
   // Insert data tabel rental
   const { error: rentalError } = await supabase
     .from("booking")
@@ -37,26 +36,6 @@ export async function createRental(newRental) {
   if (rentalError) {
     console.error("Insert data rental gagal: ", rentalError);
     throw new Error("rental gagal ditambahkan, coba hubungi admin!");
-  }
-
-  // Update status kendaraan in tabel kendaraan
-  const idKendaraan = Number(newRental?.id_kendaraan);
-  console.log(idKendaraan);
-  const { data: kendaraanResult, error: kendaraanUpdateError } = await supabase
-    .from("kendaraan")
-    .update({ status_kendaraan: "Pending" })
-    .eq("id", idKendaraan)
-    .select();
-
-  if (!kendaraanResult || kendaraanResult.length === 0) {
-    throw new Error(
-      "Data kendaraan tidak ditemukan atau tidak berhasil diupdate.",
-    );
-  }
-
-  if (kendaraanUpdateError) {
-    console.error("Update data rental gagal: ", kendaraanUpdateError);
-    throw new Error("rental gagal diupdate, coba hubungi admin!");
   }
 }
 
@@ -79,52 +58,67 @@ export async function editRental(rental) {
   }
 }
 
-export async function editStatusKendaraan(kendaraan) {
-  const idKendaraan = Number(kendaraan.idKendaraan);
-  const { data: kendaraanResult, error: kendaraanUpdateError } = await supabase
-    .from("kendaraan")
-    .update({ status_kendaraan: kendaraan.status_kendaraan })
-    .eq("id", idKendaraan)
+export async function editStatusRental(rental) {
+  const { data, error } = await supabase
+    .from("booking")
+    .update({ status: rental.status })
+    .eq("id", rental.id)
     .select();
 
-  if (!kendaraanResult || kendaraanResult.length === 0) {
+  if (!data || data.length === 0) {
     throw new Error(
-      "Data kendaraan tidak ditemukan atau tidak berhasil diupdate.",
+      "Data rental tidak ditemukan atau tidak berhasil diupdate.",
     );
   }
 
-  if (kendaraanUpdateError) {
-    console.error("Update data rental gagal: ", kendaraanUpdateError);
+  if (error) {
+    console.error("Update data rental gagal: ", error);
     throw new Error("Rental gagal diupdate, coba hubungi admin!");
   }
 }
 
-export async function deleteRental(rental) {
+export async function deleteRental(id) {
   // Delele kendaraan
   const { error: bookingTabelError } = await supabase
     .from("booking")
     .delete()
-    .eq("id", rental.idRental);
+    .eq("id", id);
   if (bookingTabelError) {
     console.error("Gagal menghapus data rental: ", bookingTabelError);
     throw new Error("Gagal menghapus data rental");
   }
+}
 
-  // Set Status Kendaraan menjadi tersedia
-  const { data: kendaraanResult, error: kendaraanUpdateError } = await supabase
-    .from("kendaraan")
-    .update({ status_kendaraan: "Tersedia" })
-    .eq("id", rental.idKendaraan)
-    .select();
+export async function editStatusTelat() {
+  const today = new Date().toISOString().split("T")[0];
 
-  if (!kendaraanResult || kendaraanResult.length === 0) {
-    throw new Error(
-      "Data kendaraan tidak ditemukan atau tidak berhasil diupdate.",
-    );
+  const { data, error } = await supabase
+    .from("rental")
+    .select("id, status, tanggalAkhir");
+
+  if (error) {
+    console.error("Gagal mengambil data rental:", error);
+    return;
   }
 
-  if (kendaraanUpdateError) {
-    console.error("Update data rental gagal: ", kendaraanUpdateError);
-    throw new Error("Rental gagal diupdate, coba hubungi admin!");
+  for (const item of data) {
+    const isTelat =
+      item.status !== "Selesai" &&
+      item.status !== "Telat" &&
+      item.status !== "Pending" &&
+      item.tanggalAkhir < today;
+
+    if (isTelat) {
+      const { error: updateError } = await supabase
+        .from("rental")
+        .update({ status: "Telat" })
+        .eq("id", item.id);
+
+      if (updateError) {
+        console.error(`Gagal update status untuk ID ${item.id}:`, updateError);
+      } else {
+        console.log(`Status rental ID ${item.id} diubah menjadi Telat.`);
+      }
+    }
   }
 }

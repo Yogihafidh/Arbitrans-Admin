@@ -1,10 +1,20 @@
+import { useSearchParams } from "react-router";
 import { useRental } from "../../hooks/useRental";
 import Table from "../../ui/Table";
 import RentalRow from "./RentalRow";
 
 function RiwayatTable() {
   // TODO: status_kendaraan = Tersedia
-  const { rental = [], isLoading: rentalLoading } = useRental(["Tersedia"]);
+  const { rental = [], isLoading: rentalLoading } = useRental("Selesai");
+
+  const [searchparams] = useSearchParams();
+  const querySearch = searchparams.get("search") || "";
+
+  // Searching feature
+  const filteredRental = rental.filter((item) => {
+    const nama = item?.namaPelanggan?.toLowerCase() || "";
+    return nama.includes(querySearch);
+  });
 
   return (
     <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
@@ -21,7 +31,7 @@ function RiwayatTable() {
         </Table.Header>
 
         <Table.Body
-          data={rental}
+          data={filteredRental}
           render={(rental) => (
             <RentalRow
               rental={rental}

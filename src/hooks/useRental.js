@@ -1,16 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRentalKendaraan } from "../services/apiRental";
-import { useSearchParams } from "react-router";
-import { formatRentalData } from "../utils/helper";
 import { ALLOWED_STATUSES } from "../utils/Config";
+import { formatRentalData } from "../utils/helper";
 
 export function useRental(statusFilter) {
-  // Get status from url if exist
-  const [searchParams] = useSearchParams();
-  const statusFromURL = searchParams.get("status");
-
   // Pakai filter dari argumen atau dari URL
-  const status = statusFilter || statusFromURL || null;
+  const status = statusFilter ||  null;
 
   // Validation status
   const isValidStatus = (value) =>
@@ -20,9 +15,7 @@ export function useRental(statusFilter) {
   const isFetchable = isValidStatus(status);
 
   // If valid re format
-  const filter = isFetchable
-    ? { field: "kendaraan.status_kendaraan", value: status }
-    : null;
+  const filter = isFetchable ? { field: "status", value: status } : null;
 
   // Get Data
   const {

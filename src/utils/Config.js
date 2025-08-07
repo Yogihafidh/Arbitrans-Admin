@@ -1,1 +1,1 @@
-export const ALLOWED_STATUSES = ["Disewa", "Pending", "Tersedia"];
+export const ALLOWED_STATUSES = ["Disewa", "Pending", "Selesai", "Telat"];
