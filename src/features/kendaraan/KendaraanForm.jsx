@@ -57,8 +57,8 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
         },
         {
           onSuccess: () => {
-            reset();
             onCloseModal?.();
+            reset();
           },
         },
       );
@@ -74,7 +74,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
         />
 
         {/* BODY FORM */}
-        <section className="px-8 py-8">
+        <Form.Body>
           <div className="border-netral-400 mb-4 border-b border-dashed pb-1">
             <Form.Row label="Gambar" name="gambar">
               <Controller
@@ -95,7 +95,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
 
           <p className="text-netral-900 mb-4 font-semibold">Informasi Umum</p>
           <Row>
-            <Form.Row label="Name Kendaraan" name="nama_kendaraan" type="text">
+            <Form.Row label="Name Kendaraan" name="nama_kendaraan">
               <Input
                 placeholder="Masukan nama kendaraan"
                 {...register("nama_kendaraan", {
@@ -190,6 +190,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
             <Form.Row label="Kapasitas Penumpang" name="kapasitas_penumpang">
               <Input
                 type="number"
+                inputClass="w-full"
                 placeholder="Jumalah maks. penumpang"
                 minNumber={1}
                 maxNumber={8}
@@ -243,6 +244,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
             </Form.Row>
             <Form.Row label="Tahun" name="tahun_produksi">
               <Input
+                inputClass="w-full"
                 type="number"
                 placeholder="Tahun produksi"
                 {...register("tahun_produksi", {
@@ -277,7 +279,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
               })}
             />
           </Form.Row>
-        </section>
+        </Form.Body>
 
         {/* FOOTER FORM */}
         <Form.Footer>

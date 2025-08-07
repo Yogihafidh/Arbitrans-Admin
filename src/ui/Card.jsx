@@ -5,23 +5,30 @@ import KendaraanForm from "../features/kendaraan/KendaraanForm";
 import Button from "./Button";
 import Modal from "./Modal";
 import Message from "./Message";
+import StatusKendaraanForm from "../features/kendaraan/StatusKendaraanForm";
+import { useDeleteRental } from "../features/pelanggan/useDeleteRental";
 
 const status = {
   Tersedia: "bg-acent-green/10 border-acent-green text-acent-green",
   Disewa: "bg-acent-red/10 border-acent-red text-acent-red",
+  Telat: "bg-acent-red/10 border-acent-red text-acent-red",
   Pending: "bg-acent-orange/10 border-acent-orange text-acent-orange",
 };
 
 function Card({ data, isButtonShow = true }) {
-  const { isDeleting, deleteKendaraan } = useDeleteKendaraan();
-  const isRental = data.statusKendaraan === "Tersedia";
+  const { isDeleting: isDeleteKendaraan, deleteKendaraan } =
+    useDeleteKendaraan();
+  const { isDelete: isDeleteRental, deleteRental } = useDeleteRental();
+
+  const isRental = Boolean(data.status);
+
   const totalHarga = isRental
-    ? data.hargaSewa
-    : data.hargaSewa *
-      differenceInCalendarDays(data?.tanggalAkhir, data?.tanggalMulai);
+    ? data.hargaSewa *
+      differenceInCalendarDays(data?.tanggalAkhir, data?.tanggalMulai)
+    : data.hargaSewa;
 
   return (
-    <div className="border-netral-300 rounded-2xl border p-4">
+    <div className="border-netral-300 bg-netral-100 rounded-2xl border p-4">
       <div className="relative w-full">
         <img
           alt={data.namaKendaraan}
@@ -32,16 +39,16 @@ function Card({ data, isButtonShow = true }) {
           }
         />
         <span
-          className={`bl absolute top-4 right-4 rounded-lg border-2 bg-white/30 px-3 py-1 text-sm backdrop-blur-sm ${status[data.statusKendaraan]}`}
+          className={`bl absolute top-4 right-4 rounded-lg border-2 px-3 py-1 text-sm backdrop-blur-xs ${isRental ? status[data.status] : status.Tersedia}`}
         >
-          {data.statusKendaraan}
+          {isRental ? data.status : "Tersedia"}
         </span>
       </div>
 
       <div className="flex flex-col gap-3 pt-4">
         <p className="font-semibold">{data.namaKendaraan}</p>
 
-        {isRental && (
+        {!isRental && (
           <>
             <p className="text-netral-700 text-sm">{data.tipeKendaraan}</p>
             <p className="text-netral-700 text-sm">
@@ -50,7 +57,7 @@ function Card({ data, isButtonShow = true }) {
           </>
         )}
 
-        {!isRental && (
+        {isRental && (
           <>
             <p className="text-netral-700 text-sm">{data.namaPelanggan}</p>
             <p className="text-netral-700 text-sm">
@@ -66,12 +73,16 @@ function Card({ data, isButtonShow = true }) {
               <Modal.Open opens="edit">
                 <Button
                   type="primary"
-                  text={isRental ? "Ubah Detail" : "Ubah Status"}
+                  text={isRental ? "Ubah Status" : "Ubah Detail"}
                   className="w-full"
                 />
               </Modal.Open>
               <Modal.Window name="edit">
-                <KendaraanForm dataEdit={data} />
+                {isRental ? (
+                  <StatusKendaraanForm dataEdit={data} />
+                ) : (
+                  <KendaraanForm dataEdit={data} />
+                )}
               </Modal.Window>
 
               <Modal.Open opens="delete">
@@ -79,6 +90,8 @@ function Card({ data, isButtonShow = true }) {
                   type="logout"
                   leftIcon={
                     isRental ? (
+                      ""
+                    ) : (
                       <svg
                         width="18"
                         height="20"
@@ -91,25 +104,23 @@ function Card({ data, isButtonShow = true }) {
                           fill="currentColor"
                         />
                       </svg>
-                    ) : (
-                      ""
                     )
                   }
-                  text={isRental ? null : "Batal"}
+                  text={isRental ? "Batal" : null}
                   className="bg-acent-red/10 border-none"
                 />
               </Modal.Open>
 
               <Modal.Window name="delete">
                 <Message
-                  disabled={isDeleting}
+                  disabled={isDeleteKendaraan || isDeleteRental}
                   id={data.id}
-                  onDelete={deleteKendaraan}
-                  heading={isRental ? "Hapus kendaraan?" : "Batal Rental?"}
+                  onDelete={isRental ? deleteRental : deleteKendaraan}
+                  heading={isRental ? "Batal Rental?" : "Hapus kendaraan?"}
                   message={
                     isRental
-                      ? "Anda yakin untuk menghapus kendaraan dari dashboard?"
-                      : "Anda yakin untuk membatalkan rental kendaraan ini?"
+                      ? "Anda yakin untuk membatalkan rental kendaraan ini?"
+                      : "Anda yakin untuk menghapus kendaraan dari dashboard?"
                   }
                 />
               </Modal.Window>

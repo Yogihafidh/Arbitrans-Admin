@@ -1,11 +1,11 @@
 import ButtonIcon from "./ButtonIcon";
 import { useFormContext } from "react-hook-form";
 
-function Form({ children, onSubmit }) {
+function Form({ children, onSubmit, className = "" }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="h-[90vh] max-h-[95vh] overflow-y-auto rounded-2xl bg-white py-6 shadow-md"
+      className={`h-[90vh] max-h-[95vh] overflow-y-auto rounded-2xl bg-white py-6 shadow-md ${className}`}
     >
       {children}
     </form>
@@ -37,6 +37,10 @@ function FormHeader({ formName, onClose }) {
   );
 }
 
+function FormBody({ children }) {
+  return <section className="px-8 py-8">{children}</section>;
+}
+
 function FormRow({ label, name, children }) {
   const {
     formState: { errors },
@@ -61,13 +65,14 @@ function FormRow({ label, name, children }) {
 
 function FormFooter({ children }) {
   return (
-    <div className="flex justify-end gap-2 px-8 pt-6 shadow-[0px_-4px_12px_rgba(0,0,0,0.05)]">
+    <div className="flex h-fit justify-end gap-2 px-8 pt-6 shadow-[0px_-4px_12px_rgba(0,0,0,0.05)]">
       {children}
     </div>
   );
 }
 
 Form.Header = FormHeader;
+Form.Body = FormBody;
 Form.Row = FormRow;
 Form.Footer = FormFooter;
 

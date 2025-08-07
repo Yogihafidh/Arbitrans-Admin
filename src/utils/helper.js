@@ -16,7 +16,6 @@ export function formatKendaraanData(data) {
   return data.map((item) => ({
     id: item.id,
     namaKendaraan: item.nama_kendaraan,
-    statusKendaraan: item.status_kendaraan,
     hargaSewa: item.harga_sewa,
     tipeKendaraan: item.tipe_kendaraan,
     imageKendaraan: item.imageKendaraan,
@@ -33,13 +32,17 @@ export function formatKendaraanData(data) {
 export function formatRentalData(data) {
   return data.map((item) => ({
     id: item.id,
+    idKendaraan: item.kendaraan.id,
     namaKendaraan: item.kendaraan.nama_kendaraan,
-    statusKendaraan: item.kendaraan.status_kendaraan,
     hargaSewa: item.kendaraan.harga_sewa,
     tipeKendaraan: item.kendaraan.tipe_kendaraan,
     imageKendaraan: item.kendaraan.imageKendaraan,
     namaPelanggan: item.nama_pelanggan,
     tanggalMulai: item.tanggal_mulai,
     tanggalAkhir: item.tanggal_akhir,
+    noTelephone: item.no_telephone,
+    alamat: item.alamat,
+    nik: item.nik,
+    status: item.status,
   }));
 }

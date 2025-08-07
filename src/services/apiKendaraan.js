@@ -1,9 +1,58 @@
 import supabase, { supabaseUrl } from "./Supabase";
 
+export async function getKendaraanTersediaHariIni() {
+  const today = new Date().toISOString().split("T")[0];
+
+  // Ambil ID kendaraan yang sedang disewa hari ini
+  const { data: kendaraanSedangDisewa, error: errorRental } = await supabase
+    .from("booking")
+    .select("id_kendaraan")
+    .or(
+      `and(tanggal_mulai.lte.${today},tanggal_akhir.gte.${today},status.neq.Selesai),and(tanggal_akhir.lt.${today},status.eq.Telat)`,
+    );
+
+  if (errorRental) {
+    console.error("Error pada rental: ", errorRental);
+    throw new Error("Gagal cek data rental.");
+  }
+
+  // Ambil semua ID kendaraan yang sedang disewa hari ini ke dalam array
+  const idSedangDisewa =
+    kendaraanSedangDisewa?.map((rental) => rental.id_kendaraan) ?? [];
+
+  // Inisialisasi query kendaraan yang tersedia
+  let kendaraanTersediaQuery = supabase
+    .from("kendaraan")
+    .select("*, imageKendaraan(url_gambar)")
+    .order("nama_kendaraan");
+
+  // Jika ada kendaraan yang sedang disewa hari ini, tambahkan filter NOT IN agar tidak ditampilkan
+  if (idSedangDisewa.length > 0) {
+    kendaraanTersediaQuery = kendaraanTersediaQuery.filter(
+      "id",
+      "not.in",
+      `(${idSedangDisewa.join(",")})`,
+    );
+  }
+
+  // Eksekusi query untuk mengambil kendaraan yang tersedia hari ini
+  const { data: kendaraanTersedia, error: errorKendaraanTersedia } =
+    await kendaraanTersediaQuery;
+
+  if (errorKendaraanTersedia) {
+    console.error("Error di kendaraan yang tersedia", errorKendaraanTersedia);
+    throw new Error("Data kendaraan tidak bisa diambil.");
+  }
+
+  // Kembalikan data kendaraan yang tersedia hari ini
+  return kendaraanTersedia;
+}
+
 export async function getKendaraan(filter) {
   const query = supabase
     .from("kendaraan")
-    .select("*, imageKendaraan(url_gambar)");
+    .select("*, imageKendaraan(url_gambar)")
+    .order("nama_kendaraan");
 
   if (filter) query.eq(filter.field, filter.value);
 
@@ -19,7 +68,6 @@ export async function getKendaraan(filter) {
 }
 
 export async function createKendaraan(newKendaraan) {
-  console.log(newKendaraan);
   // Memisahkan data image dengan kendaraan
   const { gambar, ...kendaraanData } = newKendaraan;
 
@@ -55,7 +103,7 @@ export async function createKendaraan(newKendaraan) {
   // Insert kendaraan data
   const { data: kendaraanResult, error: kendaraanError } = await supabase
     .from("kendaraan")
-    .insert([{ ...kendaraanData, status_kendaraan: "Tersedia" }])
+    .insert([{ ...kendaraanData }])
     .select();
 
   if (kendaraanError) {
@@ -75,8 +123,7 @@ export async function createKendaraan(newKendaraan) {
 
   const { error: imageError } = await supabase
     .from("imageKendaraan")
-    .insert(imageInsert)
-    .select();
+    .insert(imageInsert);
 
   if (imageError) {
     // Rollback kendaraan

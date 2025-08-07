@@ -2,14 +2,16 @@ import { useRental } from "../../hooks/useRental";
 import Card from "../../ui/Card";
 
 function KendaraanCard() {
-  const { rental = [] } = useRental("Disewa");
-  const kendaraanDisewa = rental?.filter(
-    (kendaraan) => kendaraan.statusKendaraan === "Disewa",
-  );
+  const { rental = [], isLoading } = useRental(["Disewa", "Telat"]);
+
+  // TODO: Loading
+  if (isLoading) return <p>LOADING...</p>;
+  if (rental.length === 0)
+    return <p>Tidak ada kendaraan yang disewa hari ini</p>;
 
   return (
     <div className="grid grid-cols-4 gap-4">
-      {kendaraanDisewa.map((kendaraan) => (
+      {rental.map((kendaraan) => (
         <Card data={kendaraan} key={kendaraan.id} isButtonShow={false} />
       ))}
     </div>

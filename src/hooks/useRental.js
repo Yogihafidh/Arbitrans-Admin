@@ -1,18 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 import { getRentalKendaraan } from "../services/apiRental";
-import { useSearchParams } from "react-router";
+import { ALLOWED_STATUSES } from "../utils/Config";
 import { formatRentalData } from "../utils/helper";
 
 export function useRental(statusFilter) {
-  const [searchParams] = useSearchParams();
-  const statusFromURL = searchParams.get("status");
-  const status = statusFilter || statusFromURL || "Pending";
+  // Pakai filter dari argumen atau dari URL
+  const status = statusFilter ||  null;
 
-  // Filtering logic can be added here if needed
-  const isFetchable = status === "Pending" || status === "Disewa";
-  const filter = isFetchable
-    ? { field: "kendaraan.status_kendaraan", value: status }
-    : null;
+  // Validation status
+  const isValidStatus = (value) =>
+    Array.isArray(value)
+      ? value.every((item) => ALLOWED_STATUSES.includes(item))
+      : ALLOWED_STATUSES.includes(value);
+  const isFetchable = isValidStatus(status);
+
+  // If valid re format
+  const filter = isFetchable ? { field: "status", value: status } : null;
 
   // Get Data
   const {
@@ -20,10 +23,10 @@ export function useRental(statusFilter) {
     error,
     isLoading,
   } = useQuery({
-    queryKey: isFetchable ? ["rental", filter] : [],
+    queryKey: isFetchable ? ["rental", "kendaraan", filter] : [],
     queryFn: () => getRentalKendaraan(filter),
     enabled: isFetchable,
-    staleTime: 1000 * 60 * 5, // cache selama 5 menit
+    staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
   });
 

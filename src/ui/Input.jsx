@@ -8,6 +8,7 @@ function Input({
   inputClass = "",
   onChange,
   value,
+  disabled,
   minNumber,
   maxNumber,
   minLength = 10,
@@ -24,10 +25,11 @@ function Input({
 
   return (
     <div
-      className={`border-netral-400 focus-within:border-netral-900 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2`}
+      className={`border-netral-400 focus-within:border-netral-900 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${disabled ? "bg-netral-200 cursor-not-allowed" : ""}`}
     >
       {icon && <span>{icon}</span>}
       <input
+        disabled={disabled}
         {...props}
         {...(type === "number" ? { min: minNumber, max: maxNumber } : {})}
         {...(type === "text" ? { minLength, maxLength } : {})}

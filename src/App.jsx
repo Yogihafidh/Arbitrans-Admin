@@ -7,6 +7,8 @@ import JadwalSewa from "./pages/JadwalSewa";
 import Pelanggan from "./pages/Pelanggan";
 import RentalKendaraan from "./pages/RentalKendaraan";
 import AppLayout from "./ui/AppLayout";
+import Status from "./pages/Status";
+import Riwayat from "./pages/Riwayat";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +29,10 @@ function App() {
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="rental" element={<RentalKendaraan />} />
-              <Route path="pelanggan" element={<Pelanggan />} />
+              <Route path="pelanggan" element={<Pelanggan />}>
+                <Route index element={<Status />} />
+                <Route path="riwayat" element={<Riwayat />} />
+              </Route>
               <Route path="jadwal" element={<JadwalSewa />} />
             </Route>
           </Routes>
