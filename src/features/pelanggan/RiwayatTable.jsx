@@ -4,7 +4,6 @@ import Table from "../../ui/Table";
 import RentalRow from "./RentalRow";
 
 function RiwayatTable() {
-  // TODO: status_kendaraan = Tersedia
   const { rental = [], isLoading: rentalLoading } = useRental("Selesai");
 
   const [searchparams] = useSearchParams();

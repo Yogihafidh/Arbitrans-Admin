@@ -1,25 +1,34 @@
 import DatePickerJadwaSewa from "../features/jadwalSewa/DatePickerJadwaSewa";
 import KendaraanDisewaCard from "../features/jadwalSewa/KendaraanDisewaCard";
-import { useRental } from "../hooks/useRental";
+import { useKendaraanDisewaByDate } from "../features/jadwalSewa/useKendaraanDisewaByDate";
 
 function JadwalSewa() {
-  const { rental, isLoading } = useRental("Disewa");
-  if (isLoading) return <p>LOADING...</p>;
-  if (rental.length === 0)
-    return <p>Tidak ada kendaraan yang disewa hari ini</p>;
+  const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaByDate([
+    "Disewa",
+    "Telat",
+    "Pending",
+  ]);
+  const cardTop = kendaraanDisewaHariIni.slice(0, 3);
+  const cardButtom = kendaraanDisewaHariIni.slice(3);
 
-  const cardTop = rental.slice(0, 3);
-  const cardButtom = rental.slice(3);
+  if (isLoading) return <p>LOADING...</p>;
 
   return (
     <div>
       <div className="mb-4 grid grid-cols-[auto_1fr] gap-4">
         <DatePickerJadwaSewa />
-        <KendaraanDisewaCard data={cardTop} column="repeat(3, 1fr)" />
+        {kendaraanDisewaHariIni.length !== 0 ? (
+          <KendaraanDisewaCard data={cardTop} column="repeat(3, 1fr)" />
+        ) : (
+          <p>Tidak ada kendaraan yang disewa pada tanggal ini.</p>
+        )}
       </div>
-      <div>
-        <KendaraanDisewaCard data={cardButtom} column="repeat(4, 1fr)" />
-      </div>
+
+      {kendaraanDisewaHariIni.length !== 0 && (
+        <div>
+          <KendaraanDisewaCard data={cardButtom} column="repeat(4, 1fr)" />
+        </div>
+      )}
     </div>
   );
 }

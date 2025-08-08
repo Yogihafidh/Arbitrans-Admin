@@ -1,7 +1,8 @@
+import { format } from "date-fns";
 import supabase, { supabaseUrl } from "./Supabase";
 
 export async function getKendaraanTersediaHariIni() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = format(new Date(), "yyyy-MM-dd");
 
   // Ambil ID kendaraan yang sedang disewa hari ini
   const { data: kendaraanSedangDisewa, error: errorRental } = await supabase

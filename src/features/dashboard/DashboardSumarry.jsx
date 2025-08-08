@@ -1,7 +1,7 @@
 import { useKendaraan } from "../../hooks/useKendaraan";
 import { useKendaraanTersedia } from "../kendaraan/useKendaraanTersedia";
 import SummaryCaard from "./SummaryCaard";
-import { useKendaraanDisewaHariIni } from "./useKendaraanUniq";
+import { useKendaraanDisewaHariIni } from "./useKendaraanDisewaHariIni";
 
 function DashboardSumarry() {
   const { kendaraan = [] } = useKendaraan();

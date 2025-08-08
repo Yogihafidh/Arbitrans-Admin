@@ -29,8 +29,8 @@ function RentalRow({ rental, isRentalTable = true }) {
       <Table.Column>{rental.namaKendaraan}</Table.Column>
       <Table.Column>{convertRupiah(totalHargaSewa)}</Table.Column>
       <Table.Column>
-        {convertDateFormat(rental.tanggalMulai)} -{" "}
-        {convertDateFormat(rental.tanggalAkhir)}
+        <p>{convertDateFormat(rental.tanggalMulai)} - </p>
+        <p>{convertDateFormat(rental.tanggalAkhir)}</p>
       </Table.Column>
       <Table.Column>
         <span

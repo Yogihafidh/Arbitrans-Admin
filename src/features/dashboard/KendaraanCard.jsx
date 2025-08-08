@@ -1,5 +1,5 @@
 import Card from "../../ui/Card";
-import { useKendaraanDisewaHariIni } from "./useKendaraanUniq";
+import { useKendaraanDisewaHariIni } from "./useKendaraanDisewaHariIni";
 
 function KendaraanCard() {
   const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaHariIni([
