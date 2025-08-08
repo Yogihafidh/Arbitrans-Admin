@@ -28,7 +28,7 @@ function Card({ data, isButtonShow = true }) {
     : data.hargaSewa;
 
   return (
-    <div className="border-netral-300 bg-netral-100 rounded-2xl border p-4">
+    <div className={`border-netral-300 bg-netral-100 rounded-2xl border p-4`}>
       <div className="relative w-full">
         <img
           alt={data.namaKendaraan}
