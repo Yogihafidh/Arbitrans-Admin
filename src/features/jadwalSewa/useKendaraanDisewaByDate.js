@@ -1,6 +1,6 @@
+import { useSearchParams } from "react-router";
 import { isWithinInterval, parseISO, startOfDay } from "date-fns";
 import { useRental } from "../../hooks/useRental";
-import { useSearchParams } from "react-router";
 
 export function useKendaraanDisewaByDate(status) {
   // Get parameter from URL

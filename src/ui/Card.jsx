@@ -1,12 +1,12 @@
 import { differenceInCalendarDays } from "date-fns";
 import { useDeleteKendaraan } from "../features/kendaraan/useDeleteKendaraan";
 import { convertDateFormat, convertRupiah } from "../utils/helper";
+import { useDeleteRental } from "../features/pelanggan/useDeleteRental";
 import KendaraanForm from "../features/kendaraan/KendaraanForm";
 import Button from "./Button";
 import Modal from "./Modal";
 import Message from "./Message";
 import StatusKendaraanForm from "../features/kendaraan/StatusKendaraanForm";
-import { useDeleteRental } from "../features/pelanggan/useDeleteRental";
 
 const status = {
   Tersedia: "bg-acent-green/10 border-acent-green text-acent-green",

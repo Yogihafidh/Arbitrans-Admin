@@ -1,5 +1,6 @@
-import Card from "../../ui/Card";
 import { useKendaraanDisewaHariIni } from "./useKendaraanDisewaHariIni";
+import Card from "../../ui/Card";
+import KendaraanCardSkeleton from "../../ui/CardSkeletonLoading";
 
 function KendaraanCard() {
   const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaHariIni([
@@ -7,8 +8,7 @@ function KendaraanCard() {
     "Telat",
   ]);
 
-  // TODO: Loading
-  if (isLoading) return <p>LOADING...</p>;
+  if (isLoading) return <KendaraanCardSkeleton count={4} />;
   if (kendaraanDisewaHariIni.length === 0)
     return <p>Tidak ada kendaraan yang disewa hari ini</p>;
 

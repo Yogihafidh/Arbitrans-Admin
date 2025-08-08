@@ -1,9 +1,9 @@
 import { FormProvider, useForm } from "react-hook-form";
+import { useEditStatus } from "../pelanggan/useEditStatus";
 import Form from "../../ui/Form";
 import SelectInput from "../../ui/SelectInput";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { useEditStatus } from "../pelanggan/useEditStatus";
 
 function StatusKendaraanForm({ dataEdit, onCloseModal }) {
   const { isEdit, editStatusRental } = useEditStatus();
