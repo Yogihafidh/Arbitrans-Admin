@@ -92,9 +92,15 @@
 
 /* Hari yang dipilih */
 .react-datepicker__day--selected {
-  background-color: #2684ff;
-  color: white;
+  background-color: #0d7dc1;
+  color: #fff;
 }
+
+.react-datepicker__day--keyboard-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
 .react-datepicker__current-month {
   width: 100%;
   text-align: center;

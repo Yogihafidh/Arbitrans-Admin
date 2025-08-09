@@ -1,3 +1,7 @@
+import { Controller, FormProvider, useForm } from "react-hook-form";
+import { useCreateKendaraan } from "./useCreateKendaraan";
+import { useEditKendaraan } from "./useEditKendaraan";
+
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
@@ -5,10 +9,6 @@ import Row from "../../ui/Row";
 import FileInput from "../../ui/FileInput";
 import TextArea from "../../ui/Textarea";
 import SelectInput from "../../ui/SelectInput";
-
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import { useCreateKendaraan } from "./useCreateKendaraan";
-import { useEditKendaraan } from "./useEditKendaraan";
 
 function KendaraanForm({ dataEdit = {}, onCloseModal }) {
   const { isCreating, createKendaraan } = useCreateKendaraan();
@@ -162,8 +162,8 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
                 {...register("tipe_kendaraan", {
                   required: "Tipe kendaraan wajib diisi",
                   minLength: {
-                    value: 5,
-                    message: "Nama minimal 5 karakter",
+                    value: 2,
+                    message: "Nama minimal 2 karakter",
                   },
                   maxLength: {
                     value: 100,

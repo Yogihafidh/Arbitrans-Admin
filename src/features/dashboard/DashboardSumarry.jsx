@@ -1,12 +1,15 @@
 import { useKendaraan } from "../../hooks/useKendaraan";
-import { useRental } from "../../hooks/useRental";
 import { useKendaraanTersedia } from "../kendaraan/useKendaraanTersedia";
+import { useKendaraanDisewaHariIni } from "./useKendaraanDisewaHariIni";
 import SummaryCaard from "./SummaryCaard";
 
 function DashboardSumarry() {
   const { kendaraan = [] } = useKendaraan();
   const { kendaraanTersedia = [] } = useKendaraanTersedia();
-  const { rental: KendaraanDisewa } = useRental(["Disewa", "Telat"]);
+  const { kendaraanDisewaHariIni } = useKendaraanDisewaHariIni([
+    "Disewa",
+    "Telat",
+  ]);
 
   return (
     <div className="flex items-center justify-between gap-4">
@@ -25,7 +28,7 @@ function DashboardSumarry() {
       <SummaryCaard
         color="red"
         variantColor="soft"
-        angka={KendaraanDisewa.length}
+        angka={kendaraanDisewaHariIni.length}
         keterangan="Kendaraan Disewa"
       />
     </div>

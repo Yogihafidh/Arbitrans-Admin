@@ -1,17 +1,17 @@
+import { addDays, differenceInCalendarDays, subDays } from "date-fns";
 import { Controller, FormProvider, useForm, useWatch } from "react-hook-form";
+import { useKendaraan } from "../../hooks/useKendaraan";
+import { useCreateRental } from "./useCreatePelanggan";
+import { useRental } from "../../hooks/useRental";
+import { useEditRental } from "./useEditRental";
+import { convertRupiah } from "../../utils/helper";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
-import { useKendaraan } from "../../hooks/useKendaraan";
 import SelectInput from "../../ui/SelectInput";
 import Row from "../../ui/Row";
 import DateInput from "../../ui/DateInput";
-import { addDays, differenceInCalendarDays, subDays } from "date-fns";
-import { useRental } from "../../hooks/useRental";
-import { convertRupiah } from "../../utils/helper";
 import TextArea from "../../ui/Textarea";
 import Button from "../../ui/Button";
-import { useCreateRental } from "./useCreatePelanggan";
-import { useEditRental } from "./useEditRental";
 
 function PelangganForm({ dataEdit = {}, onCloseModal }) {
   // Check if edit session
@@ -204,7 +204,7 @@ function PelangganForm({ dataEdit = {}, onCloseModal }) {
           </Form.Row>
 
           <Row>
-            <Form.Row label="Tanggal awal sewa" name="tanggal_awal">
+            <Form.Row label="Tanggal awal sewa" name="tanggal_mulai">
               <Controller
                 name="tanggal_mulai"
                 control={control}

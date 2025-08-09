@@ -1,6 +1,4 @@
 import { Outlet } from "react-router";
-import PelangganTable from "../features/pelanggan/PelangganTable";
-import PelangganTableOperation from "../features/pelanggan/PelangganTableOperation";
 
 function Pelanggan() {
   return (

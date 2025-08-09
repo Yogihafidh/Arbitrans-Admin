@@ -4,7 +4,6 @@ import Table from "../../ui/Table";
 import RentalRow from "./RentalRow";
 
 function RiwayatTable() {
-  // TODO: status_kendaraan = Tersedia
   const { rental = [], isLoading: rentalLoading } = useRental("Selesai");
 
   const [searchparams] = useSearchParams();
@@ -18,7 +17,7 @@ function RiwayatTable() {
 
   return (
     <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
-      <Table columns="1fr 1fr 1fr 1.5fr 1fr 0.8fr 1fr 1fr">
+      <Table columns="1fr 1fr 1fr 1.5fr 1fr 1fr 1fr 1fr">
         <Table.Header>
           <Table.Column>Nama Pelanggan</Table.Column>
           <Table.Column>NIK</Table.Column>

@@ -1,3 +1,4 @@
+import { useFormContext } from "react-hook-form";
 import useCurrencyFormatInput from "../hooks/useCurrencyFormatInput";
 
 function Input({
@@ -15,6 +16,11 @@ function Input({
   maxLength = 200,
   ...props
 }) {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const hasError = !!errors?.[props.name];
+
   // Use custom hook to handle currency formatting
   const isCurrency = inputType === "currency";
   const { localValue, handleChange } = useCurrencyFormatInput(
@@ -25,7 +31,7 @@ function Input({
 
   return (
     <div
-      className={`border-netral-400 focus-within:border-netral-900 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${disabled ? "bg-netral-200 cursor-not-allowed" : ""}`}
+      className={`focus-within:border-netral-900 flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${disabled ? "bg-netral-200 cursor-not-allowed" : ""} ${hasError ? "border-acent-red border-2" : "border-netral-400"}`}
     >
       {icon && <span>{icon}</span>}
       <input

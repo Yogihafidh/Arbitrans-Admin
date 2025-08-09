@@ -20,19 +20,7 @@ function Header({ children }) {
       role="row"
       as="header"
       style={{ gridTemplateColumns: columns }}
-      className={`divide-netral-400 border-netral-400 text-netral-900 grid items-center divide-x-2 border-b-2 text-center font-medium`}
-    >
-      {children}
-    </div>
-  );
-}
-function Row({ children }) {
-  const { columns } = useContext(TableContext);
-  return (
-    <div
-      role="row"
-      style={{ gridTemplateColumns: columns }}
-      className={`divide-netral-400 text-netral-900 grid items-center divide-x-2 text-center font-normal`}
+      className={`divide-netral-400 border-netral-400 text-netral-900 grid items-stretch divide-x-2 border-b-2 text-center font-medium`}
     >
       {children}
     </div>
@@ -48,9 +36,24 @@ function Body({ data, render, isLoading }) {
   return <div className="divide-netral-400 divide-y-2">{data.map(render)}</div>;
 }
 
+function Row({ children }) {
+  const { columns } = useContext(TableContext);
+  return (
+    <div
+      role="row"
+      style={{ gridTemplateColumns: columns }}
+      className={`divide-netral-400 text-netral-900 grid items-stretch divide-x-2 font-normal`}
+    >
+      {children}
+    </div>
+  );
+}
+
 function Column({ children }) {
   return (
-    <div className={`grid h-full place-items-center px-2 py-2`}>{children}</div>
+    <div className={`grid place-items-center px-2 py-2 text-center break-all`}>
+      {children}
+    </div>
   );
 }
 

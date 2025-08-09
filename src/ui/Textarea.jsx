@@ -1,7 +1,13 @@
+import { useFormContext } from "react-hook-form";
+
 function TextArea({ icon, placeholder, rows = 4, ...props }) {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const hasError = !!errors?.[props.name];
   return (
     <div
-      className={`border-netral-400 focus-within:border-netral-900 flex w-full gap-2 rounded-lg border-2 px-4 py-2`}
+      className={`focus-within:border-netral-900 flex w-full gap-2 rounded-lg border-2 px-4 py-2 ${hasError ? "border-acent-red border-2" : "border-netral-400"}`}
     >
       {icon && <span>{icon}</span>}
       <textarea

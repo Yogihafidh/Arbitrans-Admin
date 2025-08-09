@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 function SelectInput({
   icon,
@@ -11,10 +12,14 @@ function SelectInput({
   ...props
 }) {
   const [isFocused, setIsFocused] = useState(false);
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const hasError = !!errors?.[props.name];
 
   return (
     <div
-      className={`border-netral-400 focus-within:border-netral-900 relative flex w-full items-center gap-2 rounded-lg border-2 ${disabled ? "bg-netral-300 cursor-not-allowed" : ""} `}
+      className={`focus-within:border-netral-900 relative flex w-full items-center gap-2 rounded-lg border-2 ${disabled ? "bg-netral-300 cursor-not-allowed" : ""} ${hasError ? "border-acent-red border-2" : "border-netral-400"}`}
     >
       {icon && <span>{icon}</span>}
 
@@ -27,7 +32,11 @@ function SelectInput({
         disabled={disabled}
         className={`placeholder:text-netral-600 text-netral-600 hover:text-netral-900 w-[90vh] appearance-none rounded-lg border-none bg-transparent px-4 py-2.5 text-sm font-medium outline-none`}
       >
-        {placeholder && <option value="" disabled={disabledPlaceholder}>{placeholder}</option>}
+        {placeholder && (
+          <option value="" disabled={disabledPlaceholder}>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option
             key={option.value}

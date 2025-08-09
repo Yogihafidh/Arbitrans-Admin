@@ -1,5 +1,11 @@
+import JadwalSewaLayout from "../features/jadwalSewa/JadwalSewaLayout";
+
 function JadwalSewa() {
-  return <div>Jadwal Sewa</div>;
+  return (
+    <div>
+      <JadwalSewaLayout />
+    </div>
+  );
 }
 
 export default JadwalSewa;

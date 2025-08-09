@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import supabase from "./Supabase";
 
 export async function getRentalKendaraan(filter) {
@@ -6,7 +7,7 @@ export async function getRentalKendaraan(filter) {
     .select(
       "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, status, kendaraan(id, nama_kendaraan,  harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
     )
-    .order("tanggal_akhir", { ascending: false });
+    .order("tanggal_akhir");
 
   if (filter?.field && filter?.value) {
     if (Array.isArray(filter.value)) {
@@ -90,7 +91,7 @@ export async function deleteRental(id) {
 }
 
 export async function editStatusTelat() {
-  const today = new Date().toISOString().split("T")[0];
+  const today = format(new Date(), "yyyy-MM-dd");
 
   const { data, error } = await supabase
     .from("rental")

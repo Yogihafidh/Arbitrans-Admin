@@ -1,10 +1,9 @@
 import { memo } from "react";
 import { useSearchParams } from "react-router";
-
 import { useRental } from "../../hooks/useRental";
-
-import Card from "../../ui/Card";
 import { useKendaraanTersedia } from "./useKendaraanTersedia";
+import Card from "../../ui/Card";
+import KendaraanCardSkeleton from "../../ui/CardSkeletonLoading";
 
 function KendaraanCard() {
   // get parameter URL
@@ -29,8 +28,8 @@ function KendaraanCard() {
       })
     : data;
 
-  // TODO: Loading
-  if (kendaraanLoading || rentalLoading) return <p>Loading</p>;
+  if (kendaraanLoading || rentalLoading)
+    return <KendaraanCardSkeleton count={4} />;
   if (filteredRental.length === 0 && querySearch)
     return <p>Kendaraan yang anda cari tidak ditemukan</p>;
   if (filteredRental.length === 0 && status === "Tersedia")
