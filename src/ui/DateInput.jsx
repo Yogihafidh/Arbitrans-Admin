@@ -1,5 +1,6 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useFormContext } from "react-hook-form";
 
 function DateInput({
   control,
@@ -10,9 +11,15 @@ function DateInput({
   excludeIntervals,
   ...props
 }) {
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  const hasError = Boolean(errors.tanggal_awal || errors.tanggal_akhir);
+
   return (
     <div
-      className={`border-netral-400 focus-within:border-netral-900 relative flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${disabled ? "bg-netral-200 cursor-not-allowed" : ""}`}
+      className={`focus-within:border-netral-900 relative flex w-full items-center gap-2 rounded-lg border-2 px-4 py-2 ${disabled ? "bg-netral-200 cursor-not-allowed" : ""} ${hasError ? "border-acent-red border-2" : "border-netral-400"}`}
     >
       <div className="flex-shrink-0">
         <svg

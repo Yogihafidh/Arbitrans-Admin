@@ -11,7 +11,7 @@ import StatusKendaraanForm from "../features/kendaraan/StatusKendaraanForm";
 const status = {
   Tersedia: "bg-acent-green/10 border-acent-green text-acent-green",
   Disewa: "bg-acent-red/10 border-acent-red text-acent-red",
-  Telat: "bg-acent-red border-white text-white",
+  Telat: "bg-acent-red border-acent-red text-white",
   Pending: "bg-acent-orange/10 border-acent-orange text-acent-orange",
 };
 

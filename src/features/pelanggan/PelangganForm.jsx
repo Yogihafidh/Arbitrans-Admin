@@ -204,7 +204,7 @@ function PelangganForm({ dataEdit = {}, onCloseModal }) {
           </Form.Row>
 
           <Row>
-            <Form.Row label="Tanggal awal sewa" name="tanggal_awal">
+            <Form.Row label="Tanggal awal sewa" name="tanggal_mulai">
               <Controller
                 name="tanggal_mulai"
                 control={control}

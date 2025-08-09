@@ -162,8 +162,8 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
                 {...register("tipe_kendaraan", {
                   required: "Tipe kendaraan wajib diisi",
                   minLength: {
-                    value: 5,
-                    message: "Nama minimal 5 karakter",
+                    value: 2,
+                    message: "Nama minimal 2 karakter",
                   },
                   maxLength: {
                     value: 100,
