@@ -32,7 +32,7 @@ function StatusKendaraanForm({ dataEdit, onCloseModal }) {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)} className="h-fit">
+      <Form onSubmit={handleSubmit(onSubmit)} className="h-fit w-xl">
         <Form.Header
           formName={"Status Kendaraan"}
           onClose={() => onCloseModal?.()}
