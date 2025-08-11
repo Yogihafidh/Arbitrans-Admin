@@ -20,11 +20,11 @@ function JadwalSewaLayout() {
         {kendaraanDisewaHariIni.length !== 0 ? (
           <KendaraanDisewaCard data={cardTop} column="repeat(3, 1fr)" />
         ) : (
-          <>
+          <div className="flex items-center justify-center">
             {!isLoading && (
               <p>Tidak ada kendaraan yang disewa pada tanggal ini.</p>
             )}
-          </>
+          </div>
         )}
       </div>
 
