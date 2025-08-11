@@ -2,6 +2,7 @@ import { useKendaraanDisewaByDate } from "./useKendaraanDisewaByDate";
 import DatePickerJadwaSewa from "./DatePickerJadwaSewa";
 import KendaraanDisewaCard from "./KendaraanDisewaCard";
 import KendaraanCardSkeleton from "../../ui/CardSkeletonLoading";
+import EmptyMessage from "../../ui/EmptyMessage";
 
 function JadwalSewaLayout() {
   const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaByDate([
@@ -22,7 +23,10 @@ function JadwalSewaLayout() {
         ) : (
           <div className="flex items-center justify-center">
             {!isLoading && (
-              <p>Tidak ada kendaraan yang disewa pada tanggal ini.</p>
+              <EmptyMessage
+                heading="Tidak ada yang disewa"
+                message="Tidak ada kendaraan yang disewa pada tanggal ini."
+              />
             )}
           </div>
         )}

@@ -1,6 +1,6 @@
+import { useLogout } from "./useLogout";
 import Button from "../../ui/Button";
 import ButtonDropdown from "../../ui/ButtonDropdown";
-import { useLogout } from "./useLogout";
 
 function Logout() {
   const { logout, isLoading } = useLogout();
