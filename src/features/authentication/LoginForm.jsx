@@ -9,8 +9,6 @@ function LoginForm() {
   const [password, setPassword] = useState("admin123");
   const { login, isLoading } = useLogin();
 
-  console.log(email, password);
-
   function handleSubmit(e) {
     e.preventDefault();
 

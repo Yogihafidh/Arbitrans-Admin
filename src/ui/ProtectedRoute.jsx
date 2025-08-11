@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useUser } from "../features/authentication/useUser";
 import { useEffect } from "react";
 import Logo from "./logo";
+import Loading from "./Loading";
 
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
@@ -14,13 +15,7 @@ function ProtectedRoute({ children }) {
     [isAuthenticated, isLoading, navigate],
   );
 
-  if (isLoading)
-    return (
-      <div className="flex h-screen animate-bounce flex-col items-center justify-center gap-2 duration-1000">
-        <Logo />
-        <p className="text-lg">Sedang Login</p>
-      </div>
-    );
+  if (isLoading) return <Loading />;
 
   if (isAuthenticated) return children;
 }

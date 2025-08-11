@@ -12,6 +12,7 @@ import Row from "../../ui/Row";
 import DateInput from "../../ui/DateInput";
 import TextArea from "../../ui/Textarea";
 import Button from "../../ui/Button";
+import Loading from "../../ui/Loading";
 
 function PelangganForm({ dataEdit = {}, onCloseModal }) {
   // Check if edit session
@@ -104,12 +105,11 @@ function PelangganForm({ dataEdit = {}, onCloseModal }) {
       );
   }
 
-  // TODO: KURANG LOADING
-  if (isEditSession && kendaraan.length === 0) return <p>LOADING...</p>;
+  if (isEditSession && kendaraan.length === 0) return <Loading />;
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} className="w-3xl">
         <Form.Header
           formName={isEditSession ? "Edit Pelanggan" : "Tambah Pelanggan"}
           onClose={() => onCloseModal?.()}
