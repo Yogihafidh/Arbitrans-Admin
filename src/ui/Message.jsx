@@ -3,7 +3,7 @@ import ButtonIcon from "./ButtonIcon";
 
 function Message({ heading, message, id, disabled, onDelete, onCloseModal }) {
   return (
-    <div className="flex h-[40vh] flex-col justify-between rounded-2xl bg-white py-6 shadow-md">
+    <div className="flex h-[40vh] w-[90vw] flex-col justify-between rounded-2xl bg-white py-6 shadow-md sm:w-[50vw] md:h-[30vh] lg:h-[40vh]">
       <div className="border-netral-400 flex items-center justify-between border-b px-8 pb-4">
         <h2 className="text-2xl font-semibold">{heading}</h2>
         <ButtonIcon

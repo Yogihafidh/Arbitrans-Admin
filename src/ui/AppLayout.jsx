@@ -4,11 +4,11 @@ import Sidebar from "./sidebar";
 
 function AppLayout() {
   return (
-    <div className="bg-netral-200 grid h-screen grid-cols-[17rem_1fr] grid-rows-[auto_1fr]">
+    <div className="2xl:border-netral-400 relative m-auto block h-screen max-w-[1600px] lg:grid lg:grid-cols-[15rem_1fr] lg:grid-rows-[auto_1fr] xl:grid-cols-[17rem_1fr] 2xl:border-2">
       <Header />
       <Sidebar />
-      <div className="scrollbar-thin scrollbar-thumb-netral-400 scrollbar-track-white scrollbar-thumb-rounded-xl scrollbar-track-rounded-xl h-full overflow-y-auto pb-10">
-        <div className="m-auto flex flex-col gap-1 px-8 pt-8">
+      <div className="scrollbar-thin scrollbar-thumb-netral-400 scrollbar-track-white scrollbar-thumb-rounded-xl scrollbar-track-rounded-xl h-full overflow-y-auto">
+        <div className="bg-netral-200 m-auto min-h-full p-4 lg:p-6 xl:p-8">
           <Outlet />
         </div>
       </div>

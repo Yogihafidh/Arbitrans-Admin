@@ -43,8 +43,9 @@
 
 /* Kalender popup */
 .react-datepicker {
-  height: 380px;
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
   border-radius: 12px;
   padding: 16px;
   border: 1px solid #ced4da;
@@ -60,7 +61,7 @@
 .react-datepicker__header {
   background-color: #fff;
   border-bottom: none;
-  margin-buttom: 24px;
+  margin-bottom: 24px;
 }
 
 /* Hari dalam grid */
@@ -70,7 +71,6 @@
   margin: 4px;
   line-height: 40px;
   text-align: center;
-
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-size: 14px;
@@ -136,4 +136,32 @@
 /* Optional: mengganti warna icon panah */
 .react-datepicker__navigation-icon::before {
   border-color: #1e293b;
+}
+
+/* RESPONSIVE: mobile */
+@media (max-width: 480px) {
+  .react-datepicker {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .react-datepicker__header {
+    margin-bottom: 12px;
+  }
+
+  .react-datepicker__day {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 4px;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 0.9rem;
+  }
+
+  .react-datepicker__navigation--previous,
+  .react-datepicker__navigation--next {
+    top: 8%;
+  }
 }

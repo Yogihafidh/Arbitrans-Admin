@@ -9,6 +9,9 @@ import RentalKendaraan from "./pages/RentalKendaraan";
 import AppLayout from "./ui/AppLayout";
 import Status from "./pages/Status";
 import Riwayat from "./pages/Riwayat";
+import Login from "./pages/Login";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import PageNotFound from "./pages/PageNotFound";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +28,14 @@ function App() {
         <ReactQueryDevtools initialIsOpen={false} />
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route path="login" element={<Login />} />
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="rental" element={<RentalKendaraan />} />
@@ -35,6 +45,8 @@ function App() {
               </Route>
               <Route path="jadwal" element={<JadwalSewa />} />
             </Route>
+
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
 

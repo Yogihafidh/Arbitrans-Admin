@@ -4,6 +4,7 @@ import { useRental } from "../../hooks/useRental";
 import { useKendaraanTersedia } from "./useKendaraanTersedia";
 import Card from "../../ui/Card";
 import KendaraanCardSkeleton from "../../ui/CardSkeletonLoading";
+import EmptyMessage from "../../ui/EmptyMessage";
 
 function KendaraanCard() {
   // get parameter URL
@@ -31,18 +32,36 @@ function KendaraanCard() {
   if (kendaraanLoading || rentalLoading)
     return <KendaraanCardSkeleton count={4} />;
   if (filteredRental.length === 0 && querySearch)
-    return <p>Kendaraan yang anda cari tidak ditemukan</p>;
+    return (
+      <EmptyMessage
+        heading="Kendaraan Tidak ditemukan"
+        message="Kendaraan yang anda cari tidak ditemukan"
+      />
+    );
   if (filteredRental.length === 0 && status === "Tersedia")
     return (
-      <p>Tidak ada kendaraan, silahkan tambahkan kendaraan terlebih dahulu</p>
+      <EmptyMessage
+        heading="Tidak ada kendaraan"
+        message="Tidak ada kendaraan, silahkan tambahkan kendaraan terlebih dahulu "
+      />
     );
   if (filteredRental.length === 0 && status === "Pending")
-    return <p>Tidak ada rental hari ini</p>;
+    return (
+      <EmptyMessage
+        heading="Tidak ada rental"
+        message="Tidak ada rental untuk hari ini"
+      />
+    );
   if (filteredRental.length === 0 && status === "Disewa")
-    return <p>Tidak ada kendaraan yang disewa hari ini</p>;
+    return (
+      <EmptyMessage
+        heading="Tidak ada yang disewa"
+        message="Tidak ada kendaraan yang disewa hari ini"
+      />
+    );
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       {filteredRental.map((rentalItem) => (
         <Card data={rentalItem} key={rentalItem.id} />
       ))}
