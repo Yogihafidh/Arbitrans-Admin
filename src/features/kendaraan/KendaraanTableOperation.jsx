@@ -1,5 +1,6 @@
 import { useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
+import { useClickOutside } from "../../hooks/useClikOutside";
 
 import Button from "../../ui/Button";
 import ButtonDropdown from "../../ui/ButtonDropdown";
@@ -8,7 +9,6 @@ import Modal from "../../ui/Modal";
 import InputSearch from "../../ui/InputSearch";
 import KendaraanForm from "./KendaraanForm";
 import ButtonIcon from "../../ui/ButtonIcon";
-import { useClickOutside } from "../../hooks/useClikOutside";
 
 function KendaraanTableOperation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
