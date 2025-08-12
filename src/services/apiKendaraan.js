@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import supabase, { supabaseUrl } from "./Supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function getKendaraanTersediaHariIni() {
   const today = format(new Date(), "yyyy-MM-dd");
