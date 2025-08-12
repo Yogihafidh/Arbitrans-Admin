@@ -1,7 +1,6 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useUser } from "../features/authentication/useUser";
-import { useEffect } from "react";
-import Logo from "./logo";
 import Loading from "./Loading";
 
 function ProtectedRoute({ children }) {
