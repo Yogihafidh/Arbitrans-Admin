@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import supabase from "./Supabase";
+import supabase from "./supabase";
 
 export async function getRentalKendaraan(filter) {
   let query = supabase
