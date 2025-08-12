@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+@import "tailwindcss";
+@tailwind utilities;
+@plugin 'tailwind-scrollbar';
+
+@theme {
+  /* Font Setting */
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --color-primary: #196feb;
+  --color-acent-red: #bc0f0f;
+  --color-acent-red-100: #e2d5d8;
+  --color-acent-yellow: #bd9300;
+  --color-acent-green: #048c51;
+  --color-acent-purple: #6b0ac0;
+  --color-acent-magenta: #d60075;
+  --color-acent-brown: #663a08;
+  --color-acent-orange: #d67200;
+  --color-acent-blue: #0d7dc1;
+
+  --color-netral-100: #f8f9fa;
+  --color-netral-200: #e9ecef;
+  --color-netral-300: #dee2e6;
+  --color-netral-400: #ced4da;
+  --color-netral-500: #adb5bd;
+  --color-netral-600: #6c757d;
+  --color-netral-700: #495057;
+  --color-netral-800: #343a40;
+  --color-netral-900: #212529;
+}
+
+.react-datepicker-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  border: none;
+  font-size: 14px;
+  outline: none;
+}
+
+/* Kalender popup */
+.react-datepicker {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+  font-family: "Plus Jakarta Sans", sans-serif;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Header kalender */
+.react-datepicker__header {
+  background-color: #fff;
+  border-bottom: none;
+  margin-bottom: 24px;
+}
+
+/* Hari dalam grid */
+.react-datepicker__day {
+  width: 40px;
+  height: 40px;
+  margin: 4px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+}
+
+.react-datepicker-popper {
+  inset: auto !important;
+  transform: none !important;
+  left: 0px !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 100% !important;
+  margin-bottom: 1rem !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: #e6f0ff;
+}
+
+/* Hari yang dipilih */
+.react-datepicker__day--selected {
+  background-color: #0d7dc1;
+  color: #fff;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+.react-datepicker__current-month {
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  position: relative;
+}
+
+/* Hari hari tidak valid */
+.react-datepicker__day--disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+/* Tombol navigasi kiri */
+.react-datepicker__navigation--previous {
+  position: absolute;
+  left: 8px;
+  top: 5%;
+}
+
+/* Tombol navigasi kanan */
+.react-datepicker__navigation--next {
+  position: absolute;
+  right: 8px;
+  top: 5%;
+}
+
+/* Optional: mengganti warna icon panah */
+.react-datepicker__navigation-icon::before {
+  border-color: #1e293b;
+}
+
+/* RESPONSIVE: mobile */
+@media (max-width: 480px) {
+  .react-datepicker {
+    max-width: 100%;
+    padding: 8px;
+  }
+
+  .react-datepicker__header {
+    margin-bottom: 12px;
+  }
+
+  .react-datepicker__day {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    margin: 4px;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 0.9rem;
+  }
+
+  .react-datepicker__navigation--previous,
+  .react-datepicker__navigation--next {
+    top: 8%;
+  }
+}
