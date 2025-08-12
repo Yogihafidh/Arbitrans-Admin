@@ -3,7 +3,7 @@ function EmptyMessage({ heading, message, className = "" }) {
     <div
       className={`flex flex-col items-center justify-center gap-2 ${className}`}
     >
-      <img src="/public/animation.png" />
+      <img src="/animation.png" />
       <p className="text-netral-900 font-semibold">{heading}</p>
       <p className="text-netral-700">{message}</p>
     </div>
