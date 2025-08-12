@@ -1,11 +1,11 @@
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import { useClickOutside } from "../../hooks/useClikOutside";
 import Button from "../../ui/Button";
 import InputSearch from "../../ui/InputSearch";
 import Modal from "../../ui/Modal";
 import PelangganForm from "./PelangganForm";
-import { useRef, useState } from "react";
 import ButtonIcon from "../../ui/ButtonIcon";
-import { useClickOutside } from "../../hooks/useClikOutside";
 
 function PelangganTableOperation() {
   const navigate = useNavigate();

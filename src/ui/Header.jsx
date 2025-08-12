@@ -1,5 +1,5 @@
 import { useLocation } from "react-router";
-import Logo from "./logo";
+import Logo from "./Logo";
 import Logout from "../features/authentication/Logout";
 
 const headings = {
