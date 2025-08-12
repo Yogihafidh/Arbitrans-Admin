@@ -26,16 +26,19 @@ function LoginForm() {
   }
 
   return (
-    <div className="grid h-screen place-content-center">
-      <div className="flex flex-col items-center">
+    <div className="flex h-full flex-col items-center justify-center p-6">
+      <div className="flex w-full flex-col items-center">
         <Logo />
         <p className="text-netral-600 mt-4 mb-12 font-medium">
           Masukan username dan password dahulu.
         </p>
       </div>
 
-      <form className="flex w-fit flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="w-xl">
+      <form
+        className="flex w-full max-w-xs flex-col gap-4 md:max-w-sm lg:max-w-sm xl:max-w-md"
+        onSubmit={handleSubmit}
+      >
+        <div>
           <label
             className="text-netral-900 mb-2 block text-sm font-medium"
             htmlFor="username"
@@ -53,7 +56,7 @@ function LoginForm() {
           />
         </div>
 
-        <div className="w-xl">
+        <div>
           <label
             className="text-netral-900 mb-2 block text-sm font-medium"
             htmlFor="password"
@@ -99,11 +102,11 @@ function LoginForm() {
           </div>
         </div>
 
-        <div className="flex w-xl justify-end">
+        <div className="flex justify-end">
           <Button
             typeButton="submit"
             text="Login"
-            className="px-8"
+            className="my-2 px-8"
             disabled={isLoading}
           />
         </div>

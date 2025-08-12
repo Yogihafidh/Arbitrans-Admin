@@ -12,7 +12,7 @@ function DashboardSumarry() {
   ]);
 
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
       <SummaryCaard
         color="blue"
         variantColor="soft"

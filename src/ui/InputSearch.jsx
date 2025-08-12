@@ -25,7 +25,7 @@ function InputSearch({ placeholder }) {
 
   return (
     <div
-      className={`border-netral-400 focus-within:border-netral-800 flex w-fit items-center gap-2 rounded-lg border-2 px-4 py-2`}
+      className={`border-netral-400 focus-within:border-netral-800 flex items-center gap-2 rounded-lg border-2 px-4 py-2`}
     >
       <span>
         {" "}

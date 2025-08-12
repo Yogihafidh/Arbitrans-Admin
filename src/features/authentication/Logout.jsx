@@ -6,7 +6,6 @@ function Logout() {
   const { logout, isLoading } = useLogout();
   return (
     <ButtonDropdown
-      buttonName="logout"
       iconText={
         <svg
           width="16"

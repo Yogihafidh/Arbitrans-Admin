@@ -3,7 +3,7 @@ import KendaraanTableOperation from "../features/kendaraan/KendaraanTableOperati
 
 function RentalKendaraan() {
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-4 sm:gap-6 lg:gap-10">
       <KendaraanTableOperation />
       <KendaraanCard />
     </div>

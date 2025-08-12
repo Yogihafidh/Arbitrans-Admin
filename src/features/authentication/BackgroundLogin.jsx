@@ -1,6 +1,6 @@
 function BackgroundLogin() {
   return (
-    <div className="h-full w-full">
+    <div className="hidden h-full w-full lg:block">
       <img
         src="../../public/bg-login.jpg"
         alt="Background Arbitrans"

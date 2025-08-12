@@ -109,7 +109,7 @@ function PelangganForm({ dataEdit = {}, onCloseModal }) {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)} className="w-3xl">
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Header
           formName={isEditSession ? "Edit Pelanggan" : "Tambah Pelanggan"}
           onClose={() => onCloseModal?.()}

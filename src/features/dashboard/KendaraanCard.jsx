@@ -20,7 +20,7 @@ Cek kendaraan yang tersedia dulu, yuk! "
     );
 
   return (
-    <div className="grid grid-cols-4 gap-4">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
       {kendaraanDisewaHariIni.map((kendaraan) => (
         <Card data={kendaraan} key={kendaraan.id} isButtonShow={false} />
       ))}

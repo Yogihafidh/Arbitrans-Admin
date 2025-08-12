@@ -7,7 +7,7 @@ function DashboardOpration() {
     navigate("/rental?status=Disewa");
   };
   return (
-    <div className="mb-4 flex items-center justify-between">
+    <div className="mb-8 flex flex-col items-center justify-between sm:mb-4 sm:flex-row">
       <p className="font-semibold">Kendaraan Disewa Hari ini</p>
       <p
         onClick={handleClick}

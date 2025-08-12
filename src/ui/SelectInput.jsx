@@ -10,7 +10,6 @@ function SelectInput({ control, name, placeholder, options = [] }) {
       name={name}
       render={({ field, fieldState: { error } }) => (
         <div className="relative w-full">
-          {/* Trigger */}
           <div
             className={`flex cursor-pointer items-center justify-between rounded-lg border-2 px-4 py-2 ${
               error ? "border-acent-red" : "border-netral-400"
@@ -51,7 +50,6 @@ function SelectInput({ control, name, placeholder, options = [] }) {
             )}
           </div>
 
-          {/* Dropdown */}
           {isOpen && (
             <ul className="border-netral-400 absolute z-10 mt-1 w-full rounded-lg border-2 bg-white shadow-lg">
               {options.map((option) => (

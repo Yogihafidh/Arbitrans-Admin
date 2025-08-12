@@ -6,7 +6,7 @@ function Dashboard() {
   return (
     <div className="flex flex-col gap-10">
       <DashboardSumarry />
-      <div className="h-full rounded-2xl bg-white p-6">
+      <div className="h-fit rounded-2xl bg-white p-4 md:p-6">
         <DashboardOpration />
         <KendaraanCard />
       </div>

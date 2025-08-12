@@ -66,7 +66,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} className="w-[90vw] lg:w-full">
         {/* HEADER FORM */}
         <Form.Header
           formName={isEditSession ? "Detail Kendaraan" : "Tambah Kendaraan"}

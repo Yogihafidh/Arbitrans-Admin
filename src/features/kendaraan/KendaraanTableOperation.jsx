@@ -1,5 +1,5 @@
+import { useState, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
-import { useMemo } from "react";
 
 import Button from "../../ui/Button";
 import ButtonDropdown from "../../ui/ButtonDropdown";
@@ -7,9 +7,12 @@ import Filter from "../../ui/Filter";
 import Modal from "../../ui/Modal";
 import InputSearch from "../../ui/InputSearch";
 import KendaraanForm from "./KendaraanForm";
+import ButtonIcon from "../../ui/ButtonIcon";
+import { useClickOutside } from "../../hooks/useClikOutside";
 
 function KendaraanTableOperation() {
-  // useMemo to avoid re-creating icons on every render
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const iconActive = useMemo(
     () => (
       <svg
@@ -54,57 +57,103 @@ function KendaraanTableOperation() {
     [],
   );
 
-  // Get the current status from URL search params
   const [searchparams] = useSearchParams();
   const status = searchparams.get("status") || "Tersedia";
 
-  // TODO: Button dropdown issue
+  const containerRef = useRef(null);
+  useClickOutside(
+    containerRef,
+    () => setIsMobileMenuOpen(false),
+    isMobileMenuOpen,
+  );
+
   return (
-    <div className="flex items-center justify-between">
-      <div className="w-1/4">
-        <InputSearch placeholder="Cari nama atau Tipe kendaraan..." />
-      </div>
+    <div className="relative flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <div className="w-full">
+          <InputSearch placeholder="Cari nama atau Tipe kendaraan..." />
+        </div>
 
-      <div className="flex items-center gap-4">
-        <Modal>
-          <Modal.Open opens="kendaraan-form">
-            <Button
-              text="Tambah Kendaraan"
-              type="primary"
-              leftIcon={
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M19.75 11H12.5V3.75C12.5 3.33579 12.1642 3 11.75 3C11.3358 3 11 3.33579 11 3.75V11H3.75C3.33579 11 3 11.3358 3 11.75C3 12.1642 3.33579 12.5 3.75 12.5H11V19.75C11 20.1642 11.3358 20.5 11.75 20.5C12.1642 20.5 12.5 20.1642 12.5 19.75V12.5H19.75C20.1642 12.5 20.5 12.1642 20.5 11.75C20.5 11.3358 20.1642 11 19.75 11Z"
-                    fill="currentColor"
-                  />
-                </svg>
-              }
-            />
-          </Modal.Open>
-          <Modal.Window name="kendaraan-form">
-            <KendaraanForm />
-          </Modal.Window>
-        </Modal>
-
-        <ButtonDropdown
-          text={status}
-          buttonName="filter-status"
-          iconActive={iconActive}
-          iconPasif={iconPasif}
-        >
-          <Filter
-            className="absolute top-14 right-0.5 z-50 bg-white"
-            type="list"
-            options={statusOptions}
+        <div className="md:hidden">
+          <ButtonIcon
+            icon={
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M4.96134 2.00065H19.1413V2.01065C20.3363 1.98986 21.4217 2.70428 21.875 3.81009C22.3284 4.9159 22.057 6.1866 21.1913 7.01065L16.4213 11.7807C15.8904 12.3125 15.5858 13.0292 15.5713 13.7807V18.1807C15.5698 19.0931 15.1403 19.9519 14.4113 20.5007L13.1713 21.4307C12.2944 22.0979 11.1144 22.2085 10.1288 21.7157C9.14325 21.2229 8.52367 20.2125 8.53134 19.1107V13.7807C8.51691 13.0292 8.21231 12.3125 7.68134 11.7807L2.91134 7.01065C2.0381 6.18783 1.76172 4.91222 2.2161 3.80176C2.67049 2.6913 3.76178 1.97531 4.96134 2.00065ZM20.4413 4.37065C20.2255 3.84303 19.7114 3.49894 19.1413 3.50065H4.96134C4.3913 3.49894 3.87714 3.84303 3.66134 4.37065C3.43857 4.89571 3.56176 5.50372 3.97134 5.90065L8.76134 10.6707C9.59042 11.4928 10.0551 12.6131 10.0513 13.7807V19.1107C10.046 19.4793 10.1873 19.835 10.4443 20.0994C10.7012 20.3639 11.0527 20.5154 11.4213 20.5207C11.7226 20.5193 12.0148 20.4172 12.2513 20.2307L13.4913 19.3007C13.8439 19.0363 14.0513 18.6213 14.0513 18.1807V13.7807C14.0529 12.6102 14.5249 11.4895 15.3613 10.6707L20.1313 5.90065C20.5409 5.50372 20.6641 4.89571 20.4413 4.37065Z"
+                  fill="#212529"
+                />
+              </svg>
+            }
+            text="Menu"
+            type="primary"
+            onEvent={() => setIsMobileMenuOpen((prev) => !prev)}
+            className="p-2"
           />
-        </ButtonDropdown>
+        </div>
+
+        <div className="hidden w-full items-center justify-end gap-4 md:flex">
+          <Modal>
+            <Modal.Open opens="kendaraan-form">
+              <Button text="Tambah Kendaraan" type="primary" />
+            </Modal.Open>
+            <Modal.Window name="kendaraan-form">
+              <KendaraanForm />
+            </Modal.Window>
+          </Modal>
+
+          <ButtonDropdown
+            text={status}
+            buttonName="filter-status"
+            iconActive={iconActive}
+            iconPasif={iconPasif}
+          >
+            <Filter
+              className="absolute top-14 right-0.5 z-50 bg-white"
+              type="list"
+              options={statusOptions}
+            />
+          </ButtonDropdown>
+        </div>
       </div>
+
+      {isMobileMenuOpen && (
+        <div
+          ref={containerRef}
+          className="absolute top-10 right-0 z-30 flex w-fit flex-col gap-4 rounded-md border-white bg-white/20 p-4 shadow-md backdrop-blur-sm md:hidden"
+        >
+          <div className="flex flex-col items-center justify-between gap-2">
+            <Modal>
+              <Modal.Open opens="kendaraan-form">
+                <Button text="Tambah Kendaraan" type="primary" />
+              </Modal.Open>
+              <Modal.Window name="kendaraan-form">
+                <KendaraanForm />
+              </Modal.Window>
+            </Modal>
+
+            <ButtonDropdown
+              text={status}
+              iconActive={iconActive}
+              iconPasif={iconPasif}
+              className="w-full sm:w-fit"
+            >
+              <Filter
+                className="absolute top-14 right-0.5 z-50 bg-white"
+                type="list"
+                options={statusOptions}
+              />
+            </ButtonDropdown>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

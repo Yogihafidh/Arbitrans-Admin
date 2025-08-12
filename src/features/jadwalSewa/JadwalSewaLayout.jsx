@@ -15,11 +15,11 @@ function JadwalSewaLayout() {
 
   return (
     <>
-      <div className="mb-4 grid grid-cols-[auto_1fr] gap-4">
+      <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-[auto_1fr]">
         <DatePickerJadwaSewa />
         {isLoading && <KendaraanCardSkeleton count={3} />}
         {kendaraanDisewaHariIni.length !== 0 ? (
-          <KendaraanDisewaCard data={cardTop} column="repeat(3, 1fr)" />
+          <KendaraanDisewaCard data={cardTop} />
         ) : (
           <div className="flex items-center justify-center">
             {!isLoading && (
