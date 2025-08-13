@@ -10,11 +10,16 @@ import ButtonIcon from "../../ui/ButtonIcon";
 function PelangganTableOperation() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  console.log(isMobileMenuOpen);
 
   const containerRef = useRef(null);
+  const buttonRef = useRef(null);
+  const formRef = useRef(null);
+
   useClickOutside(
     containerRef,
     () => setIsMobileMenuOpen(false),
+    [buttonRef, formRef],
     isMobileMenuOpen,
   );
 
@@ -62,6 +67,7 @@ function PelangganTableOperation() {
             text="Menu"
             type="primary"
             onEvent={() => setIsMobileMenuOpen((prev) => !prev)}
+            ref={buttonRef}
             className="p-2"
           />
         </div>
@@ -143,7 +149,7 @@ function PelangganTableOperation() {
                 />
               </Modal.Open>
               <Modal.Window name="pelanggan-form">
-                <PelangganForm />
+                <PelangganForm ref={formRef} />
               </Modal.Window>
             </Modal>
 

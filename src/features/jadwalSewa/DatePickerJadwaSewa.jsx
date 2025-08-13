@@ -24,7 +24,7 @@ function DatePickerJadwaSewa() {
           handleFilterChange(date);
         }}
         dateFormat="yyyy-MM-dd"
-        calendarClassName="z-50"
+        calendarClassName="z-10"
         popperPlacement="top-start"
         inline
       />
