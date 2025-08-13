@@ -61,16 +61,20 @@ function KendaraanTableOperation() {
   const status = searchparams.get("status") || "Tersedia";
 
   const containerRef = useRef(null);
+  const buttonRef = useRef(null);
+  const formRef = useRef(null);
+
   useClickOutside(
     containerRef,
     () => setIsMobileMenuOpen(false),
+    [buttonRef, formRef],
     isMobileMenuOpen,
   );
 
   return (
     <div className="relative flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div className="w-full">
+      <div className="flex flex-shrink items-center justify-between sm:flex-shrink-0">
+        <div className="min-w-0 flex-grow sm:min-w-fit sm:flex-grow-0">
           <InputSearch placeholder="Cari nama atau Tipe kendaraan..." />
         </div>
 
@@ -94,6 +98,7 @@ function KendaraanTableOperation() {
             }
             text="Menu"
             type="primary"
+            ref={buttonRef}
             onEvent={() => setIsMobileMenuOpen((prev) => !prev)}
             className="p-2"
           />
@@ -135,7 +140,7 @@ function KendaraanTableOperation() {
                 <Button text="Tambah Kendaraan" type="primary" />
               </Modal.Open>
               <Modal.Window name="kendaraan-form">
-                <KendaraanForm />
+                <KendaraanForm ref={formRef} />
               </Modal.Window>
             </Modal>
 

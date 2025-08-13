@@ -29,7 +29,7 @@ function LoginForm() {
     <div className="flex h-full flex-col items-center justify-center p-6">
       <div className="flex w-full flex-col items-center">
         <Logo />
-        <p className="text-netral-600 mt-4 mb-12 font-medium">
+        <p className="text-netral-600 mt-4 mb-12 text-center font-medium">
           Masukan username dan password dahulu.
         </p>
       </div>

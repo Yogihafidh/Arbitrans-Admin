@@ -1,9 +1,10 @@
 import { useFormContext } from "react-hook-form";
 import ButtonIcon from "./ButtonIcon";
 
-function Form({ children, onSubmit, className = "" }) {
+function Form({ children, onSubmit, className = "", ref }) {
   return (
     <form
+      ref={ref}
       onSubmit={onSubmit}
       className={`scrollbar-thin scrollbar-thumb-netral-400 scrollbar-track-white scrollbar-thumb-rounded-xl scrollbar-track-rounded-xl h-[90vh] max-h-[95vh] w-[90vw] overflow-y-auto rounded-2xl bg-white py-6 shadow-md md:w-3xl ${className}`}
     >

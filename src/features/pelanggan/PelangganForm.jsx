@@ -14,7 +14,7 @@ import TextArea from "../../ui/Textarea";
 import Button from "../../ui/Button";
 import Loading from "../../ui/Loading";
 
-function PelangganForm({ dataEdit = {}, onCloseModal }) {
+function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
   // Check if edit session
   const isEditSession = Boolean(dataEdit.id);
   const methods = useForm({
@@ -109,10 +109,12 @@ function PelangganForm({ dataEdit = {}, onCloseModal }) {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} ref={ref}>
         <Form.Header
           formName={isEditSession ? "Edit Pelanggan" : "Tambah Pelanggan"}
-          onClose={() => onCloseModal?.()}
+          onClose={() => {
+            onCloseModal?.();
+          }}
         />
         <Form.Body>
           <Form.Row label="Name Pelanggan" name="nama_pelanggan">

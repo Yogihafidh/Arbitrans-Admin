@@ -10,7 +10,7 @@ import FileInput from "../../ui/FileInput";
 import TextArea from "../../ui/Textarea";
 import SelectInput from "../../ui/SelectInput";
 
-function KendaraanForm({ dataEdit = {}, onCloseModal }) {
+function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
   const { isCreating, createKendaraan } = useCreateKendaraan();
   const { isEdit, editKendaraan } = useEditKendaraan();
   const isLoading = isCreating || isEdit;
@@ -66,7 +66,11 @@ function KendaraanForm({ dataEdit = {}, onCloseModal }) {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)} className="w-[90vw] lg:w-full">
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        ref={ref}
+        className="w-[90vw] lg:w-full"
+      >
         {/* HEADER FORM */}
         <Form.Header
           formName={isEditSession ? "Detail Kendaraan" : "Tambah Kendaraan"}

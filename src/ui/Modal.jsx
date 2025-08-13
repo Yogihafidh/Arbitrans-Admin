@@ -28,7 +28,9 @@ function Window({ name, children }) {
   return createPortal(
     <>
       <Overlay onCloseModal={close} />
-      <div className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transition-all duration-500">
+      <div
+        className="fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2 transition-all duration-500"
+      >
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </div>
     </>,
