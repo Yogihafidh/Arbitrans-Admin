@@ -141,8 +141,8 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                   message: "Harga sewa tidak boleh kurang dari Rp1.000",
                 },
                 max: {
-                  value: 2000000,
-                  message: "Harga sewa tidak boleh lebih dari Rp2.000.000",
+                  value: 5000000,
+                  message: "Harga sewa tidak boleh lebih dari Rp5.000.000",
                 },
               }}
               render={({ field }) => (
@@ -152,8 +152,6 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                   inputType="currency"
                   placeholder="Masukan harga sewa"
                   inputClass="w-full"
-                  minNumber={1000}
-                  maxNumber={2000000}
                 />
               )}
             />
@@ -165,10 +163,6 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                 placeholder="Tipe kendaraan"
                 {...register("tipe_kendaraan", {
                   required: "Tipe kendaraan wajib diisi",
-                  minLength: {
-                    value: 2,
-                    message: "Nama minimal 2 karakter",
-                  },
                   maxLength: {
                     value: 100,
                     message: "Nama maksimal 100 karakter",
@@ -196,8 +190,6 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                 type="number"
                 inputClass="w-full"
                 placeholder="Jumalah maks. penumpang"
-                minNumber={1}
-                maxNumber={8}
                 {...register("kapasitas_penumpang", {
                   required: "Kapasitas penumpang wajib diisi",
                   min: {
@@ -205,8 +197,8 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                     message: "Kapasitas penumpang tidak boleh kurang dari 1",
                   },
                   max: {
-                    value: 8,
-                    message: "Kapasitas penumpang tidak boleh lebih dari 8",
+                    value: 20,
+                    message: "Kapasitas penumpang tidak boleh lebih dari 20",
                   },
                 })}
               />
@@ -217,12 +209,12 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                 {...register("bahan_bakar", {
                   required: "Bahan bakar kendaraan wajib diisi",
                   minLength: {
-                    value: 5,
-                    message: "Nama minimal 5 karakter",
+                    value: 1,
+                    message: "Nama bahan bakar minimal 1 karakter",
                   },
                   maxLength: {
                     value: 100,
-                    message: "Nama maksimal 100 karakter",
+                    message: "Nama bahan bakar maksimal 100 karakter",
                   },
                 })}
               />
@@ -237,11 +229,11 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                   required: "Luas bagasi kendaraan wajib diisi",
                   minLength: {
                     value: 5,
-                    message: "Nama minimal 5 karakter",
+                    message: "Keterangan bagasi minimal 5 karakter",
                   },
                   maxLength: {
                     value: 200,
-                    message: "Nama maksimal 200 karakter",
+                    message: "Keterangan bagasi maksimal 200 karakter",
                   },
                 })}
               />
@@ -256,10 +248,6 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
                   min: {
                     value: 1900,
                     message: "Tahun produksi tidak boleh kurang dari 1900",
-                  },
-                  max: {
-                    value: new Date().getFullYear(),
-                    message: `Tahun produksi tidak boleh kurang dari ${new Date().getFullYear()}`,
                   },
                 })}
               />
