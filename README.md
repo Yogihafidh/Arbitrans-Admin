@@ -1,6 +1,5 @@
 # Arbitrans Rental Kendaraan 
-Ini adalah aplikasi berbasis web yang dikembangkan sebagai bagian dari program Kerja Praktik di **PT CAZH Teknologi Inovasi**.  
-Aplikasi ini dirancang untuk mendigitalisasi layanan rental kendaraan milik salah satu mitra PT CAZH yaitu CV Arbitrans, sehingga informasi layanan dapat diakses dengan cepat, mudah, dan profesional.
+Ini adalah aplikasi berbasis web yang dikembangkan sebagai bagian dari program Kerja Praktik di **PT CAZH Teknologi Inovasi**. Aplikasi ini dirancang untuk mendigitalisasi layanan rental kendaraan milik salah satu mitra PT CAZH yaitu CV Arbitrans, sehingga informasi layanan dapat diakses dengan cepat, mudah, dan profesional.
 
 # Fitur Utama
 ### User (Next.js)
