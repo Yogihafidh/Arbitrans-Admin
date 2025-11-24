@@ -1,49 +1,87 @@
 import { differenceInCalendarDays } from "date-fns";
+import { useState } from "react";
 import { convertDateFormat, convertRupiah } from "../../utils/helper";
 import { useDeleteRental } from "./useDeleteRental";
+import { useEditStatus } from "./useEditStatus";
 import Button from "../../ui/Button";
 import Message from "../../ui/Message";
 import Modal from "../../ui/Modal";
 import Table from "../../ui/Table";
 import PelangganForm from "./PelangganForm";
+import InvoicePDF from "./InvoicePDF";
+import { pdf } from "@react-pdf/renderer";
 
 const status = {
   Disewa: "bg-acent-green/10 border-acent-green text-acent-green",
   Telat: "bg-acent-red/10 border-acent-red text-acent-red",
   Selesai: "bg-acent-blue/10 border-acent-blue text-acent-blue",
   Pending: "bg-acent-orange/10 border-acent-yellow text-acent-yellow",
+  "Belum Dibayar": "bg-acent-orange/10 border-acent-yellow text-acent-yellow",
+  Lunas: "bg-acent-green/10 border-acent-green text-acent-green",
 };
 
 function RentalRow({ rental, isRentalTable = true }) {
   const { isDelete: isDeleteRental, deleteRental } = useDeleteRental();
+  const { isEdit, editStatusRental } = useEditStatus();
+  
+  const [isPrinting, setIsPrinting] = useState(false);
+
+  const handlePrint = async () => {
+    try {
+      setIsPrinting(true);
+      const blob = await pdf(<InvoicePDF rental={rental} />).toBlob();
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+    } catch (err) {
+      console.error("Generate PDF error:", err);
+    }
+    finally {
+      setIsPrinting(false);
+    }
+  };
   const totalHargaSewa =
     differenceInCalendarDays(rental.tanggalAkhir, rental.tanggalMulai) *
     Number(rental?.hargaSewa);
 
   return (
     <Table.Row>
-      <Table.Column>{rental.namaPelanggan}</Table.Column>
+      <Table.Column className="justify-start pl-4 text-left">
+        {rental.namaPelanggan}
+      </Table.Column>
       <Table.Column>{rental.nik}</Table.Column>
       <Table.Column>{rental.noTelephone}</Table.Column>
-      <Table.Column>{rental.alamat}</Table.Column>
-      <Table.Column>{rental.namaKendaraan}</Table.Column>
-      <Table.Column>{convertRupiah(totalHargaSewa)}</Table.Column>
-      <Table.Column>
-        <p>{convertDateFormat(rental.tanggalMulai)} - </p>
-        <p>{convertDateFormat(rental.tanggalAkhir)}</p>
+      <Table.Column className="justify-start pl-4 text-left">
+        {rental.alamat}
       </Table.Column>
+      <Table.Column className="justify-start pl-4 text-left">
+        {rental.namaKendaraan}
+      </Table.Column>
+      <Table.Column>{convertRupiah(totalHargaSewa)}</Table.Column>
+      <Table.Column className="justify-start pl-4 text-left whitespace-nowrap">
+  {convertDateFormat(rental.tanggalMulai)} - {convertDateFormat(rental.tanggalAkhir)}
+</Table.Column>
       <Table.Column>
-        <span
-          className={`w-3/4 rounded-full border-2 px-2 py-0.5 text-center text-sm ${status[rental.status]}`}
+        <select
+          value={rental.status || "Belum Dibayar"}
+          onChange={(e) =>
+            editStatusRental({ id: rental.id, status: e.target.value })
+          }
+          disabled={isEdit}
+          className={`max-w-[160px] w-full mx-auto rounded-full border-2 px-2 py-0.5 text-sm outline-none ${
+            status[rental.status || "Belum Dibayar"]
+          }`}
         >
-          {rental.status === "Disewa" ? "Aktif" : rental.status}
-        </span>
+          <option value="Belum Dibayar">Belum Dibayar</option>
+          <option value="Lunas">Lunas</option>
+          <option value="Disewa">Disewa</option>
+          <option value="Selesai">Selesai</option>
+        </select>
       </Table.Column>
 
       {isRentalTable && (
         <Table.Column>
           <Modal>
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
               <Modal.Open opens="edit-rental">
                 <Button
                   type="secondary"
@@ -85,6 +123,44 @@ function RentalRow({ rental, isRentalTable = true }) {
                   className="bg-acent-red/10 block h-10 w-10 rounded-lg border-none"
                 />
               </Modal.Open>
+
+              <button
+                onClick={handlePrint}
+                title="Cetak Invoice"
+                disabled={isPrinting}
+                className={`flex items-center justify-center h-10 w-10 rounded-lg border-none bg-[rgba(3,129,75,0.1)] hover:bg-[rgba(3,129,75,0.18)] transition-colors ${
+                  isPrinting ? "opacity-60 cursor-wait" : ""
+                }`}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M6.47417 8.58159H5.48772C5.29702 8.58163 5.11433 8.50402 4.98082 8.36626C4.84732 8.2285 4.77424 8.04218 4.77805 7.84929V6.85135C4.77805 6.45484 5.09578 6.13341 5.48772 6.13341H6.47417C6.86611 6.13341 7.18384 6.45484 7.18384 6.85135V7.86365C7.18384 8.26016 6.86611 8.58159 6.47417 8.58159ZM6.13352 7.19596H5.82836V7.50468H6.13352V7.19596Z"
+                    fill="#03814B"
+                  />
+                  <path
+                    d="M5.25353 10.398H8.39738C8.69133 10.398 8.92963 10.1569 8.92963 9.85953C8.92963 9.56215 8.69133 9.32107 8.39738 9.32107H5.25353C4.95957 9.32107 4.72128 9.56215 4.72128 9.85953C4.72128 10.1569 4.95957 10.398 5.25353 10.398Z"
+                    fill="#03814B"
+                  />
+                  <path
+                    d="M9.41931 11.1375H5.25353C4.95957 11.1375 4.72128 11.3785 4.72128 11.6759C4.72128 11.9733 4.95957 12.2144 5.25353 12.2144H9.41931C9.71326 12.2144 9.95156 11.9733 9.95156 11.6759C9.95156 11.3785 9.71326 11.1375 9.41931 11.1375Z"
+                    fill="#03814B"
+                  />
+                  <path
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M13.3438 6.16212L8.37609 1.13652C8.27153 1.04587 8.13764 0.99731 7.99996 1.00012H5.87094C4.00922 1.00012 2.5 2.52693 2.5 4.41034V11.5898C2.5 13.4732 4.00922 15 5.87094 15H10.129C11.9907 15 13.4999 13.4732 13.4999 11.5898V6.56417C13.5023 6.41457 13.4462 6.27006 13.3438 6.16212ZM8.53222 2.82369L11.6974 6.02571H9.41931C8.92938 6.02571 8.53222 5.62392 8.53222 5.12829V2.82369ZM3.56451 11.5898C3.56841 12.8768 4.59875 13.9191 5.87094 13.9231H10.129C11.4012 13.9191 12.4315 12.8768 12.4354 11.5898V7.10263H9.41931C8.34147 7.10263 7.46771 6.21869 7.46771 5.12829V2.07703H5.87094C4.59875 2.08097 3.56841 3.12333 3.56451 4.41034V11.5898Z"
+                    fill="#03814B"
+                  />
+                </svg>
+              </button>
             </div>
 
             <Modal.Window name="edit-rental">

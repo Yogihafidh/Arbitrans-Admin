@@ -49,9 +49,15 @@ function Row({ children }) {
   );
 }
 
-function Column({ children }) {
+function Column({ children, className = "" }) {
+  // default center text unless an explicit text alignment is provided
+  const hasTextAlign = /text-(?:left|right|center)/.test(className);
+  const alignment = hasTextAlign ? "" : "text-center";
+
   return (
-    <div className={`grid place-items-center px-2 py-2 text-center break-all`}>
+    <div
+      className={`flex items-center px-3 py-2 break-words min-w-0 overflow-hidden ${alignment} ${className}`}
+    >
       {children}
     </div>
   );
