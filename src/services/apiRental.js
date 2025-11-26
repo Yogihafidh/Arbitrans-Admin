@@ -1,11 +1,19 @@
 import { format } from "date-fns";
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
+
+const DOCUMENT_COLUMNS = [
+  "url_ktp_penyewa",
+  "url_ktp_penjamin",
+  "url_id_karyawan",
+  "url_sim_a",
+  "url_tiket_kereta",
+];
 
 export async function getRentalKendaraan(filter) {
   let query = supabase
     .from("booking")
     .select(
-      "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, status, kendaraan(id, nama_kendaraan,  harga_sewa, tipe_kendaraan, imageKendaraan(url_gambar))",
+      "id, nama_pelanggan, no_telephone, nik, alamat, tanggal_mulai, tanggal_akhir, status, total_harga, lokasi_pengambilan, lokasi_pengembalian, jenis_sewa, helm, mantel, waktu_pengambilan, waktu_pengembalian, url_ktp_penyewa, url_ktp_penjamin, url_id_karyawan, url_sim_a, url_tiket_kereta, kendaraan(id, nama_kendaraan, harga_sewa, tipe_kendaraan, jenis_kendaraan, imageKendaraan(url_gambar))",
     )
     .order("tanggal_akhir");
 
@@ -79,7 +87,40 @@ export async function editStatusRental(rental) {
 }
 
 export async function deleteRental(id) {
-  // Delele kendaraan
+  const { data: bookingData, error: fetchError } = await supabase
+    .from("booking")
+    .select(DOCUMENT_COLUMNS.join(","))
+    .eq("id", id)
+    .single();
+
+  if (fetchError) {
+    console.error("Gagal mengambil data dokumen rental: ", fetchError);
+    throw new Error("Gagal mengambil dokumen rental");
+  }
+
+  const filesByBucket = DOCUMENT_COLUMNS.reduce((acc, column) => {
+    const info = extractStorageInfo(bookingData?.[column]);
+    if (!info) return acc;
+    if (!acc[info.bucket]) acc[info.bucket] = [];
+    acc[info.bucket].push(info.path);
+    return acc;
+  }, {});
+
+  for (const [bucket, files] of Object.entries(filesByBucket)) {
+    if (!files.length) continue;
+    const { error: storageError } = await supabase.storage
+      .from(bucket)
+      .remove(files);
+
+    if (storageError) {
+      console.error(
+        `Gagal menghapus dokumen ${bucket} dari storage: `,
+        storageError,
+      );
+      throw new Error("Gagal menghapus dokumen dari penyimpanan");
+    }
+  }
+
   const { error: bookingTabelError } = await supabase
     .from("booking")
     .delete()
@@ -106,7 +147,6 @@ export async function editStatusTelat() {
     const isTelat =
       item.status !== "Selesai" &&
       item.status !== "Telat" &&
-      item.status !== "Pending" &&
       item.tanggalAkhir < today;
 
     if (isTelat) {
@@ -122,4 +162,14 @@ export async function editStatusTelat() {
       }
     }
   }
+}
+
+function extractStorageInfo(url) {
+  if (!url || typeof url !== "string") return null;
+  const publicPrefix = `${supabaseUrl}/storage/v1/object/public/`;
+  if (!url.startsWith(publicPrefix)) return null;
+  const relativePath = url.replace(publicPrefix, "");
+  const [bucket, ...pathParts] = relativePath.split("/");
+  if (!bucket || pathParts.length === 0) return null;
+  return { bucket, path: pathParts.join("/") };
 }

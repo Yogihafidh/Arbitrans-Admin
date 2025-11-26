@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 
 // Basic styles for invoice PDF
 const styles = StyleSheet.create({
@@ -40,11 +34,13 @@ function InvoicePDF({ rental }) {
     );
 
   const totalHarga = (() => {
+    if (rental?.totalHarga !== undefined && rental?.totalHarga !== null)
+      return Number(rental.totalHarga) || 0;
     try {
       const day =
         (new Date(rental.tanggalAkhir) - new Date(rental.tanggalMulai)) /
         (1000 * 60 * 60 * 24);
-      return (Number(rental.hargaSewa || 0) * day) || 0;
+      return Number(rental.hargaSewa || 0) * day || 0;
     } catch (e) {
       return 0;
     }
@@ -91,16 +87,16 @@ function InvoicePDF({ rental }) {
           <View style={styles.tableRow}>
             <Text style={styles.tableCol}>{rental.namaKendaraan || "-"}</Text>
             <Text style={styles.tableCol}>{`Rp${rental.hargaSewa || 0}`}</Text>
-            <Text style={styles.tableCol}>{`${rental.tanggalMulai || "-"} - ${rental.tanggalAkhir || "-"}`}</Text>
+            <Text
+              style={styles.tableCol}
+            >{`${rental.tanggalMulai || "-"} - ${rental.tanggalAkhir || "-"}`}</Text>
             <Text style={styles.tableCol}>{`Rp${totalHarga}`}</Text>
           </View>
         </View>
 
         <Text style={styles.total}>{`Total: Rp${totalHarga}`}</Text>
 
-        {rental.status === "Lunas" && (
-          <Text style={styles.status}>LUNAS</Text>
-        )}
+        {rental.status === "Lunas" && <Text style={styles.status}>LUNAS</Text>}
       </Page>
     </Document>
   );

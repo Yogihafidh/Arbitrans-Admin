@@ -8,7 +8,6 @@ function JadwalSewaLayout() {
   const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaByDate([
     "Disewa",
     "Telat",
-    "Pending",
   ]);
   const cardTop = kendaraanDisewaHariIni.slice(0, 3);
   const cardButtom = kendaraanDisewaHariIni.slice(3);

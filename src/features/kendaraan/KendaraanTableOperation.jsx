@@ -51,7 +51,7 @@ function KendaraanTableOperation() {
   const statusOptions = useMemo(
     () => [
       { label: "Tersedia", value: "Tersedia" },
-      { label: "Pending", value: "Pending" },
+      { label: "Belum Dibayar", value: "Belum Dibayar" },
       { label: "Disewa", value: "Disewa" },
     ],
     [],
