@@ -22,15 +22,13 @@ function PelangganTable() {
 
   return (
     <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
-      <Table columns="minmax(180px,2fr) 200px 140px minmax(180px,2fr) minmax(220px,2fr) 140px 200px 140px 160px">
+      <Table columns="minmax(320px,1.2fr) minmax(220px,1.4fr) minmax(220px,1.4fr) 170px minmax(220px,1.4fr) 170px 210px">
         <Table.Header>
-          <Table.Column className="text-left pl-4">Nama Pelanggan</Table.Column>
-          <Table.Column>NIK</Table.Column>
-          <Table.Column>No Telephone</Table.Column>
-          <Table.Column className="text-left pl-4">Alamat</Table.Column>
-          <Table.Column className="text-left pl-4">Nama Kendaraan</Table.Column>
-          <Table.Column>Total Harga Sewa</Table.Column>
-          <Table.Column className="text-left pl-4">Tanggal Sewa</Table.Column>
+          <Table.Column className="pl-4 text-left">ID</Table.Column>
+          <Table.Column className="pl-4 text-left">Nama Pelanggan</Table.Column>
+          <Table.Column className="pl-4 text-left">Nama Kendaraan</Table.Column>
+          <Table.Column>Total Harga</Table.Column>
+          <Table.Column className="pl-4 text-left">Tanggal Sewa</Table.Column>
           <Table.Column>Status</Table.Column>
           <Table.Column>Aksi</Table.Column>
         </Table.Header>

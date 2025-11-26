@@ -45,11 +45,11 @@ function KendaraanCard() {
         message="Tidak ada kendaraan, silahkan tambahkan kendaraan terlebih dahulu "
       />
     );
-  if (filteredRental.length === 0 && status === "Pending")
+  if (filteredRental.length === 0 && status === "Belum Dibayar")
     return (
       <EmptyMessage
-        heading="Tidak ada rental"
-        message="Tidak ada rental untuk hari ini"
+        heading="Tidak ada booking"
+        message="Tidak ada booking menunggu pembayaran"
       />
     );
   if (filteredRental.length === 0 && status === "Disewa")

@@ -1,8 +1,7 @@
 export const ALLOWED_STATUSES = [
-	"Disewa",
-	"Pending",
-	"Selesai",
-	"Telat",
-	"Belum Dibayar",
-	"Lunas",
+  "Disewa",
+  "Selesai",
+  "Telat",
+  "Belum Dibayar",
+  "Lunas",
 ];

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   page: {
@@ -13,7 +7,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontFamily: "Helvetica",
   },
-  // Company Header
   headerSection: {
     marginBottom: 16,
     borderBottomWidth: 2,
@@ -29,7 +22,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     marginBottom: 1,
   },
-  // Invoice Title & Details
   invoiceSection: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -46,7 +38,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     textAlign: "right",
   },
-  // Customer & Rental Info
   infoRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -67,7 +58,6 @@ const styles = StyleSheet.create({
     fontSize: 9,
     marginBottom: 1,
   },
-  // Table Styles
   table: {
     marginVertical: 10,
     borderWidth: 1,
@@ -93,7 +83,6 @@ const styles = StyleSheet.create({
   tableCol2: { flex: 1.2, textAlign: "right", paddingRight: 4 },
   tableCol3: { flex: 1.3, textAlign: "center", paddingRight: 4 },
   tableCol4: { flex: 1, textAlign: "right" },
-  // Total & Status
   totalSection: {
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -111,7 +100,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 11,
   },
-  // Footer - Bank Info & Signature
   footer: {
     marginVertical: 12,
     paddingTop: 8,
@@ -151,6 +139,8 @@ function InvoicePDF({ rental }) {
     );
 
   const totalHarga = (() => {
+    if (rental?.totalHarga !== undefined && rental?.totalHarga !== null)
+      return Number(rental.totalHarga) || 0;
     try {
       const start = new Date(rental.tanggalMulai);
       const end = new Date(rental.tanggalAkhir);
@@ -174,7 +164,6 @@ function InvoicePDF({ rental }) {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Company Header */}
         <View style={styles.headerSection}>
           <Text style={styles.companyName}>ARBITRANS</Text>
           <Text style={styles.companyInfo}>Your Transportation Solution</Text>
@@ -186,7 +175,6 @@ function InvoicePDF({ rental }) {
           </Text>
         </View>
 
-        {/* Invoice Title & Details */}
         <View style={styles.invoiceSection}>
           <View>
             <Text style={styles.invoiceTitle}>INVOICE</Text>
@@ -200,7 +188,6 @@ function InvoicePDF({ rental }) {
           </View>
         </View>
 
-        {/* Customer & Rental Info */}
         <View style={styles.infoRow}>
           <View style={styles.infoPart}>
             <Text style={styles.infoLabel}>ID Pelanggan MBS</Text>
@@ -214,12 +201,10 @@ function InvoicePDF({ rental }) {
           </View>
         </View>
 
-        {/* Rental Period */}
         <Text style={{ fontSize: 9, marginBottom: 8, fontWeight: "bold" }}>
           {`Customer ${rental.namaPelanggan} Date Rent ${rental.tanggalMulai} 11:00 to ${rental.tanggalAkhir} 21:00 Paket Sewa ${rental.namaKendaraan}`}
         </Text>
 
-        {/* Detail Table */}
         <View style={styles.table}>
           <View style={styles.tableHeader}>
             <Text style={styles.tableCol1}>Keterangan</Text>
@@ -229,9 +214,7 @@ function InvoicePDF({ rental }) {
           </View>
 
           <View style={styles.tableRow}>
-            <Text style={styles.tableCol1}>
-              {rental.namaKendaraan || "-"}
-            </Text>
+            <Text style={styles.tableCol1}>{rental.namaKendaraan || "-"}</Text>
             <Text style={styles.tableCol2}>{formatCurrency(rental.hargaSewa)}</Text>
             <Text style={styles.tableCol3}>
               {rental.tanggalMulai} - {rental.tanggalAkhir}
@@ -240,13 +223,11 @@ function InvoicePDF({ rental }) {
           </View>
         </View>
 
-        {/* Total */}
         <View style={styles.totalSection}>
           <Text style={styles.totalLabel}>Total</Text>
           <Text style={styles.totalAmount}>{formatCurrency(totalHarga)}</Text>
         </View>
 
-        {/* Status Badge */}
         {rental.status === "Lunas" && (
           <View style={{ marginVertical: 4, textAlign: "center" }}>
             <Text
@@ -261,7 +242,6 @@ function InvoicePDF({ rental }) {
           </View>
         )}
 
-        {/* Footer - Bank & Payment Info */}
         <View style={styles.footer}>
           <View style={{ textAlign: "center" }}>
             <Text style={styles.bankTitle}>Rekening Pembayaran</Text>
@@ -280,10 +260,22 @@ function InvoicePDF({ rental }) {
             <Text style={{ ...styles.footerBox, fontWeight: "bold" }}>
               Bp Aris
             </Text>
-            <Text style={{ ...styles.footerBox, textAlign: "center", fontWeight: "bold" }}>
+            <Text
+              style={{
+                ...styles.footerBox,
+                textAlign: "center",
+                fontWeight: "bold",
+              }}
+            >
               Terima Kasih Atas Kepercayaannya
             </Text>
-            <Text style={{ ...styles.footerBox, textAlign: "right", fontWeight: "bold" }}>
+            <Text
+              style={{
+                ...styles.footerBox,
+                textAlign: "right",
+                fontWeight: "bold",
+              }}
+            >
               Eko Priyadi
             </Text>
           </View>
