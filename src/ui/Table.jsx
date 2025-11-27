@@ -20,7 +20,7 @@ function Header({ children }) {
       role="row"
       as="header"
       style={{ gridTemplateColumns: columns }}
-      className={`divide-netral-400 border-netral-400 text-netral-900 grid items-stretch divide-x-2 border-b-2 text-center font-medium`}
+      className={`divide-netral-400 border-netral-400 text-netral-900 grid items-center divide-x-2 border-b-2 font-semibold text-sm bg-netral-50`}
     >
       {children}
     </div>
@@ -56,7 +56,7 @@ function Column({ children, className = "" }) {
 
   return (
     <div
-      className={`flex items-center px-3 py-2 break-words min-w-0 overflow-hidden ${alignment} ${className}`}
+      className={`flex items-center justify-center px-4 py-3 break-words min-w-0 overflow-hidden ${alignment} ${className}`}
     >
       {children}
     </div>

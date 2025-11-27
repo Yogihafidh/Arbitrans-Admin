@@ -21,8 +21,8 @@ function PelangganTable() {
   });
 
   return (
-    <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
-      <Table columns="minmax(320px,1.2fr) minmax(220px,1.4fr) minmax(220px,1.4fr) 170px minmax(220px,1.4fr) 170px 210px">
+    <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto w-full">
+      <Table columns="minmax(310px,1fr) minmax(160px,1.2fr) minmax(160px,1.2fr) 140px minmax(200px,1.1fr) 160px 140px 180px" className="w-max">
         <Table.Header>
           <Table.Column className="pl-4 text-left">ID</Table.Column>
           <Table.Column className="pl-4 text-left">Nama Pelanggan</Table.Column>
@@ -30,6 +30,7 @@ function PelangganTable() {
           <Table.Column>Total Harga</Table.Column>
           <Table.Column className="pl-4 text-left">Tanggal Sewa</Table.Column>
           <Table.Column>Status</Table.Column>
+          <Table.Column>Document</Table.Column>
           <Table.Column>Aksi</Table.Column>
         </Table.Header>
 

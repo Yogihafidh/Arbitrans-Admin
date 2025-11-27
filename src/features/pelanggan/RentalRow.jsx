@@ -9,6 +9,7 @@ import Table from "../../ui/Table";
 import PelangganForm from "./PelangganForm";
 import InvoicePDF from "./InvoicePDF";
 import { pdf } from "@react-pdf/renderer";
+import DocumentPreview from "./DocumentPreview";
 
 const STATUS_STYLES = {
   Disewa: "bg-acent-blue/10 border-acent-blue text-acent-blue",
@@ -136,6 +137,37 @@ function RentalRow({ rental, isRentalTable = true }) {
         </div>
       </Table.Column>
 
+      <Table.Column className="text-center">
+        {(rental?.urlKtpPenyewa || rental?.urlKtpPenjamin || rental?.urlSimA || rental?.urlTiketKereta || rental?.urlIdKaryawan) ? (
+          <Modal>
+            <Modal.Open opens={`dokumen-${rental.id}`}>
+              <button
+                type="button"
+                title="Lihat dokumen"
+                className="rounded-md border px-3 py-1 text-sm font-medium bg-netral-50 hover:bg-netral-100"
+              >
+                Lihat Dokumen
+              </button>
+            </Modal.Open>
+
+            <Modal.Window name={`dokumen-${rental.id}`}>
+              <DocumentPreview
+                urls={{
+                  ktpPenyewa: rental?.urlKtpPenyewa,
+                  ktpPenjamin: rental?.urlKtpPenjamin,
+                  simA: rental?.urlSimA,
+                  tiketKereta: rental?.urlTiketKereta,
+                  idKaryawan: rental?.urlIdKaryawan,
+                }}
+                name={rental?.namaPelanggan}
+              />
+            </Modal.Window>
+          </Modal>
+        ) : (
+          <span className="text-netral-400 text-sm">Tidak ada</span>
+        )}
+      </Table.Column>
+
       {isRentalTable && (
         <Table.Column className="justify-center px-4">
           <Modal>
@@ -194,8 +226,8 @@ function RentalRow({ rental, isRentalTable = true }) {
                 }`}
               >
                 <svg
-                  width="16"
-                  height="16"
+                  width="20"
+                  height="20"
                   viewBox="0 0 16 16"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
