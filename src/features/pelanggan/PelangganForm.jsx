@@ -261,8 +261,10 @@ function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
     isMotor && effectiveRentalDays
       ? numericMantel * ADDON_FEE_PER_DAY * effectiveRentalDays
       : 0;
-  const computedTotalCost = sewaKendaraanCost + driverCost + helmCost + mantelCost;
-  const effectiveTotalCost = computedTotalCost > 0 ? computedTotalCost : storedTotal;
+  const computedTotalCost =
+    sewaKendaraanCost + driverCost + helmCost + mantelCost;
+  const effectiveTotalCost =
+    computedTotalCost > 0 ? computedTotalCost : storedTotal;
   const totalHargaFormatted = effectiveTotalCost
     ? convertRupiah(effectiveTotalCost)
     : "-";
@@ -751,7 +753,8 @@ function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
               <div className="space-y-4">
                 {DOCUMENT_UPLOADS.map((doc) => {
                   const docState = documents[doc.key] || {};
-                  const previewSrc = docState.previewUrl || docState.uploadedUrl;
+                  const previewSrc =
+                    docState.previewUrl || docState.uploadedUrl;
                   return (
                     <div key={doc.key}>
                       <label className="text-netral-900 mb-2 block text-sm font-medium">
