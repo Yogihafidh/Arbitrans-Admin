@@ -4,7 +4,6 @@ import Table from "../../ui/Table";
 import RentalRow from "./RentalRow";
 
 function PelangganTable() {
-  // Show only these statuses in pelanggan table (Selesai will be archived/not shown)
   const { rental = [], isLoading: rentalLoading } = useRental([
     "Belum Dibayar",
     "Lunas",
@@ -22,7 +21,7 @@ function PelangganTable() {
 
   return (
     <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
-      <Table columns="minmax(320px,1.2fr) minmax(220px,1.4fr) minmax(220px,1.4fr) 170px minmax(220px,1.4fr) 170px 210px">
+      <Table columns="minmax(320px,1.2fr) minmax(220px,1.4fr) minmax(220px,1.4fr) minmax(150px,1.4fr) minmax(220px,1.4fr) minmax(180px,1.4fr) minmax(170px,1.5fr)">
         <Table.Header>
           <Table.Column className="pl-4 text-left">ID</Table.Column>
           <Table.Column className="pl-4 text-left">Nama Pelanggan</Table.Column>

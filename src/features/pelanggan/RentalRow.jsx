@@ -20,7 +20,7 @@ const STATUS_STYLES = {
 };
 
 const ACTION_BUTTON_BASE =
-  "flex h-10 w-10 items-center justify-center rounded-xl border transition focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60";
+  "flex h-10 w-10 items-center justify-center rounded-xl border transition focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer";
 
 const ACTION_VARIANTS = {
   edit: `${ACTION_BUTTON_BASE} border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 focus-visible:ring-primary/40`,
@@ -47,7 +47,6 @@ function RentalRow({ rental, isRentalTable = true }) {
     }
   };
 
-  // Use backend total_harga when available, fall back to old manual calculation for legacy rows
   const manualTotal = (() => {
     if (!rental?.tanggalAkhir || !rental?.tanggalMulai || !rental?.hargaSewa)
       return 0;
@@ -101,14 +100,14 @@ function RentalRow({ rental, isRentalTable = true }) {
       </Table.Column>
 
       <Table.Column>
-        <div className="relative mx-auto flex w-full max-w-[180px] items-center justify-center">
+        <div className="relative mx-auto flex w-full items-center justify-center">
           <select
             value={currentStatus}
             onChange={(e) =>
               editStatusRental({ id: rental.id, status: e.target.value })
             }
             disabled={isEdit}
-            className={`w-full appearance-none rounded-full border-2 px-4 py-1.5 pr-10 text-sm leading-tight font-semibold transition outline-none focus:ring-2 focus:ring-offset-1 ${
+            className={`w-full appearance-none rounded-full border-2 px-4 py-1.5 pr-10 text-sm leading-tight font-semibold transition outline-none ${
               STATUS_STYLES[currentStatus] || STATUS_STYLES.default
             } ${isEdit ? "opacity-70" : ""}`}
           >

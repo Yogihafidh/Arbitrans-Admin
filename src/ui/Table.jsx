@@ -6,7 +6,7 @@ function Table({ columns, children }) {
     <TableContext.Provider value={{ columns }}>
       <div
         role="table"
-        className="border-netral-400 min-w-7xl border-2 text-sm"
+        className="border-netral-400 w-fit border-2 text-sm"
       >
         {children}
       </div>
@@ -50,13 +50,12 @@ function Row({ children }) {
 }
 
 function Column({ children, className = "" }) {
-  // default center text unless an explicit text alignment is provided
   const hasTextAlign = /text-(?:left|right|center)/.test(className);
   const alignment = hasTextAlign ? "" : "text-center";
 
   return (
     <div
-      className={`flex items-center px-3 py-2 break-words min-w-0 overflow-hidden ${alignment} ${className}`}
+      className={`flex min-w-0 items-center overflow-hidden px-3 py-2 break-words ${alignment} ${className}`}
     >
       {children}
     </div>
