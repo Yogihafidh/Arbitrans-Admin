@@ -21,7 +21,7 @@ function PelangganTable() {
 
   return (
     <div className="scrollbar-thin scrollbar-thumb-netral-300 scrollbar-track-white scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-x-auto">
-      <Table columns="minmax(310px,1.2fr) minmax(220px,1.4fr) minmax(220px,1.4fr) 170px minmax(220px,1.4fr) 170px 210px">
+      <Table columns="minmax(310px,1.2fr) minmax(180px,1.4fr) minmax(220px,1.4fr) 170px minmax(220px,1.4fr) 180px 180px 210px">
         <Table.Header>
           <Table.Column className="pl-4 text-left">ID</Table.Column>
           <Table.Column className="pl-4 text-left">Nama Pelanggan</Table.Column>

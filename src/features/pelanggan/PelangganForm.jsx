@@ -146,6 +146,11 @@ function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
     if (!isEditSession) resetDocuments();
   }
 
+  function handleCancel() {
+    handleReset();
+    onCloseModal?.();
+  }
+
   useEffect(() => {
     if (!isEditSession) {
       resetDocuments();
@@ -459,11 +464,11 @@ function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
           }}
         />
         <Form.Body>
-          <Form.Row label="Name Pelanggan" name="nama_pelanggan">
+          <Form.Row label="Nama Pelanggan" name="nama_pelanggan">
             <Input
               disabled={isLoading}
               inputClass="w-full"
-              placeholder="Masukan nomer telephone anda"
+              placeholder="Masukan nama pelanggan"
               {...register("nama_pelanggan", {
                 required: "Nama pelanggan wajib diisi!",
                 minLength: {
@@ -868,7 +873,7 @@ function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
             disabled={isLoading}
             type="secondary"
             text="Batal"
-            onClick={handleReset}
+            onClick={handleCancel}
           />
           <Button
             text="Simpan"

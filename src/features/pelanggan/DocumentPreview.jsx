@@ -9,7 +9,7 @@ function DocumentPreview({ urls = {}, name = "Dokumen" }) {
   const items = [
     { key: "ktpPenyewa", label: "KTP Penyewa" },
     { key: "ktpPenjamin", label: "KTP Penjamin" },
-    { key: "simA", label: "SIM A" },
+    { key: "simA", label: "SIM Aktif" },
     { key: "tiketKereta", label: "Tiket Kereta" },
     { key: "idKaryawan", label: "ID Karyawan" },
   ];
