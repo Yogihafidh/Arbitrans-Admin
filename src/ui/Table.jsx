@@ -6,7 +6,7 @@ function Table({ columns, children }) {
     <TableContext.Provider value={{ columns }}>
       <div
         role="table"
-        className="border-netral-400 min-w-7xl border-2 text-sm"
+        className="border-netral-400 w-fit border-2 text-sm"
       >
         {children}
       </div>
@@ -20,7 +20,7 @@ function Header({ children }) {
       role="row"
       as="header"
       style={{ gridTemplateColumns: columns }}
-      className={`divide-netral-400 border-netral-400 text-netral-900 grid items-stretch divide-x-2 border-b-2 text-center font-medium`}
+      className={`divide-netral-400 border-netral-400 text-netral-900 grid items-center divide-x-2 border-b-2 font-semibold text-sm bg-netral-50`}
     >
       {children}
     </div>
@@ -50,7 +50,6 @@ function Row({ children }) {
 }
 
 function Column({ children, className = "" }) {
-  // default center text unless an explicit text alignment is provided
   const hasTextAlign = /text-(?:left|right|center)/.test(className);
   const alignment = hasTextAlign ? "" : "text-center";
 

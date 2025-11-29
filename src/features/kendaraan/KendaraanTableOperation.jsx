@@ -51,7 +51,7 @@ function KendaraanTableOperation() {
   const statusOptions = useMemo(
     () => [
       { label: "Tersedia", value: "Tersedia" },
-      { label: "Pending", value: "Pending" },
+      { label: "Belum Dibayar", value: "Belum Dibayar" },
       { label: "Disewa", value: "Disewa" },
     ],
     [],
@@ -121,7 +121,7 @@ function KendaraanTableOperation() {
             iconPasif={iconPasif}
           >
             <Filter
-              className="absolute top-14 right-0.5 z-50 bg-white"
+              className="absolute top-14 right-0.5 z-50 bg-white min-w-[11rem] whitespace-nowrap"
               type="list"
               options={statusOptions}
             />
@@ -150,11 +150,11 @@ function KendaraanTableOperation() {
               iconPasif={iconPasif}
               className="w-full sm:w-fit"
             >
-              <Filter
-                className="absolute top-14 right-0.5 z-50 bg-white"
-                type="list"
-                options={statusOptions}
-              />
+                <Filter
+                  className="absolute top-14 right-0.5 z-50 bg-white min-w-[11rem] whitespace-nowrap"
+                  type="list"
+                  options={statusOptions}
+                />
             </ButtonDropdown>
           </div>
         </div>

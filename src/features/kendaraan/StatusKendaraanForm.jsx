@@ -68,9 +68,11 @@ function StatusKendaraanForm({ dataEdit, onCloseModal }) {
               disabled={isEdit}
               placeholder="Pilih nama kendaraan terlebih dahulu"
               options={[
-                { value: "Pending", label: "Pending" },
+                { value: "Belum Dibayar", label: "Belum Dibayar" },
+                { value: "Lunas", label: "Lunas" },
                 { value: "Disewa", label: "Disewa" },
                 { value: "Selesai", label: "Selesai" },
+                { value: "Telat", label: "Telat" },
               ]}
               {...register("status", {
                 required: "Status Kendaraan wajib dipilih",

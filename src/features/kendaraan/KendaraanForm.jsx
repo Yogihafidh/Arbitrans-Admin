@@ -279,7 +279,7 @@ function KendaraanForm({ dataEdit = {}, onCloseModal, ref }) {
             disabled={isLoading}
             type="secondary"
             text="Batal"
-            onClick={() => reset()}
+            onClick={() => onCloseModal?.()}
           />
           <Button text="Simpan" disabled={isLoading} typeButton="submit" />
         </Form.Footer>
