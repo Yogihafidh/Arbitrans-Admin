@@ -8,8 +8,9 @@ export async function getKendaraanTersediaHariIni() {
   const { data: kendaraanSedangDisewa, error: errorRental } = await supabase
     .from("booking")
     .select("id_kendaraan")
+    // Ambil booking yang statusnya "Disewa" atau "Lunas" dan berlaku untuk hari ini
     .or(
-      `and(tanggal_mulai.lte.${today},tanggal_akhir.gte.${today},status.neq.Selesai),and(tanggal_akhir.lt.${today},status.eq.Telat)`,
+      `and(tanggal_mulai.lte.${today},tanggal_akhir.gte.${today},status.in.(Disewa,Lunas)),and(tanggal_akhir.lt.${today},status.in.(Disewa,Lunas))`,
     );
 
   if (errorRental) {

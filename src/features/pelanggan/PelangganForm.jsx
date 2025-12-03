@@ -171,7 +171,6 @@ function PelangganForm({ dataEdit = {}, onCloseModal, ref }) {
   const { rental = [], isLoading: rentalLoading } = useRental([
     "Disewa",
     "Belum Dibayar",
-    "Telat",
   ]);
   const isLoading = kendaraanLoading || rentalLoading || isCreating || isEdit;
 

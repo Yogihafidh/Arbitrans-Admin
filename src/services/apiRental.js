@@ -84,6 +84,31 @@ export async function editStatusRental(rental) {
     console.error("Update data rental gagal: ", error);
     throw new Error("Rental gagal diupdate, coba hubungi admin!");
   }
+
+  // Setelah mengubah status rental, perbarui status kendaraan terkait agar otomatis
+  try {
+    const idKendaraan = data?.[0]?.id_kendaraan || data?.[0]?.idKendaraan || data?.[0]?.idKendaraan;
+    if (idKendaraan) {
+      // Mapping sederhana: jika rental berstatus "Disewa" maka kendaraan dianggap "Disewa",
+      // selain itu kendaraan dikembalikan ke "Tersedia".
+      // Jika status rental sudah dibayar (Lunas) atau sedang disewa (Disewa),
+      // anggap kendaraan dalam keadaan disewa.
+      const kendaraanStatus =
+        rental.status === "Disewa" || rental.status === "Lunas"
+          ? "Disewa"
+          : "Tersedia";
+      const { error: kendaraanError } = await supabase
+        .from("kendaraan")
+        .update({ status_kendaraan: kendaraanStatus })
+        .eq("id", idKendaraan);
+
+      if (kendaraanError) {
+        console.error("Gagal memperbarui status kendaraan: ", kendaraanError);
+      }
+    }
+  } catch (err) {
+    console.error("Error saat memperbarui status kendaraan otomatis:", err);
+  }
 }
 
 export async function deleteRental(id) {
@@ -131,38 +156,7 @@ export async function deleteRental(id) {
   }
 }
 
-export async function editStatusTelat() {
-  const today = format(new Date(), "yyyy-MM-dd");
-
-  const { data, error } = await supabase
-    .from("rental")
-    .select("id, status, tanggalAkhir");
-
-  if (error) {
-    console.error("Gagal mengambil data rental:", error);
-    return;
-  }
-
-  for (const item of data) {
-    const isTelat =
-      item.status !== "Selesai" &&
-      item.status !== "Telat" &&
-      item.tanggalAkhir < today;
-
-    if (isTelat) {
-      const { error: updateError } = await supabase
-        .from("rental")
-        .update({ status: "Telat" })
-        .eq("id", item.id);
-
-      if (updateError) {
-        console.error(`Gagal update status untuk ID ${item.id}:`, updateError);
-      } else {
-        console.log(`Status rental ID ${item.id} diubah menjadi Telat.`);
-      }
-    }
-  }
-}
+// NOTE: fungsi penanda "Telat" dihapus karena skema status disederhanakan.
 
 function extractStorageInfo(url) {
   if (!url || typeof url !== "string") return null;

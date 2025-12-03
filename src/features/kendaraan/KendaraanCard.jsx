@@ -11,7 +11,7 @@ function KendaraanCard() {
   const [searchparams] = useSearchParams();
   const querySearch = searchparams.get("search") || "";
   const status = searchparams.get("status") || "Tersedia";
-  const statusFilter = status === "Disewa" ? ["Disewa", "Telat"] : status;
+  const statusFilter = status === "Disewa" ? ["Disewa", "Lunas"] : status;
 
   // Get Data
   const { rental = [], isLoading: rentalLoading } = useRental(statusFilter);

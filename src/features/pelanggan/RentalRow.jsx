@@ -13,7 +13,6 @@ import DocumentPreview from "./DocumentPreview";
 
 const STATUS_STYLES = {
   Disewa: "bg-acent-blue/10 border-acent-blue text-acent-blue",
-  Telat: "bg-acent-red/10 border-acent-red text-acent-red",
   Selesai: "bg-acent-green/10 border-acent-green text-acent-green",
   "Belum Dibayar": "bg-acent-orange/10 border-acent-yellow text-acent-yellow",
   Lunas: "bg-acent-green/10 border-acent-green text-acent-green",

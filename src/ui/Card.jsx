@@ -6,13 +6,13 @@ import KendaraanForm from "../features/kendaraan/KendaraanForm";
 import Button from "./Button";
 import Modal from "./Modal";
 import Message from "./Message";
-import StatusKendaraanForm from "../features/kendaraan/StatusKendaraanForm";
 
 const status = {
   Tersedia: "bg-acent-green/10 border-acent-green text-acent-green",
-  Disewa: "bg-acent-red/10 border-acent-red text-acent-red",
-  Telat: "bg-acent-red border-acent-red text-white",
   "Belum Dibayar": "bg-acent-orange/10 border-acent-orange text-acent-orange",
+  Lunas: "bg-acent-yellow/10 border-acent-yellow text-acent-yellow",
+  Disewa: "bg-acent-red/10 border-acent-red text-acent-red",
+  Selesai: "bg-acent-green/10 border-acent-green text-acent-green",
 };
 
 function Card({ data, isButtonShow = true }) {
@@ -70,20 +70,16 @@ function Card({ data, isButtonShow = true }) {
         {isButtonShow && (
           <div className="flex gap-2">
             <Modal>
-              <Modal.Open opens="edit">
-                <Button
-                  type="primary"
-                  text={isRental ? "Ubah Status" : "Ubah Detail"}
-                  className="w-full"
-                />
-              </Modal.Open>
-              <Modal.Window name="edit">
-                {isRental ? (
-                  <StatusKendaraanForm dataEdit={data} />
-                ) : (
-                  <KendaraanForm dataEdit={data} />
-                )}
-              </Modal.Window>
+              {!isRental && (
+                <>
+                  <Modal.Open opens="edit">
+                    <Button type="primary" text={"Ubah Detail"} className="w-full" />
+                  </Modal.Open>
+                  <Modal.Window name="edit">
+                    <KendaraanForm dataEdit={data} />
+                  </Modal.Window>
+                </>
+              )}
 
               <Modal.Open opens="delete">
                 <Button
