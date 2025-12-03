@@ -10,13 +10,12 @@ export function useKendaraanDisewaHariIni(status) {
     const mulai = startOfDay(new Date(item.tanggalMulai));
     const akhir = startOfDay(new Date(item.tanggalAkhir));
 
-    // Data yang masih dalam masa sewa
-    const masihDisewa = isWithinInterval(today, { start: mulai, end: akhir });
+    // Data yang masih dalam masa sewa atau masih berstatus "Disewa" walau tanggal akhir sudah lewat
+        const masihDisewa =
+          isWithinInterval(today, { start: mulai, end: akhir }) ||
+          (isBefore(akhir, today) && (item.status === "Disewa" || item.status === "Lunas"));
 
-    // Data yang sudah lewat tapi status Telat
-    const telat = isBefore(akhir, today) && item.status === "Telat";
-
-    return masihDisewa || telat;
+    return masihDisewa;
   });
 
   return { kendaraanDisewaHariIni, isLoading };

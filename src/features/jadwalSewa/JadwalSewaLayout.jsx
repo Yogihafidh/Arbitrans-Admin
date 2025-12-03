@@ -7,7 +7,7 @@ import EmptyMessage from "../../ui/EmptyMessage";
 function JadwalSewaLayout() {
   const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaByDate([
     "Disewa",
-    "Telat",
+    "Lunas",
   ]);
   const cardTop = kendaraanDisewaHariIni.slice(0, 3);
   const cardButtom = kendaraanDisewaHariIni.slice(3);

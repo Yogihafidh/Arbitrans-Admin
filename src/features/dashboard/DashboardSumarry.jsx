@@ -8,7 +8,7 @@ function DashboardSumarry() {
   const { kendaraanTersedia = [] } = useKendaraanTersedia();
   const { kendaraanDisewaHariIni } = useKendaraanDisewaHariIni([
     "Disewa",
-    "Telat",
+    "Lunas",
   ]);
 
   return (

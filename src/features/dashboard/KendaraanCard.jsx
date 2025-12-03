@@ -6,7 +6,7 @@ import EmptyMessage from "../../ui/EmptyMessage";
 function KendaraanCard() {
   const { kendaraanDisewaHariIni, isLoading } = useKendaraanDisewaHariIni([
     "Disewa",
-    "Telat",
+    "Lunas",
   ]);
 
   if (isLoading) return <KendaraanCardSkeleton count={4} />;
